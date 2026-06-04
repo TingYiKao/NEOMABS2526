@@ -1,0 +1,11 @@
+.DS_Store
+**/.DS_Store
+.RData
+.Rhistory
+**/.RData
+**/.Rhistory
+
+# In-class practice datasets are excluded to keep the repository lightweight.
+# Data/inspections.csv is larger than GitHub's 100 MB single-file limit.
+Data/
+data_sample/inclass_exercises/

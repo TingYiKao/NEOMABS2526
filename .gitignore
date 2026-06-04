@@ -1,0 +1,11 @@
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# Do not upload raw datasets
+Data_Preparation_for_Business_Analytics_R/data_sample/**
+
+# Keep empty folder placeholders
+!Data_Preparation_for_Business_Analytics_R/data_sample/
+!Data_Preparation_for_Business_Analytics_R/data_sample/inclass_exercises/
+!Data_Preparation_for_Business_Analytics_R/data_sample/inclass_exercises/.gitkeep
