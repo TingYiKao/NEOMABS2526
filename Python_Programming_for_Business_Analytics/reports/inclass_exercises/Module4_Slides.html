@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Self-Study Practice</title>
+    
+    <!-- RevealJS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/simple.min.css">
+    
+    <!-- Highlight.js for code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+    <style>
+        .reveal h1 { font-size: 2.2em; color: #2c3e50; }
+        .reveal h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        .reveal h3 { font-size: 1.3em; color: #34495e; }
+        .reveal pre { font-size: 0.7em; width: 100%; }
+        .reveal code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background: #f8f9fa; padding: 15px; display: block; overflow-x: auto; }
+        .reveal table { font-size: 0.8em; border-collapse: collapse; margin: 20px auto; }
+        .reveal th, .reveal td { border: 1px solid #ddd; padding: 10px 15px; text-align: left; }
+        .reveal th { background: #3498db; color: white; }
+        .reveal tr:nth-child(even) { background: #f9f9f9; }
+        .reveal .callout { padding: 15px 20px; border-radius: 8px; margin: 15px 0; text-align: left; }
+        .reveal .callout-tip { background: #d4edda; border-left: 5px solid #28a745; }
+        .reveal .callout-note { background: #d1ecf1; border-left: 5px solid #17a2b8; }
+        .reveal .callout-warning { background: #fff3cd; border-left: 5px solid #ffc107; }
+        .reveal ul, .reveal ol { text-align: left; display: block; margin-left: 1em; }
+        .reveal li { margin: 10px 0; }
+        .reveal section { text-align: left; }
+        .reveal section[data-background-color] { text-align: center; }
+        .reveal section[data-background-color] h1 { color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .reveal section[data-background-color] p { color: white; font-size: 1.2em; }
+        .reveal .slide-number { font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-color="#2c3e50">
+                <h1 style="color: white;">Module 4: Self-Study Practice</h1>
+                <p style="color: #ecf0f1; font-size: 1.3em;">Review • Gapminder • Data Cleaning • Preparation</p>
+                <p style="color: #bdc3c7;">Python for Data Science Course</p>
+                <p style="color: #95a5a6; font-size: 0.9em; margin-top: 40px;">dr. Uroš Godnov</p>
+            </section>
+            
+            <section data-background-color="#2c3e50">
+    <h1>Module Overview</h1>
+    <p>Independent Practice Session</p>
+</section>
+<section>
+    <h2>🤖 Self-Study with Gemini AI</h2>
+
+<p>This module is <strong>self-paced</strong> with AI assistance. Here's how to use Gemini effectively:</p>
+
+<strong>Learning Strategy:</strong>
+<ol>
+  <li>⏱️ <strong>Try first</strong> - Spend 3-5 minutes on each problem</li>
+  <li>🤔 <strong>Think</strong> - What have you learned that might help?</li>
+  <li>🤖 <strong>Ask Gemini</strong> - When genuinely stuck</li>
+  <li>📝 <strong>Understand</strong> - Don't just copy - learn from the answer!</li>
+</ol>
+</section>
+<section>
+    <h2>🤖 Gemini Prompts for This Module</h2>
+
+<strong>For review questions:</strong>
+<ul>
+  <li>"What does this Python code do: [paste code]"</li>
+  <li>"Why am I getting this error: [paste error]"</li>
+</ul>
+<strong>For data cleaning:</strong>
+<ul>
+  <li>"How do I handle missing values in this case?"</li>
+  <li>"How do I standardize text case in pandas?"</li>
+</ul>
+<strong>For Gapminder analysis:</strong>
+<ul>
+  <li>"How do I filter Gapminder for European countries?"</li>
+  <li>"How do I calculate year-over-year growth?"</li>
+</ul>
+</section>
+<section>
+    <h2>Today's Structure</h2>
+
+<table>
+  <tr>
+    <th>Part</th>
+    <th>Focus</th>
+  </tr>
+  <tr>
+    <td>Python Review</td>
+    <td>Modules 1-2 refresher</td>
+  </tr>
+  <tr>
+    <td>Pandas Review</td>
+    <td>Key operations practice</td>
+  </tr>
+  <tr>
+    <td>Gapminder</td>
+    <td>New dataset exploration</td>
+  </tr>
+  <tr>
+    <td>Data Cleaning</td>
+    <td>Fix messy data</td>
+  </tr>
+  <tr>
+    <td>Challenges</td>
+    <td>Apply all skills</td>
+  </tr>
+</table>
+<div class="callout callout-tip"><strong>💡 Tip:</strong> This is <strong>self-paced</strong>. Try first, then use Gemini when stuck!
+</div>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 1: Python Review</h1>
+    <p>Quick Refresher (30 minutes)</p>
+</section>
+<section>
+    <h2>Variables & Types Quiz</h2>
+
+<p>What type is each value?</p>
+
+<pre><code class="language-python">a = 42          # ?
+b = 42.0        # ?
+c = "42"        # ?
+d = True        # ?
+e = [1, 2, 3]   # ?
+f = {"x": 1}    # ?
+</code></pre>
+</section>
+<section>
+    <h2>Variables & Types Answers</h2>
+
+<pre><code class="language-python">print(type(42))         # int
+print(type(42.0))       # float
+print(type("42"))       # str
+print(type(True))       # bool
+print(type([1, 2, 3]))  # list
+print(type({"x": 1}))   # dict
+</code></pre>
+</section>
+<section>
+    <h2>List Operations Quiz</h2>
+
+<pre><code class="language-python">nums = [10, 20, 30, 40, 50]
+
+# What does each return?
+print(nums[0])      # ?
+print(nums[-1])     # ?
+print(nums[1:4])    # ?
+print(len(nums))    # ?
+print(sum(nums))    # ?
+</code></pre>
+</section>
+<section>
+    <h2>List Operations Answers</h2>
+
+<pre><code class="language-python">nums = [10, 20, 30, 40, 50]
+
+<p>print(nums[0])      # 10 (first)
+print(nums[-1])     # 50 (last)
+print(nums[1:4])    # [20, 30, 40]
+print(len(nums))    # 5
+print(sum(nums))    # 150
+</code></pre></p>
+</section>
+<section>
+    <h2>Dictionary Operations</h2>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28, "city": "Ljubljana"}
+
+# Access
+print(person["name"])           # Alice
+print(person.get("job", "N/A")) # N/A (with default)
+
+# Check
+print("age" in person)          # True
+
+# Get keys
+print(list(person.keys()))      # ['name', 'age', 'city']
+</code></pre>
+</section>
+<section>
+    <h2>Loop Practice</h2>
+
+<pre><code class="language-python"># Sum numbers 1 to 10
+total = 0
+for i in range(1, 11):
+    total += i
+print(total)  # 55
+
+# Double each number
+numbers = [1, 2, 3, 4, 5]
+doubled = [n * 2 for n in numbers]
+print(doubled)  # [2, 4, 6, 8, 10]
+</code></pre>
+</section>
+<section>
+    <h2>Conditionals Review</h2>
+
+<pre><code class="language-python">score = 85
+
+<p>if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+else:
+    grade = "F"</p>
+
+<p>print(f"Score: {score}, Grade: {grade}")  # B
+</code></pre></p>
+</section>
+<section>
+    <h2>Exercise 1.1: FizzBuzz Review</h2>
+
+<pre><code class="language-python"># Print numbers 1-20
+# Multiples of 3: "Fizz"
+# Multiples of 5: "Buzz"
+# Multiples of both: "FizzBuzz"
+
+<p>for num in range(1, 21):
+    if num % 3 == 0 and num % 5 == 0:
+        print("FizzBuzz")
+    elif num % 3 == 0:
+        print("Fizz")
+    elif num % 5 == 0:
+        print("Buzz")
+    else:
+        print(num)
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 2: Pandas Review</h1>
+    <p>Key Operations (30 minutes)</p>
+</section>
+<section>
+    <h2>Loading and Exploring</h2>
+
+<pre><code class="language-python">import pandas as pd
+
+# Load data
+url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+df = pd.read_csv(url)
+
+# Explore
+print(df.shape)        # (891, 12)
+print(df.columns)      # Column names
+print(df.head())       # First 5 rows
+print(df.info())       # Types + nulls
+print(df.describe())   # Statistics
+</code></pre>
+</section>
+<section>
+    <h2>Selecting Data</h2>
+
+<pre><code class="language-python"># Single column (Series)
+ages = df['Age']
+
+# Multiple columns (DataFrame)
+subset = df[['Name', 'Age', 'Survived']]
+
+# Rows by index
+first_row = df.iloc[0]
+first_five = df.iloc[0:5]
+</code></pre>
+</section>
+<section>
+    <h2>Filtering Data</h2>
+
+<pre><code class="language-python"># Single condition
+adults = df[df['Age'] >= 18]
+survivors = df[df['Survived'] == 1]
+women = df[df['Sex'] == 'female']
+
+# Multiple conditions (use & and |)
+adult_women = df[(df['Age'] >= 18) & (df['Sex'] == 'female')]
+first_or_second = df[(df['Pclass'] == 1) | (df['Pclass'] == 2)]
+</code></pre>
+</section>
+<section>
+    <h2>GroupBy Operations</h2>
+
+<pre><code class="language-python"># Average by group
+df.groupby('Pclass')['Fare'].mean()
+
+# Survival rate by sex
+df.groupby('Sex')['Survived'].mean()
+
+# Multiple aggregations
+df.groupby('Pclass').agg({
+    'Survived': 'mean',
+    'Age': 'mean',
+    'Fare': 'sum'
+})
+</code></pre>
+</section>
+<section>
+    <h2>Creating Columns</h2>
+
+<pre><code class="language-python">import numpy as np
+
+# Simple calculation
+df['Fare_EUR'] = df['Fare'] * 0.92
+
+# Conditional
+df['IsAdult'] = np.where(df['Age'] >= 18, 'Adult', 'Child')
+
+# Family size
+df['FamilySize'] = df['SibSp'] + df['Parch'] + 1
+</code></pre>
+</section>
+<section>
+    <h2>Handling Missing Data</h2>
+
+<pre><code class="language-python"># Check missing
+print(df.isna().sum())
+
+# Fill with value
+df['Age'] = df['Age'].fillna(df['Age'].median())
+
+# Drop rows with missing
+df_clean = df.dropna(subset=['Age', 'Embarked'])
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 3: Gapminder Dataset</h1>
+    <p>New Data to Explore (45 minutes)</p>
+</section>
+<section>
+    <h2>What is Gapminder?</h2>
+
+<p>Global development data:
+<ul>
+  <li>142 countries</li>
+  <li>Years 1952-2007 (every 5 years)</li>
+  <li>Life expectancy, population, GDP</li>
+</ul>
+Made famous by Hans Rosling's TED talks!</p>
+</section>
+<section>
+    <h2>Loading Gapminder</h2>
+
+<pre><code class="language-python">url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv"
+gap = pd.read_csv(url)
+
+<p>print(gap.shape)
+print(gap.columns.tolist())
+gap.head()
+</code></pre></p>
+</section>
+<section>
+    <h2>Dataset Columns</h2>
+
+<table>
+  <tr>
+    <th>Column</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>country</td>
+    <td>Country name</td>
+  </tr>
+  <tr>
+    <td>continent</td>
+    <td>Africa, Americas, Asia, Europe, Oceania</td>
+  </tr>
+  <tr>
+    <td>year</td>
+    <td>1952, 1957, ... 2007</td>
+  </tr>
+  <tr>
+    <td>lifeExp</td>
+    <td>Life expectancy</td>
+  </tr>
+  <tr>
+    <td>pop</td>
+    <td>Population</td>
+  </tr>
+  <tr>
+    <td>gdpPercap</td>
+    <td>GDP per capita</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Task 3.1: Basic Exploration</h2>
+
+<pre><code class="language-python"># Answer:
+# 1. How many rows and columns?
+# 2. How many unique countries?
+# 3. What years are covered?
+# 4. What's the average life expectancy?
+</code></pre>
+</section>
+<section>
+    <h2>Task 3.1: Solution</h2>
+
+<pre><code class="language-python">print(f"Shape: {gap.shape}")  # (1704, 8)
+print(f"Countries: {gap['country'].nunique()}")  # 142
+print(f"Years: {sorted(gap['year'].unique())}")
+print(f"Avg life exp: {gap['lifeExp'].mean():.1f}")  # 59.5
+</code></pre>
+</section>
+<section>
+    <h2>Task 3.2: Filtering</h2>
+
+<pre><code class="language-python"># Find:
+# 1. Data for Slovenia
+slovenia = gap[gap['country'] == 'Slovenia']
+
+# 2. Data for year 2007
+data_2007 = gap[gap['year'] == 2007]
+
+# 3. European countries in 2007
+europe_2007 = gap[(gap['continent'] == 'Europe') & (gap['year'] == 2007)]
+
+# 4. Countries with life exp > 80 in 2007
+long_life = data_2007[data_2007['lifeExp'] > 80]
+print(long_life[['country', 'lifeExp']])
+</code></pre>
+</section>
+<section>
+    <h2>Task 3.3: GroupBy Analysis</h2>
+
+<pre><code class="language-python"># Life expectancy by continent
+print(gap.groupby('continent')['lifeExp'].mean().round(1))
+
+# GDP by continent
+print(gap.groupby('continent')['gdpPercap'].mean().round(0))
+
+# World population by year
+print(gap.groupby('year')['pop'].sum())
+</code></pre>
+</section>
+<section>
+    <h2>Task 3.4: Country Over Time</h2>
+
+<pre><code class="language-python"># Slovenia's development
+slovenia = gap[gap['country'] == 'Slovenia'].sort_values('year')
+print(slovenia[['year', 'lifeExp', 'gdpPercap', 'pop']])
+
+# Calculate change
+first = slovenia.iloc[0]
+last = slovenia.iloc[-1]
+print(f"\nLife exp: {first['lifeExp']:.1f} → {last['lifeExp']:.1f}")
+print(f"GDP: ${first['gdpPercap']:.0f} → ${last['gdpPercap']:.0f}")
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 4: Data Cleaning</h1>
+    <p>Fixing Messy Data (45 minutes)</p>
+</section>
+<section>
+    <h2>Why Data Cleaning?</h2>
+
+<p>Real-world data problems:
+<ul>
+  <li>Missing values</li>
+  <li>Duplicate rows</li>
+  <li>Inconsistent text (case, whitespace)</li>
+  <li>Wrong data types</li>
+  <li>Invalid values</li>
+</ul>
+<strong>80% of data science is data cleaning!</strong></p>
+</section>
+<section>
+    <h2>Example Messy Data</h2>
+
+<pre><code class="language-python">import numpy as np
+
+<p>messy = pd.DataFrame({
+    'Name': ['  Alice  ', 'bob', 'CHARLIE', 'Diana', 'bob'],
+    'Age': ['25', '30', 'unknown', '35', '30'],
+    'Salary': [50000, 60000, 55000, np.nan, 60000],
+    'Dept': ['IT', 'it', 'IT', 'HR', 'IT']
+})
+print(messy)
+</code></pre></p>
+</section>
+<section>
+    <h2>Problem 1: Duplicates</h2>
+
+<pre><code class="language-python"># Check for duplicates
+print(f"Duplicates: {messy.duplicated().sum()}")
+
+# View duplicates
+print(messy[messy.duplicated()])
+
+# Remove duplicates
+clean = messy.drop_duplicates()
+print(f"After: {len(clean)} rows")
+</code></pre>
+</section>
+<section>
+    <h2>Problem 2: Whitespace</h2>
+
+<pre><code class="language-python"># Before
+print(messy['Name'].tolist())
+# ['  Alice  ', 'bob', 'CHARLIE', 'Diana', 'bob']
+
+# Fix: strip whitespace
+messy['Name'] = messy['Name'].str.strip()
+
+# After
+print(messy['Name'].tolist())
+# ['Alice', 'bob', 'CHARLIE', 'Diana', 'bob']
+</code></pre>
+</section>
+<section>
+    <h2>Problem 3: Inconsistent Case</h2>
+
+<pre><code class="language-python"># Before
+print(messy['Name'].tolist())  # Mixed case
+print(messy['Dept'].value_counts())  # IT, it, HR
+
+# Fix: standardize
+messy['Name'] = messy['Name'].str.title()
+messy['Dept'] = messy['Dept'].str.upper()
+
+# After
+print(messy['Name'].tolist())  # Alice, Bob, Charlie...
+print(messy['Dept'].value_counts())  # IT, HR
+</code></pre>
+</section>
+<section>
+    <h2>Problem 4: Wrong Type</h2>
+
+<pre><code class="language-python"># Age is string!
+print(messy['Age'].dtype)  # object
+
+# Convert (errors become NaN)
+messy['Age'] = pd.to_numeric(messy['Age'], errors='coerce')
+
+<p>print(messy['Age'].dtype)  # float64
+print(messy['Age'])  # Numbers + NaN
+</code></pre></p>
+</section>
+<section>
+    <h2>Problem 5: Missing Values</h2>
+
+<pre><code class="language-python"># Check
+print(messy.isna().sum())
+
+# Fill with median
+messy['Age'] = messy['Age'].fillna(messy['Age'].median())
+messy['Salary'] = messy['Salary'].fillna(messy['Salary'].median())
+
+# Verify
+print(messy.isna().sum())  # All zeros
+</code></pre>
+</section>
+<section>
+    <h2>Data Cleaning Checklist</h2>
+
+<ol>
+  <li>✅ <code>df.shape</code> - Check size</li>
+  <li>✅ <code>df.dtypes</code> - Check types</li>
+  <li>✅ <code>df.duplicated().sum()</code> - Check duplicates</li>
+  <li>✅ <code>df.isna().sum()</code> - Check missing</li>
+  <li>✅ <code>.str.strip()</code> - Remove whitespace</li>
+  <li>✅ <code>.str.lower()</code> or <code>.str.title()</code> - Standardize case</li>
+  <li>✅ <code>pd.to_numeric()</code> - Convert types</li>
+  <li>✅ <code>.fillna()</code> - Handle missing</li>
+</ol>
+</section>
+<section>
+    <h2>Exercise 4.1: Clean This Data</h2>
+
+<pre><code class="language-python">dirty = pd.DataFrame({
+    'product': ['  Apple', 'BANANA', 'apple', 'Cherry  '],
+    'price': ['1.50', '0.75', '1.50', 'N/A'],
+    'quantity': [10, 15, 10, 8]
+})
+
+# Tasks:
+# 1. Strip whitespace
+# 2. Standardize to title case
+# 3. Convert price to numeric
+# 4. Remove duplicates
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 4.1: Solution</h2>
+
+<pre><code class="language-python"># 1 & 2: Clean product names
+dirty['product'] = dirty['product'].str.strip().str.title()
+
+# 3: Convert price
+dirty['price'] = pd.to_numeric(dirty['price'], errors='coerce')
+
+# 4: Remove duplicates
+dirty = dirty.drop_duplicates()
+
+<p>print(dirty)
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 5: Practice Challenges</h1>
+    <p>Test Your Skills (30 minutes)</p>
+</section>
+<section>
+    <h2>Challenge 1: Top Countries</h2>
+
+<p>Using Gapminder 2007:
+<ul>
+  <li>Find top 5 countries by life expectancy</li>
+  <li>Find bottom 5 countries</li>
+  <li>Calculate the difference</li>
+</ul></p>
+</section>
+<section>
+    <h2>Challenge 1: Solution</h2>
+
+<pre><code class="language-python">gap_2007 = gap[gap['year'] == 2007]
+
+# Top 5
+top_5 = gap_2007.nlargest(5, 'lifeExp')[['country', 'lifeExp']]
+print("Top 5:")
+print(top_5)
+
+# Bottom 5
+bottom_5 = gap_2007.nsmallest(5, 'lifeExp')[['country', 'lifeExp']]
+print("\nBottom 5:")
+print(bottom_5)
+
+# Difference
+diff = gap_2007['lifeExp'].max() - gap_2007['lifeExp'].min()
+print(f"\nDifference: {diff:.1f} years")
+</code></pre>
+</section>
+<section>
+    <h2>Challenge 2: Continent Summary</h2>
+
+<p>For 2007, create a summary by continent:
+<ul>
+  <li>Number of countries</li>
+  <li>Average life expectancy</li>
+  <li>Average GDP</li>
+  <li>Total population</li>
+</ul></p>
+</section>
+<section>
+    <h2>Challenge 2: Solution</h2>
+
+<pre><code class="language-python">gap_2007 = gap[gap['year'] == 2007]
+
+<p>summary = gap_2007.groupby('continent').agg({
+    'country': 'count',
+    'lifeExp': 'mean',
+    'gdpPercap': 'mean',
+    'pop': 'sum'
+}).round(1)</p>
+
+<p>summary.columns = ['Countries', 'Life Exp', 'GDP', 'Population']
+print(summary)
+</code></pre></p>
+</section>
+<section>
+    <h2>Challenge 3: Growth Analysis</h2>
+
+<p>For European countries:
+<ul>
+  <li>Calculate life exp change from 1952 to 2007</li>
+  <li>Find most improved country</li>
+  <li>Find least improved country</li>
+</ul></p>
+</section>
+<section>
+    <h2>Challenge 3: Solution</h2>
+
+<pre><code class="language-python">europe = gap[gap['continent'] == 'Europe']
+
+# Get 1952 and 2007
+e1952 = europe[europe['year'] == 1952][['country', 'lifeExp']]
+e2007 = europe[europe['year'] == 2007][['country', 'lifeExp']]
+
+# Merge and calculate
+merged = e1952.merge(e2007, on='country', suffixes=('_1952', '_2007'))
+merged['change'] = merged['lifeExp_2007'] - merged['lifeExp_1952']
+
+<p>print("Most improved:")
+print(merged.nlargest(3, 'change')[['country', 'change']])</p>
+
+<p>print("\nLeast improved:")
+print(merged.nsmallest(3, 'change')[['country', 'change']])
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Using Gemini Effectively</h1>
+    
+</section>
+<section>
+    <h2>Good Gemini Prompts</h2>
+
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Prompt</th>
+  </tr>
+  <tr>
+    <td>Filter</td>
+    <td>"Filter dataframe where Age > 30"</td>
+  </tr>
+  <tr>
+    <td>GroupBy</td>
+    <td>"Average salary by department"</td>
+  </tr>
+  <tr>
+    <td>Missing</td>
+    <td>"Fill missing values with mean"</td>
+  </tr>
+  <tr>
+    <td>Type</td>
+    <td>"Convert column to datetime"</td>
+  </tr>
+  <tr>
+    <td>Clean</td>
+    <td>"Remove whitespace from strings"</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Learning from Gemini</h2>
+
+<strong>Don't just copy!</strong>
+
+<ol>
+  <li>Read the code</li>
+  <li>Understand each line</li>
+  <li>Modify it</li>
+  <li>Break it on purpose</li>
+  <li>Fix it yourself</li>
+</ol>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Module 4 Summary</h1>
+    
+</section>
+<section>
+    <h2>What You Practiced</h2>
+
+<ol>
+  <li><strong>Python review</strong> - Variables, types, loops</li>
+  <li><strong>Pandas review</strong> - Filter, group, aggregate</li>
+  <li><strong>New dataset</strong> - Gapminder exploration</li>
+  <li><strong>Data cleaning</strong> - Handle real-world issues</li>
+  <li><strong>Challenges</strong> - Apply multiple skills</li>
+</ol>
+</section>
+<section>
+    <h2>Self-Check</h2>
+
+<p>Can you:
+<ul>
+  <li>[ ] Filter with multiple conditions?</li>
+  <li>[ ] Use groupby with aggregation?</li>
+  <li>[ ] Clean messy text data?</li>
+  <li>[ ] Handle missing values?</li>
+  <li>[ ] Compare data across years?</li>
+</ul></p>
+</section>
+<section>
+    <h2>Before Module 5</h2>
+
+<p>✅ Complete all exercises</p>
+
+<p>✅ Submit Gapminder assignment</p>
+
+<p>✅ Review filtering and groupby</p>
+
+<p>✅ Get ready for visualization!</p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Next: Visualization</h1>
+    <p>Module 5: Matplotlib, Seaborn, Plotly, and your Capstone Project!</p>
+</section>
+            
+        </div>
+    </div>
+    
+    <!-- RevealJS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/notes/notes.min.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            width: 1600,
+            height: 900,
+            margin: 0.1,
+            transition: 'slide',
+            plugins: [ RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

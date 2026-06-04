@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Visualization & Capstone</title>
+    
+    <!-- RevealJS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/simple.min.css">
+    
+    <!-- Highlight.js for code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+    <style>
+        .reveal h1 { font-size: 2.2em; color: #2c3e50; }
+        .reveal h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        .reveal h3 { font-size: 1.3em; color: #34495e; }
+        .reveal pre { font-size: 0.7em; width: 100%; }
+        .reveal code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background: #f8f9fa; padding: 15px; display: block; overflow-x: auto; }
+        .reveal table { font-size: 0.8em; border-collapse: collapse; margin: 20px auto; }
+        .reveal th, .reveal td { border: 1px solid #ddd; padding: 10px 15px; text-align: left; }
+        .reveal th { background: #3498db; color: white; }
+        .reveal tr:nth-child(even) { background: #f9f9f9; }
+        .reveal .callout { padding: 15px 20px; border-radius: 8px; margin: 15px 0; text-align: left; }
+        .reveal .callout-tip { background: #d4edda; border-left: 5px solid #28a745; }
+        .reveal .callout-note { background: #d1ecf1; border-left: 5px solid #17a2b8; }
+        .reveal .callout-warning { background: #fff3cd; border-left: 5px solid #ffc107; }
+        .reveal ul, .reveal ol { text-align: left; display: block; margin-left: 1em; }
+        .reveal li { margin: 10px 0; }
+        .reveal section { text-align: left; }
+        .reveal section[data-background-color] { text-align: center; }
+        .reveal section[data-background-color] h1 { color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .reveal section[data-background-color] p { color: white; font-size: 1.2em; }
+        .reveal .slide-number { font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-color="#2c3e50">
+                <h1 style="color: white;">Module 5: Visualization & Capstone</h1>
+                <p style="color: #ecf0f1; font-size: 1.3em;">Matplotlib • Seaborn • Plotly • Data Storytelling</p>
+                <p style="color: #bdc3c7;">Python for Data Science Course</p>
+                <p style="color: #95a5a6; font-size: 0.9em; margin-top: 40px;">dr. Uroš Godnov</p>
+            </section>
+            
+            <section data-background-color="#1a5276">
+    <h1>🤖 Using Gemini AI for Visualization</h1>
+    <p>Your AI Assistant for Charts and Graphs</p>
+</section>
+<section>
+    <h2>Gemini Tips for Module 5</h2>
+
+<p>Visualization libraries have many options - Gemini helps you find them!</p>
+
+<strong>Essential prompts:</strong>
+
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Try Asking Gemini</th>
+  </tr>
+  <tr>
+    <td>Basic charts</td>
+    <td>"How do I create a bar chart in matplotlib?"</td>
+  </tr>
+  <tr>
+    <td>Customization</td>
+    <td>"How do I add labels to bars in matplotlib?"</td>
+  </tr>
+  <tr>
+    <td>Seaborn</td>
+    <td>"How do I create a boxplot with seaborn?"</td>
+  </tr>
+  <tr>
+    <td>Plotly</td>
+    <td>"How do I make an interactive chart with plotly?"</td>
+  </tr>
+  <tr>
+    <td>Colors</td>
+    <td>"What color palettes are available in seaborn?"</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>🤖 Visualization-Specific Tips</h2>
+
+<strong>For customization:</strong>
+<ul>
+  <li>"How do I change the figure size in matplotlib?"</li>
+  <li>"How do I add a title and axis labels?"</li>
+  <li>"How do I change the colors of my bars?"</li>
+</ul>
+<strong>For chart selection:</strong>
+<ul>
+  <li>"What type of chart should I use to compare categories?"</li>
+  <li>"When should I use a box plot vs histogram?"</li>
+</ul>
+<strong>For troubleshooting:</strong>
+<ul>
+  <li>"Why isn't my chart showing in Colab?"</li>
+  <li>"How do I fix overlapping labels in my chart?"</li>
+</ul>
+</section>
+<section>
+    <h2>🤖 Capstone Project Tips</h2>
+
+<p>For your final project, Gemini can help with:</p>
+
+<ul>
+  <li>"How do I create a grouped bar chart in matplotlib?"</li>
+  <li>"How do I add percentage labels to my bars?"</li>
+  <li>"How do I save a matplotlib figure as PNG?"</li>
+  <li>"How do I interpret this box plot?"</li>
+</ul>
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> <strong>Remember:</strong> Gemini helps with code, but YOUR insights and interpretations must be your own work!
+</div>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 1: Why Visualize?</h1>
+    <p>The Power of Pictures (20 minutes)</p>
+</section>
+<section>
+    <h2>Anscombe's Quartet</h2>
+
+<p>Four datasets with identical statistics:</p>
+
+<table>
+  <tr>
+    <th>Statistic</th>
+    <th>All 4 Datasets</th>
+  </tr>
+  <tr>
+    <td>Mean of X</td>
+    <td>9.0</td>
+  </tr>
+  <tr>
+    <td>Mean of Y</td>
+    <td>7.5</td>
+  </tr>
+  <tr>
+    <td>Variance of X</td>
+    <td>11.0</td>
+  </tr>
+  <tr>
+    <td>Variance of Y</td>
+    <td>4.12</td>
+  </tr>
+  <tr>
+    <td>Correlation</td>
+    <td>0.816</td>
+  </tr>
+  <tr>
+    <td>Linear regression</td>
+    <td>y = 3 + 0.5x</td>
+  </tr>
+</table>
+But they look <strong>completely different</strong> when plotted!
+</section>
+<section>
+    <h2>Anscombe's Quartet Visualized</h2>
+
+<pre><code class="language-python">import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load built-in dataset
+anscombe = sns.load_dataset("anscombe")
+
+# Plot all four
+g = sns.lmplot(data=anscombe, x="x", y="y", col="dataset", 
+               col_wrap=2, ci=None, height=3)
+plt.show()
+</code></pre>
+
+<strong>Lesson:</strong> Always visualize your data. Numbers alone can deceive!
+</section>
+<section>
+    <h2>The Visualization Libraries</h2>
+
+<table>
+  <tr>
+    <th>Library</th>
+    <th>Strengths</th>
+    <th>Use When</th>
+  </tr>
+  <tr>
+    <td><strong>Matplotlib</strong></td>
+    <td>Flexible, customizable</td>
+    <td>Full control needed</td>
+  </tr>
+  <tr>
+    <td><strong>Seaborn</strong></td>
+    <td>Beautiful defaults, statistical</td>
+    <td>Quick statistical plots</td>
+  </tr>
+  <tr>
+    <td><strong>Plotly</strong></td>
+    <td>Interactive, animated</td>
+    <td>Web, dashboards</td>
+  </tr>
+  <tr>
+    <td><strong>Pandas</strong></td>
+    <td>Quick and easy</td>
+    <td>Fast exploration</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Setup</h2>
+
+<pre><code class="language-python"># Import libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+
+# Style settings
+plt.style.use('seaborn-v0_8-whitegrid')
+sns.set_palette("husl")
+
+# For Colab: enable Plotly
+# from google.colab import output
+# output.enable_custom_widget_manager()
+</code></pre>
+</section>
+<section>
+    <h2>Loading Our Data</h2>
+
+<pre><code class="language-python"># Titanic
+titanic_url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+titanic = pd.read_csv(titanic_url)
+
+# Gapminder
+gap_url = "https://raw.githubusercontent.com/plotly/datasets/master/gapminder_with_codes.csv"
+gapminder = pd.read_csv(gap_url)
+
+<p>print(f"Titanic: {titanic.shape}")
+print(f"Gapminder: {gapminder.shape}")
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 2: Matplotlib Basics</h1>
+    <p>The Foundation (45 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Matplotlib Gemini Tips</h2>
+
+<strong>Common prompts:</strong>
+<ul>
+  <li>"How do I create a bar chart with matplotlib?"</li>
+  <li>"How do I add value labels on top of bars?"</li>
+  <li>"How do I create subplots in matplotlib?"</li>
+  <li>"How do I change the color palette?"</li>
+</ul>
+<div class="callout callout-tip"><strong>💡 Tip:</strong> Matplotlib has MANY options. Ask Gemini for specific customizations!
+</div>
+</section>
+<section>
+    <h2>Your First Plot</h2>
+
+<pre><code class="language-python">import matplotlib.pyplot as plt
+
+# Simple line plot
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+
+<p>plt.plot(x, y)
+plt.title("My First Plot")
+plt.xlabel("X axis")
+plt.ylabel("Y axis")
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>The Matplotlib Workflow</h2>
+
+<pre><code class="language-python"># 1. Create figure and axes
+plt.figure(figsize=(10, 6))
+
+# 2. Plot your data
+plt.plot(x, y)
+
+# 3. Customize
+plt.title("Title")
+plt.xlabel("X Label")
+plt.ylabel("Y Label")
+
+# 4. Display
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Bar Charts</h2>
+
+<pre><code class="language-python"># Count passengers by class
+class_counts = titanic['Pclass'].value_counts().sort_index()
+
+<p>plt.figure(figsize=(8, 5))
+plt.bar(class_counts.index, class_counts.values, color=['gold', 'silver', 'brown'])
+plt.title('Passengers by Class', fontsize=14)
+plt.xlabel('Passenger Class')
+plt.ylabel('Number of Passengers')
+plt.xticks([1, 2, 3], ['First', 'Second', 'Third'])
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Horizontal Bar Charts</h2>
+
+<pre><code class="language-python"># Top 10 countries by life expectancy (2007)
+gap_2007 = gapminder[gapminder['year'] == 2007]
+top_10 = gap_2007.nlargest(10, 'lifeExp')
+
+<p>plt.figure(figsize=(10, 6))
+plt.barh(top_10['country'], top_10['lifeExp'], color='steelblue')
+plt.xlabel('Life Expectancy (years)')
+plt.title('Top 10 Countries by Life Expectancy (2007)')
+plt.gca().invert_yaxis()  # Highest at top
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Line Charts</h2>
+
+<pre><code class="language-python"># World population over time
+world_pop = gapminder.groupby('year')['pop'].sum() / 1e9  # In billions
+
+<p>plt.figure(figsize=(10, 6))
+plt.plot(world_pop.index, world_pop.values, marker='o', linewidth=2, color='green')
+plt.title('World Population Growth (1952-2007)')
+plt.xlabel('Year')
+plt.ylabel('Population (billions)')
+plt.grid(True, alpha=0.3)
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Multiple Lines</h2>
+
+<pre><code class="language-python"># Life expectancy by continent over time
+continents = ['Europe', 'Asia', 'Africa', 'Americas']
+
+<p>plt.figure(figsize=(12, 6))
+for continent in continents:
+    data = gapminder[gapminder['continent'] == continent]
+    by_year = data.groupby('year')['lifeExp'].mean()
+    plt.plot(by_year.index, by_year.values, marker='o', label=continent)</p>
+
+<p>plt.title('Life Expectancy by Continent Over Time')
+plt.xlabel('Year')
+plt.ylabel('Average Life Expectancy')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Histograms</h2>
+
+<pre><code class="language-python"># Distribution of ages
+plt.figure(figsize=(10, 6))
+plt.hist(titanic['Age'].dropna(), bins=20, color='steelblue', edgecolor='white')
+plt.title('Age Distribution of Titanic Passengers')
+plt.xlabel('Age')
+plt.ylabel('Number of Passengers')
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Histogram with Multiple Groups</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(10, 6))
+
+# Separate by survival
+survived = titanic[titanic['Survived'] == 1]['Age'].dropna()
+died = titanic[titanic['Survived'] == 0]['Age'].dropna()
+
+<p>plt.hist(died, bins=20, alpha=0.7, label='Did not survive', color='red')
+plt.hist(survived, bins=20, alpha=0.7, label='Survived', color='green')</p>
+
+<p>plt.title('Age Distribution by Survival')
+plt.xlabel('Age')
+plt.ylabel('Count')
+plt.legend()
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Scatter Plots</h2>
+
+<pre><code class="language-python"># GDP vs Life Expectancy
+gap_2007 = gapminder[gapminder['year'] == 2007]
+
+<p>plt.figure(figsize=(12, 8))
+plt.scatter(gap_2007['gdpPercap'], gap_2007['lifeExp'], 
+            s=gap_2007['pop']/1e6, alpha=0.6)
+plt.xscale('log')
+plt.xlabel('GDP per Capita (log scale)')
+plt.ylabel('Life Expectancy')
+plt.title('GDP vs Life Expectancy (2007)')
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Subplots: Multiple Charts</h2>
+
+<pre><code class="language-python">fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Plot 1: Bar chart
+class_counts = titanic['Pclass'].value_counts().sort_index()
+axes[0].bar([1, 2, 3], class_counts.values, color=['gold', 'silver', 'brown'])
+axes[0].set_title('Passengers by Class')
+axes[0].set_xlabel('Class')
+axes[0].set_ylabel('Count')
+
+# Plot 2: Histogram
+axes[1].hist(titanic['Age'].dropna(), bins=20, color='steelblue', edgecolor='white')
+axes[1].set_title('Age Distribution')
+axes[1].set_xlabel('Age')
+axes[1].set_ylabel('Count')
+
+<p>plt.tight_layout()
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Customization Options</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(10, 6))
+
+# Line with many options
+plt.plot(x, y, 
+         color='darkblue',      # Color
+         linewidth=2,           # Line thickness
+         linestyle='--',        # Dashed line
+         marker='o',            # Circle markers
+         markersize=10,         # Marker size
+         markerfacecolor='red', # Marker fill color
+         label='My Line')       # Legend label
+
+<p>plt.title('Customized Plot', fontsize=16, fontweight='bold')
+plt.xlabel('X Axis', fontsize=12)
+plt.ylabel('Y Axis', fontsize=12)
+plt.legend(loc='lower right')
+plt.grid(True, alpha=0.3)
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Common Style Options</h2>
+
+<table>
+  <tr>
+    <th>Parameter</th>
+    <th>Values</th>
+  </tr>
+  <tr>
+    <td><code>color</code></td>
+    <td>'red', 'blue', '#FF5733', (0.5, 0.2, 0.8)</td>
+  </tr>
+  <tr>
+    <td><code>linestyle</code></td>
+    <td>'-', '--', ':', '-.'</td>
+  </tr>
+  <tr>
+    <td><code>linewidth</code></td>
+    <td>1, 2, 3...</td>
+  </tr>
+  <tr>
+    <td><code>marker</code></td>
+    <td>'o', 's', '^', 'v', 'd', '+', 'x'</td>
+  </tr>
+  <tr>
+    <td><code>markersize</code></td>
+    <td>5, 10, 15...</td>
+  </tr>
+  <tr>
+    <td><code>alpha</code></td>
+    <td>0.0 to 1.0 (transparency)</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Exercise 5.1: Matplotlib Practice (5 min)</h2>
+
+<pre><code class="language-python"># Create a bar chart showing:
+# Survival rate (%) by passenger class
+
+# Steps:
+# 1. Calculate survival rate per class
+# 2. Create bar chart
+# 3. Add title, labels, customize colors
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.1: Solution</h2>
+
+<pre><code class="language-python"># Calculate survival rate by class
+survival_rate = titanic.groupby('Pclass')['Survived'].mean() * 100
+
+<p>plt.figure(figsize=(8, 5))
+bars = plt.bar([1, 2, 3], survival_rate.values, 
+               color=['gold', 'silver', 'brown'])
+plt.title('Survival Rate by Passenger Class', fontsize=14)
+plt.xlabel('Passenger Class')
+plt.ylabel('Survival Rate (%)')
+plt.xticks([1, 2, 3], ['First', 'Second', 'Third'])
+plt.ylim(0, 100)</p>
+
+# Add value labels on bars
+for bar, rate in zip(bars, survival_rate.values):
+    plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2, 
+             f'{rate:.1f}%', ha='center')
+
+<p>plt.show()
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 3: Seaborn</h1>
+    <p>Statistical Visualization (40 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Seaborn Gemini Tips</h2>
+
+<strong>Common prompts:</strong>
+<ul>
+  <li>"How do I create a boxplot with seaborn?"</li>
+  <li>"How do I add hue to group by a category?"</li>
+  <li>"What's the difference between countplot and barplot?"</li>
+  <li>"How do I create a heatmap in seaborn?"</li>
+</ul>
+<div class="callout callout-tip"><strong>💡 Tip:</strong> Seaborn works great with pandas DataFrames - pass the <code>data=df</code> parameter!
+</div>
+</section>
+<section>
+    <h2>Why Seaborn?</h2>
+
+<ul>
+  <li>Built on Matplotlib</li>
+  <li>Beautiful default styles</li>
+  <li>Works directly with DataFrames</li>
+  <li>Statistical visualizations built-in</li>
+  <li>Less code for common plots</li>
+</ul>
+</section>
+<section>
+    <h2>Seaborn Setup</h2>
+
+<pre><code class="language-python">import seaborn as sns
+
+# Set style
+sns.set_style("whitegrid")
+sns.set_palette("husl")
+
+# Check available styles
+print(plt.style.available)
+</code></pre>
+</section>
+<section>
+    <h2>Count Plot (Bar for Categories)</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(8, 5))
+sns.countplot(data=titanic, x='Pclass', hue='Survived', palette='Set2')
+plt.title('Survival by Passenger Class')
+plt.xlabel('Passenger Class')
+plt.ylabel('Count')
+plt.legend(title='Survived', labels=['No', 'Yes'])
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Bar Plot with Error Bars</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(8, 5))
+sns.barplot(data=titanic, x='Pclass', y='Survived', palette='viridis')
+plt.title('Survival Rate by Class (with CI)')
+plt.xlabel('Passenger Class')
+plt.ylabel('Survival Rate')
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Box Plot</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(10, 6))
+sns.boxplot(data=titanic, x='Pclass', y='Age', hue='Survived', palette='Set2')
+plt.title('Age Distribution by Class and Survival')
+plt.xlabel('Passenger Class')
+plt.ylabel('Age')
+plt.legend(title='Survived', labels=['No', 'Yes'])
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Understanding Box Plots</h2>
+
+<pre><code>    ┌───────┐ ← Maximum (or 1.5 IQR)
+    │       │
+    │       │
+    ├───────┤ ← 75th percentile (Q3)
+    │       │
+    │───────│ ← Median (50th percentile)
+    │       │
+    ├───────┤ ← 25th percentile (Q1)
+    │       │
+    └───────┘ ← Minimum (or 1.5 IQR)
+    
+    ○       ← Outliers
+</code></pre>
+</section>
+<section>
+    <h2>Violin Plot</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(10, 6))
+sns.violinplot(data=titanic, x='Pclass', y='Age', hue='Sex', split=True, palette='Set2')
+plt.title('Age Distribution by Class and Sex')
+plt.xlabel('Passenger Class')
+plt.ylabel('Age')
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Histogram with KDE</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(10, 6))
+sns.histplot(data=titanic, x='Age', hue='Survived', kde=True, bins=30, palette='Set2')
+plt.title('Age Distribution by Survival Status')
+plt.xlabel('Age')
+plt.ylabel('Count')
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Scatter Plot with Regression</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(10, 6))
+sns.regplot(data=titanic, x='Age', y='Fare', scatter_kws={'alpha': 0.5})
+plt.title('Age vs Fare with Regression Line')
+plt.xlabel('Age')
+plt.ylabel('Fare')
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Heatmap (Correlation Matrix)</h2>
+
+<pre><code class="language-python"># Select numeric columns
+numeric_cols = titanic[['Survived', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare']]
+
+<p>plt.figure(figsize=(10, 8))
+sns.heatmap(numeric_cols.corr(), annot=True, cmap='coolwarm', center=0, fmt='.2f')
+plt.title('Correlation Heatmap')
+plt.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Pair Plot</h2>
+
+<pre><code class="language-python"># Warning: Can be slow for large datasets!
+cols = ['Survived', 'Pclass', 'Age', 'Fare']
+sns.pairplot(titanic[cols].dropna(), hue='Survived', palette='Set2')
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>FacetGrid: Multiple Plots</h2>
+
+<pre><code class="language-python">g = sns.FacetGrid(titanic, col='Pclass', hue='Survived', height=4)
+g.map(sns.histplot, 'Age', kde=True, bins=15)
+g.add_legend()
+g.fig.suptitle('Age Distribution by Class and Survival', y=1.02)
+plt.show()
+</code></pre>
+</section>
+<section>
+    <h2>Seaborn Chart Summary</h2>
+
+<table>
+  <tr>
+    <th>Chart</th>
+    <th>Use For</th>
+  </tr>
+  <tr>
+    <td><code>countplot</code></td>
+    <td>Counting categories</td>
+  </tr>
+  <tr>
+    <td><code>barplot</code></td>
+    <td>Compare means with CI</td>
+  </tr>
+  <tr>
+    <td><code>boxplot</code></td>
+    <td>Distribution + outliers</td>
+  </tr>
+  <tr>
+    <td><code>violinplot</code></td>
+    <td>Full distribution shape</td>
+  </tr>
+  <tr>
+    <td><code>histplot</code></td>
+    <td>Single variable distribution</td>
+  </tr>
+  <tr>
+    <td><code>scatterplot</code></td>
+    <td>Two numeric variables</td>
+  </tr>
+  <tr>
+    <td><code>regplot</code></td>
+    <td>Scatter + regression</td>
+  </tr>
+  <tr>
+    <td><code>heatmap</code></td>
+    <td>Correlations, matrices</td>
+  </tr>
+  <tr>
+    <td><code>pairplot</code></td>
+    <td>All pairwise relationships</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Exercise 5.2: Seaborn Practice (5 min)</h2>
+
+<pre><code class="language-python"># Create a visualization showing:
+# Survival rates by Sex and Class
+# Use either countplot or barplot with hue
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.2: Solution</h2>
+
+<pre><code class="language-python"># Option 1: Grouped bar chart
+plt.figure(figsize=(10, 6))
+sns.barplot(data=titanic, x='Sex', y='Survived', hue='Pclass', palette='viridis')
+plt.title('Survival Rate by Sex and Class')
+plt.ylabel('Survival Rate')
+plt.legend(title='Class')
+plt.show()
+
+# Option 2: Count with hue
+plt.figure(figsize=(10, 6))
+sns.countplot(data=titanic, x='Pclass', hue='Sex', palette='Set2')
+plt.title('Passenger Count by Class and Sex')
+plt.show()
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 4: Plotly</h1>
+    <p>Interactive Visualizations (30 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Plotly Gemini Tips</h2>
+
+<strong>Common prompts:</strong>
+<ul>
+  <li>"How do I create an interactive scatter plot with plotly?"</li>
+  <li>"How do I add animation to a plotly chart?"</li>
+  <li>"How do I create a choropleth map with plotly?"</li>
+  <li>"How do I customize hover text in plotly?"</li>
+</ul>
+<div class="callout callout-tip"><strong>💡 Tip:</strong> Use <code>plotly.express</code> (imported as <code>px</code>) for quick, beautiful charts!
+</div>
+</section>
+<section>
+    <h2>Why Plotly?</h2>
+
+<ul>
+  <li><strong>Interactive</strong>: Zoom, pan, hover for details</li>
+  <li><strong>Web-ready</strong>: Works in browsers, dashboards</li>
+  <li><strong>Animations</strong>: Animate over time</li>
+  <li><strong>Beautiful</strong>: Publication-quality defaults</li>
+  <li><strong>Easy</strong>: Similar syntax to Seaborn</li>
+</ul>
+</section>
+<section>
+    <h2>Plotly Express Setup</h2>
+
+<pre><code class="language-python">import plotly.express as px
+
+# For Colab, you might need:
+# !pip install plotly
+</code></pre>
+</section>
+<section>
+    <h2>Interactive Bar Chart</h2>
+
+<pre><code class="language-python"># Survival by class
+survival_data = titanic.groupby('Pclass')['Survived'].mean().reset_index()
+
+<p>fig = px.bar(survival_data, x='Pclass', y='Survived',
+             title='Survival Rate by Passenger Class',
+             labels={'Survived': 'Survival Rate', 'Pclass': 'Passenger Class'},
+             color='Survived', color_continuous_scale='viridis')
+fig.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Interactive Scatter Plot</h2>
+
+<pre><code class="language-python">gap_2007 = gapminder[gapminder['year'] == 2007]
+
+<p>fig = px.scatter(gap_2007, x='gdpPercap', y='lifeExp',
+                 size='pop', color='continent',
+                 hover_name='country',
+                 log_x=True,
+                 title='GDP vs Life Expectancy (2007)',
+                 labels={'gdpPercap': 'GDP per Capita',
+                        'lifeExp': 'Life Expectancy',
+                        'pop': 'Population'})
+fig.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Animated Scatter Plot (The Famous One!)</h2>
+
+<pre><code class="language-python">fig = px.scatter(gapminder, x='gdpPercap', y='lifeExp',
+                 size='pop', color='continent',
+                 hover_name='country',
+                 log_x=True,
+                 animation_frame='year',
+                 animation_group='country',
+                 range_x=[100, 100000],
+                 range_y=[25, 90],
+                 title='Gapminder: Health vs Wealth (1952-2007)')
+fig.show()
+</code></pre>
+
+<p>This recreates Hans Rosling's famous visualization!</p>
+</section>
+<section>
+    <h2>Interactive Line Chart</h2>
+
+<pre><code class="language-python"># Population by continent over time
+pop_by_cont = gapminder.groupby(['year', 'continent'])['pop'].sum().reset_index()
+
+<p>fig = px.line(pop_by_cont, x='year', y='pop', color='continent',
+              title='Population Growth by Continent',
+              labels={'pop': 'Population', 'year': 'Year'})
+fig.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Interactive Histogram</h2>
+
+<pre><code class="language-python">fig = px.histogram(titanic, x='Age', color='Survived',
+                   nbins=30, barmode='overlay',
+                   title='Age Distribution by Survival',
+                   labels={'Survived': 'Survived'})
+fig.update_layout(bargap=0.1)
+fig.show()
+</code></pre>
+</section>
+<section>
+    <h2>Interactive Box Plot</h2>
+
+<pre><code class="language-python">fig = px.box(titanic, x='Pclass', y='Fare', color='Survived',
+             title='Fare Distribution by Class and Survival',
+             labels={'Pclass': 'Passenger Class', 'Fare': 'Ticket Fare'})
+fig.show()
+</code></pre>
+</section>
+<section>
+    <h2>Choropleth Map</h2>
+
+<pre><code class="language-python">gap_2007 = gapminder[gapminder['year'] == 2007]
+
+<p>fig = px.choropleth(gap_2007, locations='iso_alpha', color='lifeExp',
+                    hover_name='country',
+                    color_continuous_scale='RdYlGn',
+                    title='Life Expectancy by Country (2007)')
+fig.show()
+</code></pre></p>
+</section>
+<section>
+    <h2>Plotly Chart Summary</h2>
+
+<table>
+  <tr>
+    <th>Function</th>
+    <th>Use For</th>
+  </tr>
+  <tr>
+    <td><code>px.bar</code></td>
+    <td>Bar charts</td>
+  </tr>
+  <tr>
+    <td><code>px.scatter</code></td>
+    <td>Scatter plots (+ animations!)</td>
+  </tr>
+  <tr>
+    <td><code>px.line</code></td>
+    <td>Line charts</td>
+  </tr>
+  <tr>
+    <td><code>px.histogram</code></td>
+    <td>Histograms</td>
+  </tr>
+  <tr>
+    <td><code>px.box</code></td>
+    <td>Box plots</td>
+  </tr>
+  <tr>
+    <td><code>px.violin</code></td>
+    <td>Violin plots</td>
+  </tr>
+  <tr>
+    <td><code>px.pie</code></td>
+    <td>Pie charts</td>
+  </tr>
+  <tr>
+    <td><code>px.choropleth</code></td>
+    <td>Maps</td>
+  </tr>
+  <tr>
+    <td><code>px.sunburst</code></td>
+    <td>Hierarchical data</td>
+  </tr>
+</table>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 5: Choosing the Right Chart</h1>
+    <p>Matching Data to Visualization (15 minutes)</p>
+</section>
+<section>
+    <h2>Chart Selection Guide</h2>
+
+<table>
+  <tr>
+    <th>Data Type</th>
+    <th>Question</th>
+    <th>Chart</th>
+  </tr>
+  <tr>
+    <td>1 categorical</td>
+    <td>How many in each category?</td>
+    <td>Bar, Pie</td>
+  </tr>
+  <tr>
+    <td>1 numerical</td>
+    <td>What is the distribution?</td>
+    <td>Histogram, Box</td>
+  </tr>
+  <tr>
+    <td>2 categorical</td>
+    <td>Compare across groups?</td>
+    <td>Grouped Bar, Heatmap</td>
+  </tr>
+  <tr>
+    <td>2 numerical</td>
+    <td>What is the relationship?</td>
+    <td>Scatter</td>
+  </tr>
+  <tr>
+    <td>Time series</td>
+    <td>How does it change?</td>
+    <td>Line</td>
+  </tr>
+  <tr>
+    <td>Part of whole</td>
+    <td>What percentage?</td>
+    <td>Pie, Stacked Bar</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Quick Reference</h2>
+
+<strong>Comparing categories:</strong> Bar chart
+
+<strong>Distribution:</strong> Histogram, Box plot, Violin
+
+<strong>Relationship:</strong> Scatter plot
+
+<strong>Trend over time:</strong> Line chart
+
+<strong>Part of whole:</strong> Pie chart (use sparingly!)
+
+<strong>Multiple comparisons:</strong> Grouped bar, Facets
+
+<strong>Correlations:</strong> Heatmap
+</section>
+<section>
+    <h2>Bad Chart Choices</h2>
+
+<p>Avoid:
+<ul>
+  <li>3D charts (distort perception)</li>
+  <li>Pie charts with many slices</li>
+  <li>Dual Y-axes (confusing)</li>
+  <li>Rainbow color schemes</li>
+  <li>Chartjunk (unnecessary decoration)</li>
+</ul>
+Prefer:
+<ul>
+  <li>Simple, clean designs</li>
+  <li>Sequential or diverging colors</li>
+  <li>Clear labels and titles</li>
+  <li>Let the data speak</li>
+</ul></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 6: Capstone Project</h1>
+    <p>Tell a Data Story (45 minutes)</p>
+</section>
+<section>
+    <h2>What is a Data Story?</h2>
+
+<p>A data story combines:</p>
+
+<ol>
+  <li><strong>Question</strong>: What are you trying to answer?</li>
+  <li><strong>Data</strong>: Evidence to support your answer</li>
+  <li><strong>Visualizations</strong>: Make the evidence clear</li>
+  <li><strong>Narrative</strong>: Connect the dots for your audience</li>
+  <li><strong>Insight</strong>: What should the audience learn?</li>
+</ol>
+</section>
+<section>
+    <h2>Capstone Assignment</h2>
+
+<strong>Create a data story using Titanic or Gapminder data.</strong>
+
+<p>Requirements:
+<ul>
+  <li>Clear question/thesis</li>
+  <li>At least 3 visualizations</li>
+  <li>Mix of chart types</li>
+  <li>Written insights for each chart</li>
+  <li>Conclusion with key findings</li>
+</ul></p>
+</section>
+<section>
+    <h2>Example: Titanic Survival Story</h2>
+
+<strong>Question:</strong> Who survived the Titanic disaster?
+
+<strong>Key Findings:</strong>
+<ol>
+  <li>Women survived at much higher rates (74%) than men (19%)</li>
+  <li>First-class passengers had best survival (63%)</li>
+  <li>Children had higher survival rates</li>
+  <li>"Women and children first" was followed</li>
+</ol>
+</section>
+<section>
+    <h2>Visualization 1: Overall Survival</h2>
+
+<pre><code class="language-python"># Overall survival rate
+survival = titanic['Survived'].value_counts()
+
+<p>fig, ax = plt.subplots(figsize=(8, 5))
+bars = ax.bar(['Did Not Survive', 'Survived'], survival.values, 
+              color=['#e74c3c', '#27ae60'])
+ax.set_title('Overall Titanic Survival', fontsize=14)
+ax.set_ylabel('Number of Passengers')</p>
+
+# Add percentages
+total = survival.sum()
+for bar, val in zip(bars, survival.values):
+    pct = val / total * 100
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 10,
+            f'{val}\n({pct:.1f}%)', ha='center')
+
+<p>plt.show()
+</code></pre></p>
+
+<strong>Insight:</strong> Only 38% of passengers survived the disaster.
+</section>
+<section>
+    <h2>Visualization 2: Survival by Gender</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(10, 6))
+
+# Calculate survival rate by gender
+gender_survival = titanic.groupby('Sex')['Survived'].agg(['sum', 'count'])
+gender_survival['rate'] = gender_survival['sum'] / gender_survival['count'] * 100
+
+<p>bars = plt.bar(gender_survival.index, gender_survival['rate'], 
+               color=['#3498db', '#e91e63'])
+plt.title('Survival Rate by Gender', fontsize=14)
+plt.ylabel('Survival Rate (%)')
+plt.ylim(0, 100)</p>
+
+<p>for bar, rate in zip(bars, gender_survival['rate']):
+    plt.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,
+             f'{rate:.1f}%', ha='center', fontsize=12)</p>
+
+<p>plt.show()
+</code></pre></p>
+
+<strong>Insight:</strong> Women survived at 4x the rate of men (74% vs 19%).
+</section>
+<section>
+    <h2>Visualization 3: Survival by Class and Gender</h2>
+
+<pre><code class="language-python">plt.figure(figsize=(12, 6))
+
+<p>survival_matrix = titanic.groupby(['Pclass', 'Sex'])['Survived'].mean() * 100
+survival_matrix = survival_matrix.unstack()</p>
+
+<p>x = np.arange(3)
+width = 0.35</p>
+
+<p>fig, ax = plt.subplots(figsize=(10, 6))
+bars1 = ax.bar(x - width/2, survival_matrix['female'], width, label='Female', color='#e91e63')
+bars2 = ax.bar(x + width/2, survival_matrix['male'], width, label='Male', color='#3498db')</p>
+
+<p>ax.set_ylabel('Survival Rate (%)')
+ax.set_title('Survival Rate by Class and Gender')
+ax.set_xticks(x)
+ax.set_xticklabels(['First Class', 'Second Class', 'Third Class'])
+ax.legend()
+ax.set_ylim(0, 110)</p>
+
+# Add value labels
+for bars in [bars1, bars2]:
+    for bar in bars:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2, height + 2, f'{height:.0f}%',
+                ha='center', fontsize=9)
+
+<p>plt.show()
+</code></pre></p>
+
+<strong>Insight:</strong> First-class women had 97% survival. Third-class men had only 14%.
+</section>
+<section>
+    <h2>Conclusion Slide</h2>
+
+<strong>Key Findings:</strong>
+
+<ol>
+  <li><strong>Gender mattered most:</strong> Women survived at 74% vs men at 19%</li>
+</ol>
+<ol>
+  <li><strong>Class mattered too:</strong> First class (63%) > Second (47%) > Third (24%)</li>
+</ol>
+<ol>
+  <li><strong>Worst outcome:</strong> Third-class men (14% survival)</li>
+</ol>
+<ol>
+  <li><strong>Best outcome:</strong> First-class women (97% survival)</li>
+</ol>
+<ol>
+  <li><strong>"Women and children first" was real:</strong> Protocol was largely followed</li>
+</ol>
+</section>
+<section>
+    <h2>Capstone Rubric (25 points)</h2>
+
+<table>
+  <tr>
+    <th>Criterion</th>
+    <th>Points</th>
+  </tr>
+  <tr>
+    <td>Clear question/thesis</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>At least 3 visualizations</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Charts are appropriate for data</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Charts are well-labeled and formatted</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Written insights and conclusion</td>
+    <td>5</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Tips for Your Capstone</h2>
+
+<ol>
+  <li><strong>Start with a question</strong> - What do you want to learn?</li>
+  <li><strong>Explore the data first</strong> - Use <code>.head()</code>, <code>.describe()</code>, <code>.value_counts()</code></li>
+  <li><strong>Sketch your charts</strong> - Plan before coding</li>
+  <li><strong>Tell a story</strong> - Each chart should add to the narrative</li>
+  <li><strong>Keep it simple</strong> - Clear > Fancy</li>
+  <li><strong>Add context</strong> - What do the numbers mean?</li>
+  <li><strong>Practice!</strong> - Show a friend and ask if they understand</li>
+</ol>
+</section>
+<section>
+    <h2>Possible Capstone Questions</h2>
+
+<strong>Titanic:</strong>
+<ul>
+  <li>What factors most influenced survival?</li>
+  <li>Did the "women and children first" rule hold?</li>
+  <li>How did class affect survival chances?</li>
+</ul>
+<strong>Gapminder:</strong>
+<ul>
+  <li>How has global health improved since 1952?</li>
+  <li>Which continent developed fastest?</li>
+  <li>Is there a relationship between wealth and health?</li>
+</ul>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Module 5 Summary</h1>
+    
+</section>
+<section>
+    <h2>What You Learned</h2>
+
+<ol>
+  <li><strong>Why visualize:</strong> Anscombe's quartet lesson</li>
+  <li><strong>Matplotlib:</strong> Bar, line, histogram, scatter, subplots</li>
+  <li><strong>Seaborn:</strong> countplot, boxplot, violin, heatmap</li>
+  <li><strong>Plotly:</strong> Interactive and animated charts</li>
+  <li><strong>Chart selection:</strong> Matching data to visualization</li>
+  <li><strong>Data storytelling:</strong> Question → Data → Viz → Insight</li>
+</ol>
+</section>
+<section>
+    <h2>Python Visualization Cheatsheet</h2>
+
+<pre><code class="language-python"># Matplotlib
+plt.bar(x, y)
+plt.plot(x, y)
+plt.hist(data)
+plt.scatter(x, y)
+
+# Seaborn
+sns.countplot(data=df, x='col')
+sns.barplot(data=df, x='cat', y='val')
+sns.boxplot(data=df, x='cat', y='val')
+sns.heatmap(df.corr())
+
+# Plotly
+px.bar(df, x='col', y='val')
+px.scatter(df, x='x', y='y', color='cat')
+px.line(df, x='time', y='val')
+</code></pre>
+</section>
+<section>
+    <h2>Course Complete! 🎉</h2>
+
+<p>You've learned:
+<ul>
+  <li>✅ Python fundamentals</li>
+  <li>✅ Data structures (lists, dictionaries)</li>
+  <li>✅ Pandas for data analysis</li>
+  <li>✅ Data cleaning</li>
+  <li>✅ Visualization</li>
+  <li>✅ Data storytelling</li>
+</ul>
+<strong>You are now a Python Data Scientist!</strong></p>
+</section>
+<section>
+    <h2>What's Next?</h2>
+
+<p>Continue your journey:
+<ul>
+  <li><strong>Machine Learning:</strong> scikit-learn</li>
+  <li><strong>Deep Learning:</strong> TensorFlow, PyTorch</li>
+  <li><strong>Dashboards:</strong> Streamlit, Dash</li>
+  <li><strong>Big Data:</strong> PySpark</li>
+  <li><strong>Practice:</strong> Kaggle competitions</li>
+  <li><strong>Projects:</strong> Build your portfolio</li>
+</ul></p>
+</section>
+<section>
+    <h2>Final Tips</h2>
+
+<ol>
+  <li><strong>Practice daily</strong> - Even 15 minutes helps</li>
+  <li><strong>Build projects</strong> - Apply what you learned</li>
+  <li><strong>Read others' code</strong> - GitHub, Kaggle notebooks</li>
+  <li><strong>Join communities</strong> - Reddit, Discord, local meetups</li>
+  <li><strong>Teach others</strong> - Best way to solidify knowledge</li>
+  <li><strong>Stay curious</strong> - Data is everywhere!</li>
+</ol>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Thank You!</h1>
+    <p>Good luck with your capstone project!</p>
+
+<p>Questions? Post in the forum or email the instructor.</p>
+</section>
+            
+        </div>
+    </div>
+    
+    <!-- RevealJS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/notes/notes.min.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            width: 1600,
+            height: 900,
+            margin: 0.1,
+            transition: 'slide',
+            plugins: [ RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

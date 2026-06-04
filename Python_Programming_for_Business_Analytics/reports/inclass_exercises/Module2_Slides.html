@@ -1,0 +1,2633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Data Structures</title>
+    
+    <!-- RevealJS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/simple.min.css">
+    
+    <!-- Highlight.js for code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+    <style>
+        .reveal h1 { font-size: 2.2em; color: #2c3e50; }
+        .reveal h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        .reveal h3 { font-size: 1.3em; color: #34495e; }
+        .reveal pre { font-size: 0.7em; width: 100%; }
+        .reveal code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background: #f8f9fa; padding: 15px; display: block; overflow-x: auto; }
+        .reveal table { font-size: 0.8em; border-collapse: collapse; margin: 20px auto; }
+        .reveal th, .reveal td { border: 1px solid #ddd; padding: 10px 15px; text-align: left; }
+        .reveal th { background: #3498db; color: white; }
+        .reveal tr:nth-child(even) { background: #f9f9f9; }
+        .reveal .callout { padding: 15px 20px; border-radius: 8px; margin: 15px 0; text-align: left; }
+        .reveal .callout-tip { background: #d4edda; border-left: 5px solid #28a745; }
+        .reveal .callout-note { background: #d1ecf1; border-left: 5px solid #17a2b8; }
+        .reveal .callout-warning { background: #fff3cd; border-left: 5px solid #ffc107; }
+        .reveal ul, .reveal ol { text-align: left; display: block; margin-left: 1em; }
+        .reveal li { margin: 10px 0; }
+        .reveal section { text-align: left; }
+        .reveal section[data-background-color] { text-align: center; }
+        .reveal section[data-background-color] h1 { color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .reveal section[data-background-color] p { color: white; font-size: 1.2em; }
+        .reveal .slide-number { font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-color="#2c3e50">
+                <h1 style="color: white;">Module 2: Data Structures</h1>
+                <p style="color: #ecf0f1; font-size: 1.3em;">Lists • Dictionaries • Conditionals • Loops • Comprehensions</p>
+                <p style="color: #bdc3c7;">Python for Data Science Course</p>
+                <p style="color: #95a5a6; font-size: 0.9em; margin-top: 40px;">dr. Uroš Godnov</p>
+            </section>
+            
+            <section data-background-color="#1a5276">
+    <h1>🤖 Using Gemini AI in This Module</h1>
+    <p>Your AI Coding Assistant</p>
+</section>
+<section>
+    <h2>Gemini Tips for Module 2</h2>
+
+<p>Throughout this module, look for the 🤖 symbol for Gemini tips!</p>
+
+<strong>Helpful prompts for data structures:</strong>
+
+<table>
+  <tr>
+    <th>Topic</th>
+    <th>Try Asking Gemini</th>
+  </tr>
+  <tr>
+    <td>Lists</td>
+    <td>"How do I add an item to a Python list?"</td>
+  </tr>
+  <tr>
+    <td>Dictionaries</td>
+    <td>"Explain Python dictionaries with an example"</td>
+  </tr>
+  <tr>
+    <td>Loops</td>
+    <td>"Show me how to loop through a list in Python"</td>
+  </tr>
+  <tr>
+    <td>Conditionals</td>
+    <td>"Write an if-else statement to check if age >= 18"</td>
+  </tr>
+</table>
+<div class="callout callout-tip"><strong>💡 Tip:</strong> <strong>Shortcut:</strong> Press <code>Ctrl + Shift + Space</code> in Colab to open Gemini!
+</div>
+</section>
+<section>
+    <h2>🤖 When to Use Gemini</h2>
+
+<strong>Good uses:</strong>
+<ul>
+  <li>"What's the difference between append() and extend()?"</li>
+  <li>"Why am I getting IndexError?"</li>
+  <li>"How do I access a dictionary value by key?"</li>
+</ul>
+<strong>Not helpful:</strong>
+<ul>
+  <li>"Write all my code for me"</li>
+  <li>Copying without understanding</li>
+</ul>
+<strong>Remember:</strong> Try first, then ask Gemini when stuck!
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 1: Introduction to Data Structures</h1>
+    <p>Why We Need More Than Variables (15 minutes)</p>
+</section>
+<section>
+    <h2>The Problem with Simple Variables</h2>
+
+<pre><code class="language-python"># Storing 3 student names
+student1 = "Alice"
+student2 = "Bob"
+student3 = "Charlie"
+
+# What if we have 100 students?
+# student1, student2, student3, ... student100 ???
+
+# How do we loop through them?
+# How do we find the total count?
+# This approach doesn't scale!
+</code></pre>
+
+<p>We need better ways to organize data.</p>
+</section>
+<section>
+    <h2>Data Structures to the Rescue</h2>
+
+<strong>Data structures</strong> are ways to organize and store collections of data.
+
+<p>Today we'll learn:</p>
+
+<table>
+  <tr>
+    <th>Structure</th>
+    <th>What It Is</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><strong>List</strong></td>
+    <td>Ordered collection</td>
+    <td><code>[1, 2, 3, 4, 5]</code></td>
+  </tr>
+  <tr>
+    <td><strong>Dictionary</strong></td>
+    <td>Key-value pairs</td>
+    <td><code>{"name": "Alice", "age": 28}</code></td>
+  </tr>
+</table>
+These are the two most important data structures in Python!
+</section>
+<section>
+    <h2>Why Data Structures Matter</h2>
+
+<p>With data structures, we can:</p>
+
+<ul>
+  <li>Store many items in one variable</li>
+  <li>Loop through items automatically</li>
+  <li>Search and filter data</li>
+  <li>Sort and organize</li>
+  <li>Process data efficiently</li>
+</ul>
+<strong>Data science is all about processing data!</strong>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 2: Lists</h1>
+    <p>Ordered Collections (45 minutes)</p>
+</section>
+<section>
+    <h2>What is a List?</h2>
+
+<p>A list is an <strong>ordered collection</strong> of items enclosed in square brackets <code>[]</code>.</p>
+
+<pre><code class="language-python"># A list of names
+students = ["Alice", "Bob", "Charlie", "Diana"]
+
+# A list of numbers
+scores = [85, 92, 78, 95, 88]
+
+# A list of mixed types
+mixed = [42, "hello", 3.14, True]
+
+# An empty list
+empty = []
+
+<p>print(students)
+print(len(students))  # Number of items
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>['Alice', 'Bob', 'Charlie', 'Diana']
+4
+</code></pre>
+</section>
+<section>
+    <h2>Creating Lists</h2>
+
+<pre><code class="language-python"># List of strings
+fruits = ["apple", "banana", "cherry"]
+
+# List of integers
+numbers = [1, 2, 3, 4, 5]
+
+# List of floats
+prices = [19.99, 29.99, 39.99]
+
+# List of booleans
+answers = [True, False, True, True]
+
+# Mixed types (allowed but usually avoided)
+mixed = [1, "two", 3.0, False]
+
+# Empty list
+shopping_cart = []
+</code></pre>
+</section>
+<section>
+    <h2>Why Lists are Useful</h2>
+
+<pre><code class="language-python"># Instead of this...
+score1 = 85
+score2 = 92
+score3 = 78
+average = (score1 + score2 + score3) / 3
+
+# We can do this!
+scores = [85, 92, 78, 95, 88, 91, 76, 89]
+average = sum(scores) / len(scores)
+
+<p>print(f"Average: {average:.1f}")
+print(f"Highest: {max(scores)}")
+print(f"Lowest: {min(scores)}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Average: 86.8
+Highest: 95
+Lowest: 76
+</code></pre>
+</section>
+<section>
+    <h2>Accessing List Items (Indexing)</h2>
+
+<p>Use square brackets with an index number:</p>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry", "date"]
+#          0         1          2        3     (positive index)
+#         -4        -3         -2       -1     (negative index)
+
+<p>print(fruits[0])    # First item: apple
+print(fruits[1])    # Second item: banana
+print(fruits[-1])   # Last item: date
+print(fruits[-2])   # Second to last: cherry
+</code></pre></p>
+
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> Python indexing starts at <strong>0</strong>, not 1!
+</div>
+</section>
+<section>
+    <h2>Index Errors</h2>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry"]  # Valid indices: 0, 1, 2
+
+# This causes an IndexError:
+print(fruits[3])  # No index 3!
+
+# Error message:
+# IndexError: list index out of range
+</code></pre>
+
+<strong>Fix:</strong> Check the list length before accessing:
+<pre><code class="language-python">if len(fruits) > 3:
+    print(fruits[3])
+else:
+    print("Index out of range!")
+</code></pre>
+</section>
+<section>
+    <h2>Modifying List Items</h2>
+
+<p>Lists are <strong>mutable</strong> - you can change their contents:</p>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+print(f"Before: {fruits}")
+
+# Change an item
+fruits[1] = "blueberry"
+print(f"After: {fruits}")
+
+# Change multiple items
+fruits[0] = "apricot"
+fruits[2] = "coconut"
+print(f"Final: {fruits}")
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>Before: ['apple', 'banana', 'cherry']
+After: ['apple', 'blueberry', 'cherry']
+Final: ['apricot', 'blueberry', 'coconut']
+</code></pre>
+</section>
+<section>
+    <h2>List Slicing</h2>
+
+<p>Extract a portion of a list with <code>[start:stop:step]</code>:</p>
+
+<pre><code class="language-python">numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+<p>print(numbers[2:5])    # Index 2, 3, 4 (stop is exclusive!)
+print(numbers[:4])     # First 4 items
+print(numbers[6:])     # From index 6 to end
+print(numbers[-3:])    # Last 3 items
+print(numbers[::2])    # Every 2nd item
+print(numbers[::-1])   # Reversed!
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>[2, 3, 4]
+[0, 1, 2, 3]
+[6, 7, 8, 9]
+[7, 8, 9]
+[0, 2, 4, 6, 8]
+[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+</code></pre>
+</section>
+<section>
+    <h2>Slicing Details</h2>
+
+<table>
+  <tr>
+    <th>Slice</th>
+    <th>Meaning</th>
+    <th>Example (<code>[0,1,2,3,4,5]</code>)</th>
+    <th>Result</th>
+  </tr>
+  <tr>
+    <td><code>[2:5]</code></td>
+    <td>Index 2 to 4</td>
+    <td><code>numbers[2:5]</code></td>
+    <td><code>[2, 3, 4]</code></td>
+  </tr>
+  <tr>
+    <td><code>[:3]</code></td>
+    <td>First 3</td>
+    <td><code>numbers[:3]</code></td>
+    <td><code>[0, 1, 2]</code></td>
+  </tr>
+  <tr>
+    <td><code>[3:]</code></td>
+    <td>From index 3</td>
+    <td><code>numbers[3:]</code></td>
+    <td><code>[3, 4, 5]</code></td>
+  </tr>
+  <tr>
+    <td><code>[::2]</code></td>
+    <td>Every 2nd</td>
+    <td><code>numbers[::2]</code></td>
+    <td><code>[0, 2, 4]</code></td>
+  </tr>
+  <tr>
+    <td><code>[::-1]</code></td>
+    <td>Reversed</td>
+    <td><code>numbers[::-1]</code></td>
+    <td><code>[5, 4, 3, 2, 1, 0]</code></td>
+  </tr>
+  <tr>
+    <td><code>[1:5:2]</code></td>
+    <td>1 to 4, step 2</td>
+    <td><code>numbers[1:5:2]</code></td>
+    <td><code>[1, 3]</code></td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Adding Items: append()</h2>
+
+<p>Add a single item to the end:</p>
+
+<pre><code class="language-python">fruits = ["apple", "banana"]
+print(f"Before: {fruits}")
+
+<p>fruits.append("cherry")
+print(f"After append: {fruits}")</p>
+
+<p>fruits.append("date")
+print(f"After second append: {fruits}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Before: ['apple', 'banana']
+After append: ['apple', 'banana', 'cherry']
+After second append: ['apple', 'banana', 'cherry', 'date']
+</code></pre>
+</section>
+<section>
+    <h2>Adding Items: insert()</h2>
+
+<p>Insert at a specific position:</p>
+
+<pre><code class="language-python">fruits = ["apple", "cherry"]
+print(f"Before: {fruits}")
+
+# Insert at index 1 (between apple and cherry)
+fruits.insert(1, "banana")
+print(f"After insert(1, 'banana'): {fruits}")
+
+# Insert at the beginning
+fruits.insert(0, "apricot")
+print(f"After insert(0, 'apricot'): {fruits}")
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>Before: ['apple', 'cherry']
+After insert(1, 'banana'): ['apple', 'banana', 'cherry']
+After insert(0, 'apricot'): ['apricot', 'apple', 'banana', 'cherry']
+</code></pre>
+</section>
+<section>
+    <h2>Adding Items: extend()</h2>
+
+<p>Add multiple items from another list:</p>
+
+<pre><code class="language-python">fruits = ["apple", "banana"]
+more_fruits = ["cherry", "date", "elderberry"]
+
+# extend() adds all items
+fruits.extend(more_fruits)
+print(fruits)
+
+# Note: append() would add the list as one item!
+test = ["apple", "banana"]
+test.append(["cherry", "date"])
+print(test)  # Nested list!
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>['apple', 'banana', 'cherry', 'date', 'elderberry']
+['apple', 'banana', ['cherry', 'date']]
+</code></pre>
+</section>
+<section>
+    <h2>Removing Items: remove()</h2>
+
+<p>Remove first occurrence of a value:</p>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry", "banana"]
+print(f"Before: {fruits}")
+
+<p>fruits.remove("banana")  # Removes FIRST banana only
+print(f"After remove('banana'): {fruits}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Before: ['apple', 'banana', 'cherry', 'banana']
+After remove('banana'): ['apple', 'cherry', 'banana']
+</code></pre>
+
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> If the value doesn't exist, you get a <code>ValueError</code>!
+</div>
+</section>
+<section>
+    <h2>Removing Items: pop()</h2>
+
+<p>Remove and return an item by index:</p>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry", "date"]
+
+# pop() with no argument removes last item
+last = fruits.pop()
+print(f"Removed: {last}, List: {fruits}")
+
+# pop(index) removes item at that index
+second = fruits.pop(1)
+print(f"Removed: {second}, List: {fruits}")
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>Removed: date, List: ['apple', 'banana', 'cherry']
+Removed: banana, List: ['apple', 'cherry']
+</code></pre>
+</section>
+<section>
+    <h2>Removing Items: del and clear()</h2>
+
+<pre><code class="language-python"># del removes by index
+numbers = [0, 1, 2, 3, 4, 5]
+del numbers[2]
+print(numbers)  # [0, 1, 3, 4, 5]
+
+# del can remove a slice
+del numbers[1:3]
+print(numbers)  # [0, 4, 5]
+
+# clear() removes all items
+numbers.clear()
+print(numbers)  # []
+</code></pre>
+</section>
+<section>
+    <h2>Finding Items: in and index()</h2>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+
+# Check if item exists
+print("banana" in fruits)     # True
+print("mango" in fruits)      # False
+print("mango" not in fruits)  # True
+
+# Find index of item
+print(fruits.index("cherry"))  # 2
+
+# index() raises ValueError if not found!
+# print(fruits.index("mango"))  # ValueError
+</code></pre>
+</section>
+<section>
+    <h2>Counting and Sorting</h2>
+
+<pre><code class="language-python">numbers = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]
+
+# Count occurrences
+print(numbers.count(5))  # 3 (appears 3 times)
+print(numbers.count(7))  # 0 (not in list)
+
+# Sort in place (modifies original list)
+numbers.sort()
+print(numbers)  # [1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]
+
+# Sort in reverse
+numbers.sort(reverse=True)
+print(numbers)  # [9, 6, 5, 5, 5, 4, 3, 3, 2, 1, 1]
+</code></pre>
+</section>
+<section>
+    <h2>sorted() vs sort()</h2>
+
+<pre><code class="language-python">original = [3, 1, 4, 1, 5]
+
+# sort() modifies the list in place, returns None
+result = original.sort()
+print(result)    # None
+print(original)  # [1, 1, 3, 4, 5] - original is changed!
+
+# sorted() returns a NEW list, original unchanged
+original = [3, 1, 4, 1, 5]
+result = sorted(original)
+print(result)    # [1, 1, 3, 4, 5]
+print(original)  # [3, 1, 4, 1, 5] - original unchanged!
+</code></pre>
+</section>
+<section>
+    <h2>List Methods Summary</h2>
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><code>append(x)</code></td>
+    <td>Add to end</td>
+    <td><code>lst.append(4)</code></td>
+  </tr>
+  <tr>
+    <td><code>insert(i, x)</code></td>
+    <td>Insert at index</td>
+    <td><code>lst.insert(0, "first")</code></td>
+  </tr>
+  <tr>
+    <td><code>extend(lst2)</code></td>
+    <td>Add all items</td>
+    <td><code>lst.extend([4, 5])</code></td>
+  </tr>
+  <tr>
+    <td><code>remove(x)</code></td>
+    <td>Remove first match</td>
+    <td><code>lst.remove("apple")</code></td>
+  </tr>
+  <tr>
+    <td><code>pop()</code></td>
+    <td>Remove/return last</td>
+    <td><code>item = lst.pop()</code></td>
+  </tr>
+  <tr>
+    <td><code>pop(i)</code></td>
+    <td>Remove/return at i</td>
+    <td><code>item = lst.pop(0)</code></td>
+  </tr>
+  <tr>
+    <td><code>clear()</code></td>
+    <td>Remove all</td>
+    <td><code>lst.clear()</code></td>
+  </tr>
+  <tr>
+    <td><code>index(x)</code></td>
+    <td>Find index</td>
+    <td><code>i = lst.index("apple")</code></td>
+  </tr>
+  <tr>
+    <td><code>count(x)</code></td>
+    <td>Count occurrences</td>
+    <td><code>n = lst.count(5)</code></td>
+  </tr>
+  <tr>
+    <td><code>sort()</code></td>
+    <td>Sort in place</td>
+    <td><code>lst.sort()</code></td>
+  </tr>
+  <tr>
+    <td><code>reverse()</code></td>
+    <td>Reverse in place</td>
+    <td><code>lst.reverse()</code></td>
+  </tr>
+  <tr>
+    <td><code>copy()</code></td>
+    <td>Shallow copy</td>
+    <td><code>new = lst.copy()</code></td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Exercise 2.1: Shopping List (5 min)</h2>
+
+<pre><code class="language-python"># Create a shopping list
+shopping = ["milk", "bread", "eggs"]
+
+# 1. Add "cheese" to the end
+
+# 2. Add "butter" at position 1 (between milk and bread)
+
+# 3. Remove "eggs"
+
+# 4. Check if "milk" is in the list
+
+# 5. Print the final list and its length
+
+</code></pre>
+
+<div class="callout callout-tip"><strong>💡 Tip:</strong> 🤖 <strong>Stuck?</strong> Ask Gemini: "How do I insert an item at a specific position in a Python list?"
+</div>
+</section>
+<section>
+    <h2>Exercise 2.1: Solution</h2>
+
+<pre><code class="language-python">shopping = ["milk", "bread", "eggs"]
+print(f"Initial: {shopping}")
+
+# 1. Add "cheese" to the end
+shopping.append("cheese")
+print(f"After append: {shopping}")
+
+# 2. Add "butter" at position 1
+shopping.insert(1, "butter")
+print(f"After insert: {shopping}")
+
+# 3. Remove "eggs"
+shopping.remove("eggs")
+print(f"After remove: {shopping}")
+
+# 4. Check if "milk" is in the list
+has_milk = "milk" in shopping
+print(f"Has milk: {has_milk}")
+
+# 5. Print final list and length
+print(f"Final list: {shopping}")
+print(f"Length: {len(shopping)}")
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 2.2: Number Statistics (5 min)</h2>
+
+<pre><code class="language-python">scores = [78, 92, 85, 90, 88, 76, 95, 89, 84, 91]
+
+# Calculate and print:
+# 1. Number of scores
+# 2. Highest score
+# 3. Lowest score
+# 4. Sum of all scores
+# 5. Average score (formatted to 1 decimal)
+# 6. The scores sorted from highest to lowest
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 2.2: Solution</h2>
+
+<pre><code class="language-python">scores = [78, 92, 85, 90, 88, 76, 95, 89, 84, 91]
+
+<p>print(f"Number of scores: {len(scores)}")
+print(f"Highest score: {max(scores)}")
+print(f"Lowest score: {min(scores)}")
+print(f"Sum of scores: {sum(scores)}")
+print(f"Average score: {sum(scores) / len(scores):.1f}")</p>
+
+# For sorted display without modifying original
+print(f"Sorted (high to low): {sorted(scores, reverse=True)}")
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>Number of scores: 10
+Highest score: 95
+Lowest score: 76
+Sum of scores: 868
+Average score: 86.8
+Sorted (high to low): [95, 92, 91, 90, 89, 88, 85, 84, 78, 76]
+</code></pre>
+</section>
+<section>
+    <h2>Copying Lists: The Trap!</h2>
+
+<pre><code class="language-python"># This does NOT create a copy!
+original = [1, 2, 3]
+reference = original  # Just creates another name for same list!
+
+<p>reference.append(4)
+print(original)  # [1, 2, 3, 4] - Original changed too!</p>
+
+# To create an actual copy:
+original = [1, 2, 3]
+copy1 = original.copy()      # Method 1
+copy2 = list(original)       # Method 2
+copy3 = original[:]          # Method 3
+
+<p>copy1.append(4)
+print(original)  # [1, 2, 3] - Original unchanged!
+print(copy1)     # [1, 2, 3, 4]
+</code></pre></p>
+</section>
+<section>
+    <h2>Nested Lists (2D Lists)</h2>
+
+<p>Lists can contain other lists:</p>
+
+<pre><code class="language-python"># A matrix (2D grid)
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+<p>print(matrix[0])      # First row: [1, 2, 3]
+print(matrix[1][2])   # Row 1, Column 2: 6
+print(matrix[-1][-1]) # Last row, last column: 9</p>
+
+# Modify a cell
+matrix[1][1] = 50
+print(matrix[1])      # [4, 50, 6]
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 3: Dictionaries</h1>
+    <p>Key-Value Pairs (45 minutes)</p>
+</section>
+<section>
+    <h2>What is a Dictionary?</h2>
+
+<p>A dictionary stores <strong>key-value pairs</strong> enclosed in curly braces <code>{}</code>.</p>
+
+<pre><code class="language-python"># A person's information
+person = {
+    "name": "Alice",
+    "age": 28,
+    "city": "Ljubljana",
+    "is_student": False
+}
+
+<p>print(person)
+print(type(person))
+</code></pre></p>
+
+<ul>
+  <li>Keys are unique identifiers (like "name")</li>
+  <li>Values are the data (like "Alice")</li>
+  <li>Access values using their keys (not indices!)</li>
+</ul>
+</section>
+<section>
+    <h2>Why Dictionaries?</h2>
+
+<strong>Lists</strong> are great when you have ordered data:
+<pre><code class="language-python"># What does index 0 mean? 1? We don't know!
+person = ["Alice", 28, "Ljubljana"]
+</code></pre>
+
+<strong>Dictionaries</strong> are self-documenting:
+<pre><code class="language-python"># Crystal clear what each value means!
+person = {"name": "Alice", "age": 28, "city": "Ljubljana"}
+</code></pre>
+
+<p>Use dictionaries when data has <strong>meaningful labels</strong>.</p>
+
+<div class="callout callout-tip"><strong>💡 Tip:</strong> 🤖 <strong>Gemini Prompt:</strong> "What's the difference between a Python list and dictionary? When should I use each?"
+</div>
+</section>
+<section>
+    <h2>Creating Dictionaries</h2>
+
+<pre><code class="language-python"># Method 1: Curly braces (most common)
+person = {"name": "Alice", "age": 28}
+
+# Method 2: dict() constructor
+person = dict(name="Alice", age=28)
+
+# Method 3: From list of tuples
+person = dict([("name", "Alice"), ("age", 28)])
+
+# Empty dictionary
+empty1 = {}
+empty2 = dict()
+
+<p>print(person)
+</code></pre></p>
+</section>
+<section>
+    <h2>Dictionary Keys</h2>
+
+<strong>Keys can be:</strong>
+<ul>
+  <li>Strings (most common)</li>
+  <li>Numbers</li>
+  <li>Tuples</li>
+  <li>Any <strong>immutable</strong> type</li>
+</ul>
+<strong>Keys cannot be:</strong>
+<ul>
+  <li>Lists</li>
+  <li>Dictionaries</li>
+  <li>Any <strong>mutable</strong> type</li>
+</ul>
+<pre><code class="language-python">valid = {
+    "name": "Alice",      # String key
+    42: "answer",         # Integer key
+    (1, 2): "coordinates" # Tuple key
+}
+
+# This would cause an error:
+# invalid = {[1, 2]: "value"}  # Lists can't be keys!
+</code></pre>
+</section>
+<section>
+    <h2>Accessing Values</h2>
+
+<p>Use square brackets with the key:</p>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28, "city": "Ljubljana"}
+
+<p>print(person["name"])   # Alice
+print(person["age"])    # 28
+print(person["city"])   # Ljubljana</p>
+
+# This causes KeyError if key doesn't exist:
+# print(person["job"])  # KeyError: 'job'
+</code></pre>
+</section>
+<section>
+    <h2>Safe Access with get()</h2>
+
+<p>Use <code>get()</code> to avoid KeyError:</p>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28}
+
+# get() returns None if key doesn't exist
+print(person.get("name"))    # Alice
+print(person.get("job"))     # None (no error!)
+
+# get() with default value
+print(person.get("job", "Unknown"))  # Unknown
+print(person.get("age", 0))          # 28 (key exists, returns actual value)
+</code></pre>
+
+<div class="callout callout-tip"><strong>💡 Tip:</strong> Use <code>get()</code> when you're not sure if the key exists!
+</div>
+</section>
+<section>
+    <h2>Adding and Modifying Values</h2>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28}
+print(f"Initial: {person}")
+
+# Add new key-value pair
+person["city"] = "Ljubljana"
+print(f"After adding city: {person}")
+
+# Modify existing value
+person["age"] = 29
+print(f"After updating age: {person}")
+
+# Add another new pair
+person["job"] = "Analyst"
+print(f"After adding job: {person}")
+</code></pre>
+</section>
+<section>
+    <h2>Removing Items</h2>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28, "city": "Ljubljana"}
+
+# pop() removes and returns value
+age = person.pop("age")
+print(f"Removed age: {age}, Dict: {person}")
+
+# pop() with default (no error if key doesn't exist)
+job = person.pop("job", "N/A")
+print(f"Job: {job}")
+
+# del removes key-value pair
+del person["city"]
+print(f"After del city: {person}")
+
+# clear() removes all items
+person.clear()
+print(f"After clear: {person}")
+</code></pre>
+</section>
+<section>
+    <h2>Checking Keys</h2>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28}
+
+# Check if key exists
+print("name" in person)    # True
+print("job" in person)     # False
+print("job" not in person) # True
+
+# Check if value exists (less common)
+print("Alice" in person.values())  # True
+</code></pre>
+</section>
+<section>
+    <h2>Dictionary Methods: keys(), values(), items()</h2>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28, "city": "Ljubljana"}
+
+# Get all keys
+print(person.keys())
+# dict_keys(['name', 'age', 'city'])
+
+# Get all values
+print(person.values())
+# dict_values(['Alice', 28, 'Ljubljana'])
+
+# Get all key-value pairs as tuples
+print(person.items())
+# dict_items([('name', 'Alice'), ('age', 28), ('city', 'Ljubljana')])
+
+# Convert to regular lists if needed
+print(list(person.keys()))  # ['name', 'age', 'city']
+</code></pre>
+</section>
+<section>
+    <h2>Looping Through Dictionaries</h2>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28, "city": "Ljubljana"}
+
+# Loop through keys (default)
+for key in person:
+    print(key)
+
+# Loop through values
+for value in person.values():
+    print(value)
+
+# Loop through both (most useful!)
+for key, value in person.items():
+    print(f"{key}: {value}")
+</code></pre>
+</section>
+<section>
+    <h2>Dictionary update()</h2>
+
+<p>Merge another dictionary:</p>
+
+<pre><code class="language-python">person = {"name": "Alice", "age": 28}
+additional_info = {"city": "Ljubljana", "job": "Analyst"}
+
+<p>person.update(additional_info)
+print(person)
+# {'name': 'Alice', 'age': 28, 'city': 'Ljubljana', 'job': 'Analyst'}</p>
+
+# Can also update with keyword arguments
+person.update(age=29, country="Slovenia")
+print(person)
+</code></pre>
+</section>
+<section>
+    <h2>Nested Dictionaries</h2>
+
+<p>Dictionaries can contain other dictionaries:</p>
+
+<pre><code class="language-python">student = {
+    "name": "Alice",
+    "age": 22,
+    "grades": {
+        "math": 95,
+        "science": 88,
+        "english": 92
+    },
+    "contact": {
+        "email": "alice@example.com",
+        "phone": "555-1234"
+    }
+}
+
+# Accessing nested values
+print(student["grades"]["math"])         # 95
+print(student["contact"]["email"])       # alice@example.com
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.1: Student Record (5 min)</h2>
+
+<pre><code class="language-python"># Create a dictionary for a student with:
+# - name
+# - age
+# - major
+# - gpa (grade point average)
+# - is_enrolled (boolean)
+
+<p>student = {
+    # Your code here
+}</p>
+
+# Print each value using the key
+# Calculate and print: "In 5 years, [name] will be [age+5] years old"
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.1: Solution</h2>
+
+<pre><code class="language-python">student = {
+    "name": "Marko",
+    "age": 22,
+    "major": "Computer Science",
+    "gpa": 3.7,
+    "is_enrolled": True
+}
+
+<p>print(f"Name: {student['name']}")
+print(f"Age: {student['age']}")
+print(f"Major: {student['major']}")
+print(f"GPA: {student['gpa']}")
+print(f"Enrolled: {student['is_enrolled']}")</p>
+
+<p>print(f"\nIn 5 years, {student['name']} will be {student['age'] + 5} years old")
+</code></pre></p>
+</section>
+<section>
+    <h2>Exercise 3.2: Word Counter (5 min)</h2>
+
+<pre><code class="language-python"># Count how many of each fruit
+fruits = ["apple", "banana", "apple", "cherry", "banana", "apple"]
+
+# Create a dictionary where:
+# - keys are fruit names
+# - values are the count
+
+# Expected result: {'apple': 3, 'banana': 2, 'cherry': 1}
+
+# Hint: Use .get() with default value of 0
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.2: Solution</h2>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "apple", "cherry", "banana", "apple"]
+
+# Method 1: Manual counting
+counts = {}
+for fruit in fruits:
+    counts[fruit] = counts.get(fruit, 0) + 1
+print(counts)
+
+# Method 2: Using list count
+counts = {}
+for fruit in set(fruits):  # set() gets unique values
+    counts[fruit] = fruits.count(fruit)
+print(counts)
+</code></pre>
+</section>
+<section>
+    <h2>Lists vs Dictionaries</h2>
+
+<table>
+  <tr>
+    <th>Feature</th>
+    <th>List</th>
+    <th>Dictionary</th>
+  </tr>
+  <tr>
+    <td>Access by</td>
+    <td>Index (number)</td>
+    <td>Key (name)</td>
+  </tr>
+  <tr>
+    <td>Order</td>
+    <td>Ordered</td>
+    <td>Ordered (Python 3.7+)</td>
+  </tr>
+  <tr>
+    <td>Syntax</td>
+    <td><code>[item1, item2]</code></td>
+    <td><code>{key1: val1, key2: val2}</code></td>
+  </tr>
+  <tr>
+    <td>Use when</td>
+    <td>Order matters</td>
+    <td>Labels matter</td>
+  </tr>
+  <tr>
+    <td>Example</td>
+    <td>Student scores</td>
+    <td>Student record</td>
+  </tr>
+</table>
+<pre><code class="language-python"># List: ordered items, accessed by position
+scores = [85, 92, 78]
+print(scores[0])  # 85
+
+# Dict: labeled items, accessed by name
+student = {"name": "Alice", "age": 28}
+print(student["name"])  # Alice
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 4: Conditionals</h1>
+    <p>Making Decisions (30 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Gemini Tips for Conditionals</h2>
+
+<strong>Helpful prompts:</strong>
+<ul>
+  <li>"Write an if-else statement to check if a number is positive, negative, or zero"</li>
+  <li>"How do I check multiple conditions with and/or in Python?"</li>
+  <li>"What's the difference between == and = in Python?"</li>
+</ul>
+</section>
+<section>
+    <h2>The if Statement</h2>
+
+<p>Execute code only when a condition is true:</p>
+
+<pre><code class="language-python">age = 20
+
+<p>if age >= 18:
+    print("You are an adult")
+    print("You can vote")</p>
+
+<p>print("This runs regardless")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>You are an adult
+You can vote
+This runs regardless
+</code></pre>
+
+<div class="callout callout-note"><strong>📝 Note:</strong> The indented code (4 spaces) is the <strong>body</strong> of the if statement.
+</div>
+</section>
+<section>
+    <h2>The if-else Statement</h2>
+
+<p>Do one thing if true, another if false:</p>
+
+<pre><code class="language-python">age = 15
+
+<p>if age >= 18:
+    print("You are an adult")
+else:
+    print("You are a minor")</p>
+
+<p>print("Done")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>You are a minor
+Done
+</code></pre>
+</section>
+<section>
+    <h2>The if-elif-else Statement</h2>
+
+<p>Multiple conditions:</p>
+
+<pre><code class="language-python">score = 85
+
+<p>if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+elif score >= 60:
+    grade = "D"
+else:
+    grade = "F"</p>
+
+<p>print(f"Score: {score}, Grade: {grade}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Score: 85, Grade: B
+</code></pre>
+</section>
+<section>
+    <h2>How elif Works</h2>
+
+<p>Python checks conditions from top to bottom and stops at the first true one:</p>
+
+<pre><code class="language-python">x = 85
+
+<p>if x >= 60:    # True! Stops here
+    print("Pass")
+elif x >= 70:  # Never checked
+    print("C")
+elif x >= 80:  # Never checked
+    print("B")
+</code></pre></p>
+
+<strong>Output:</strong> <code>Pass</code>
+
+<strong>Order matters!</strong> Put specific conditions before general ones.
+</section>
+<section>
+    <h2>Comparison Operators</h2>
+
+<table>
+  <tr>
+    <th>Operator</th>
+    <th>Meaning</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><code>==</code></td>
+    <td>Equal to</td>
+    <td><code>x == 5</code></td>
+  </tr>
+  <tr>
+    <td><code>!=</code></td>
+    <td>Not equal to</td>
+    <td><code>x != 5</code></td>
+  </tr>
+  <tr>
+    <td><code><</code></td>
+    <td>Less than</td>
+    <td><code>x < 10</code></td>
+  </tr>
+  <tr>
+    <td><code>></code></td>
+    <td>Greater than</td>
+    <td><code>x > 0</code></td>
+  </tr>
+  <tr>
+    <td><code><=</code></td>
+    <td>Less than or equal</td>
+    <td><code>x <= 10</code></td>
+  </tr>
+  <tr>
+    <td><code>>=</code></td>
+    <td>Greater than or equal</td>
+    <td><code>x >= 0</code></td>
+  </tr>
+</table>
+<pre><code class="language-python">x = 5
+print(x == 5)   # True
+print(x != 3)   # True
+print(x > 10)   # False
+print(x <= 5)   # True
+</code></pre>
+</section>
+<section>
+    <h2>Logical Operators</h2>
+
+<p>Combine multiple conditions:</p>
+
+<table>
+  <tr>
+    <th>Operator</th>
+    <th>Meaning</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><code>and</code></td>
+    <td>Both must be true</td>
+    <td><code>x > 0 and x < 10</code></td>
+  </tr>
+  <tr>
+    <td><code>or</code></td>
+    <td>At least one true</td>
+    <td><code>x < 0 or x > 10</code></td>
+  </tr>
+  <tr>
+    <td><code>not</code></td>
+    <td>Reverses the condition</td>
+    <td><code>not x == 5</code></td>
+  </tr>
+</table>
+<pre><code class="language-python">age = 25
+has_license = True
+
+<p>if age >= 18 and has_license:
+    print("Can drive")</p>
+
+<p>if age < 18 or not has_license:
+    print("Cannot drive")
+</code></pre></p>
+</section>
+<section>
+    <h2>Combining Conditions</h2>
+
+<pre><code class="language-python">age = 25
+income = 50000
+has_good_credit = True
+
+# All conditions must be true
+if age >= 18 and income >= 30000 and has_good_credit:
+    print("Loan approved!")
+else:
+    print("Loan denied")
+
+# At least one must be true
+if income > 100000 or has_good_credit:
+    print("Premium customer")
+</code></pre>
+</section>
+<section>
+    <h2>Nested Conditionals</h2>
+
+<pre><code class="language-python">age = 20
+is_student = True
+
+<p>if age >= 18:
+    print("Adult")
+    if is_student:
+        print("Adult student - 20% discount")
+    else:
+        print("Regular adult price")
+else:
+    print("Minor - requires guardian")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Adult
+Adult student - 20% discount
+</code></pre>
+</section>
+<section>
+    <h2>Conditional Expressions (Ternary)</h2>
+
+<p>One-line if-else:</p>
+
+<pre><code class="language-python">age = 20
+
+# Long form
+if age >= 18:
+    status = "adult"
+else:
+    status = "minor"
+
+# Short form (ternary)
+status = "adult" if age >= 18 else "minor"
+
+<p>print(status)  # adult
+</code></pre></p>
+
+<p>Syntax: <code>value_if_true if condition else value_if_false</code></p>
+</section>
+<section>
+    <h2>Truthy and Falsy Values</h2>
+
+<p>In conditions, these are considered <strong>False</strong> (falsy):</p>
+
+<ul>
+  <li><code>False</code></li>
+  <li><code>None</code></li>
+  <li><code>0</code>, <code>0.0</code></li>
+  <li><code>""</code> (empty string)</li>
+  <li><code>[]</code> (empty list)</li>
+  <li><code>{}</code> (empty dictionary)</li>
+</ul>
+Everything else is <strong>True</strong> (truthy):
+
+<pre><code class="language-python">items = []
+
+<p>if items:  # Empty list is falsy
+    print("Has items")
+else:
+    print("No items")  # This runs
+</code></pre></p>
+</section>
+<section>
+    <h2>Exercise 4.1: Grade Calculator (5 min)</h2>
+
+<pre><code class="language-python"># Get a score and determine the grade:
+# A: 90-100
+# B: 80-89
+# C: 70-79
+# D: 60-69
+# F: below 60
+
+<p>score = 75</p>
+
+# Your if-elif-else code here
+
+# Print: "Score: X, Grade: Y"
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 4.1: Solution</h2>
+
+<pre><code class="language-python">score = 75
+
+<p>if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+elif score >= 60:
+    grade = "D"
+else:
+    grade = "F"</p>
+
+<p>print(f"Score: {score}, Grade: {grade}")</p>
+
+# Bonus: add message
+if grade in ["A", "B"]:
+    print("Great job!")
+elif grade in ["C", "D"]:
+    print("Room for improvement")
+else:
+    print("Please see instructor")
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 4.2: Login Validator (5 min)</h2>
+
+<pre><code class="language-python"># Create a simple login validator
+# Requirements:
+# - Username must be at least 4 characters
+# - Password must be at least 8 characters
+# - Password must not be "password"
+
+<p>username = "admin"
+password = "secure123"</p>
+
+# Write conditions to validate and print appropriate messages
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 4.2: Solution</h2>
+
+<pre><code class="language-python">username = "admin"
+password = "secure123"
+
+<p>if len(username) < 4:
+    print("Username too short (min 4 characters)")
+elif len(password) < 8:
+    print("Password too short (min 8 characters)")
+elif password.lower() == "password":
+    print("Password cannot be 'password'!")
+else:
+    print(f"Welcome, {username}!")
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 5: For Loops</h1>
+    <p>Repeating Actions (30 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Gemini Tips for Loops</h2>
+
+<strong>Helpful prompts:</strong>
+<ul>
+  <li>"How do I loop through a list in Python?"</li>
+  <li>"Explain range() in Python with examples"</li>
+  <li>"How do I loop through a dictionary?"</li>
+  <li>"What's the difference between for and while loops?"</li>
+</ul>
+</section>
+<section>
+    <h2>Why Loops?</h2>
+
+<pre><code class="language-python"># Without loops - tedious and error-prone
+print("Hello Student 1")
+print("Hello Student 2")
+print("Hello Student 3")
+# ... imagine 100 students!
+
+# With loops - clean and scalable
+for i in range(1, 101):
+    print(f"Hello Student {i}")
+</code></pre>
+
+<p>Loops let us repeat actions efficiently!</p>
+</section>
+<section>
+    <h2>The for Loop</h2>
+
+<p>Iterate over items in a sequence:</p>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+
+<p>for fruit in fruits:
+    print(f"I like {fruit}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>I like apple
+I like banana
+I like cherry
+</code></pre>
+</section>
+<section>
+    <h2>How for Loops Work</h2>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+
+<p>for fruit in fruits:
+    print(fruit)
+</code></pre></p>
+
+<ol>
+  <li>Take first item ("apple") → assign to <code>fruit</code> → run body</li>
+  <li>Take second item ("banana") → assign to <code>fruit</code> → run body</li>
+  <li>Take third item ("cherry") → assign to <code>fruit</code> → run body</li>
+  <li>No more items → loop ends</li>
+</ol>
+</section>
+<section>
+    <h2>Looping Over Strings</h2>
+
+<p>Strings are sequences too:</p>
+
+<pre><code class="language-python">word = "Python"
+
+<p>for letter in word:
+    print(letter)
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>P
+y
+t
+h
+o
+n
+</code></pre>
+</section>
+<section>
+    <h2>The range() Function</h2>
+
+<p>Generate a sequence of numbers:</p>
+
+<pre><code class="language-python"># range(stop) - 0 to stop-1
+for i in range(5):
+    print(i, end=" ")  # 0 1 2 3 4
+
+<p>print()</p>
+
+# range(start, stop) - start to stop-1
+for i in range(1, 6):
+    print(i, end=" ")  # 1 2 3 4 5
+
+<p>print()</p>
+
+# range(start, stop, step)
+for i in range(0, 10, 2):
+    print(i, end=" ")  # 0 2 4 6 8
+</code></pre>
+</section>
+<section>
+    <h2>Range Variations</h2>
+
+<table>
+  <tr>
+    <th>range()</th>
+    <th>Values Generated</th>
+  </tr>
+  <tr>
+    <td><code>range(5)</code></td>
+    <td>0, 1, 2, 3, 4</td>
+  </tr>
+  <tr>
+    <td><code>range(1, 5)</code></td>
+    <td>1, 2, 3, 4</td>
+  </tr>
+  <tr>
+    <td><code>range(1, 10, 2)</code></td>
+    <td>1, 3, 5, 7, 9</td>
+  </tr>
+  <tr>
+    <td><code>range(10, 0, -1)</code></td>
+    <td>10, 9, 8, 7, 6, 5, 4, 3, 2, 1</td>
+  </tr>
+  <tr>
+    <td><code>range(5, 0, -1)</code></td>
+    <td>5, 4, 3, 2, 1</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>The Accumulator Pattern</h2>
+
+<p>Build up a result in a loop:</p>
+
+<pre><code class="language-python"># Sum numbers 1 to 10
+total = 0  # Accumulator variable
+
+<p>for num in range(1, 11):
+    total = total + num
+    print(f"Added {num}, total is now {total}")</p>
+
+<p>print(f"Final sum: {total}")
+</code></pre></p>
+</section>
+<section>
+    <h2>Accumulator Pattern: More Examples</h2>
+
+<pre><code class="language-python"># Count even numbers
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even_count = 0
+
+<p>for num in numbers:
+    if num % 2 == 0:
+        even_count += 1</p>
+
+<p>print(f"Even numbers: {even_count}")</p>
+
+# Build a string
+letters = ["P", "y", "t", "h", "o", "n"]
+word = ""
+
+<p>for letter in letters:
+    word += letter</p>
+
+<p>print(f"Word: {word}")
+</code></pre></p>
+</section>
+<section>
+    <h2>Accumulator Pattern: Building Lists</h2>
+
+<pre><code class="language-python"># Create a list of squares
+squares = []
+
+<p>for num in range(1, 6):
+    squares.append(num ** 2)</p>
+
+<p>print(squares)  # [1, 4, 9, 16, 25]</p>
+
+# Filter: only even numbers
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+evens = []
+
+<p>for num in numbers:
+    if num % 2 == 0:
+        evens.append(num)</p>
+
+<p>print(evens)  # [2, 4, 6, 8, 10]
+</code></pre></p>
+</section>
+<section>
+    <h2>enumerate(): Index and Value</h2>
+
+<p>Get both the index and value:</p>
+
+<pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+
+<p>for index, fruit in enumerate(fruits):
+    print(f"{index}: {fruit}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>0: apple
+1: banana
+2: cherry
+</code></pre>
+
+<pre><code class="language-python"># Start from 1 instead of 0
+for i, fruit in enumerate(fruits, start=1):
+    print(f"{i}. {fruit}")
+</code></pre>
+</section>
+<section>
+    <h2>break: Exit Loop Early</h2>
+
+<pre><code class="language-python"># Find first even number
+numbers = [1, 3, 5, 4, 7, 2]
+
+<p>for num in numbers:
+    if num % 2 == 0:
+        print(f"Found even number: {num}")
+        break  # Stop the loop
+    print(f"Checked {num}")</p>
+
+<p>print("Loop ended")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Checked 1
+Checked 3
+Checked 5
+Found even number: 4
+Loop ended
+</code></pre>
+</section>
+<section>
+    <h2>continue: Skip to Next Iteration</h2>
+
+<pre><code class="language-python"># Print only odd numbers
+for num in range(1, 11):
+    if num % 2 == 0:
+        continue  # Skip even numbers
+    print(num)
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>1
+3
+5
+7
+9
+</code></pre>
+</section>
+<section>
+    <h2>Nested Loops</h2>
+
+<p>Loop inside a loop:</p>
+
+<pre><code class="language-python"># Multiplication table
+for i in range(1, 4):
+    for j in range(1, 4):
+        print(f"{i} x {j} = {i * j}")
+    print("---")
+</code></pre>
+
+<strong>Output:</strong>
+```
+1 x 1 = 1
+1 x 2 = 2
+1 x 3 = 3
+</section>
+<section>
+    <p>2 x 1 = 2
+...
+```</p>
+</section>
+<section>
+    <h2>Exercise 5.1: Sum Calculator (5 min)</h2>
+
+<pre><code class="language-python"># Calculate the sum of numbers 1 to 100
+# Print the final result
+
+# Then calculate the sum of only even numbers from 1 to 100
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.1: Solution</h2>
+
+<pre><code class="language-python"># Sum of 1 to 100
+total = 0
+for num in range(1, 101):
+    total += num
+print(f"Sum of 1-100: {total}")
+
+# Sum of even numbers
+even_sum = 0
+for num in range(2, 101, 2):  # Start at 2, step by 2
+    even_sum += num
+print(f"Sum of evens: {even_sum}")
+
+# Alternative for evens
+even_sum2 = 0
+for num in range(1, 101):
+    if num % 2 == 0:
+        even_sum2 += num
+print(f"Sum of evens (alt): {even_sum2}")
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.2: FizzBuzz (5 min)</h2>
+
+<p>Print numbers 1-20 with special rules:
+<ul>
+  <li>Multiples of 3 → "Fizz"</li>
+  <li>Multiples of 5 → "Buzz"</li>
+  <li>Multiples of both → "FizzBuzz"</li>
+  <li>Others → the number itself</li>
+</ul></p>
+</section>
+<section>
+    <h2>Exercise 5.2: Solution</h2>
+
+<pre><code class="language-python">for num in range(1, 21):
+    if num % 3 == 0 and num % 5 == 0:
+        print("FizzBuzz")
+    elif num % 3 == 0:
+        print("Fizz")
+    elif num % 5 == 0:
+        print("Buzz")
+    else:
+        print(num)
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 5.5: While Loops</h1>
+    <p>Repeating Until a Condition Changes (25 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Gemini Tips for While Loops</h2>
+
+<strong>Helpful prompts:</strong>
+<ul>
+  <li>"What's the difference between for and while loops in Python?"</li>
+  <li>"How do I avoid an infinite loop?"</li>
+  <li>"When should I use while instead of for?"</li>
+</ul>
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> <strong>Danger Zone:</strong> While loops can run forever if you forget to update the condition!
+</div>
+</section>
+<section>
+    <h2>For vs While: When to Use Each</h2>
+
+<table>
+  <tr>
+    <th>Use <strong>for</strong> when...</th>
+    <th>Use <strong>while</strong> when...</th>
+  </tr>
+  <tr>
+    <td>You know how many times to loop</td>
+    <td>You don't know how many times</td>
+  </tr>
+  <tr>
+    <td>Looping through a list/range</td>
+    <td>Waiting for something to happen</td>
+  </tr>
+  <tr>
+    <td>Processing each item</td>
+    <td>User input validation</td>
+  </tr>
+  <tr>
+    <td>Fixed number of iterations</td>
+    <td>Until a condition changes</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>The while Loop</h2>
+
+<p>Execute code <strong>while</strong> a condition is True:</p>
+
+<pre><code class="language-python">count = 1
+
+<p>while count <= 5:
+    print(f"Count is: {count}")
+    count = count + 1  # IMPORTANT: Update the variable!</p>
+
+<p>print("Loop finished!")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Count is: 1
+Count is: 2
+Count is: 3
+Count is: 4
+Count is: 5
+Loop finished!
+</code></pre>
+</section>
+<section>
+    <h2>How while Loops Work</h2>
+
+<pre><code class="language-python">count = 1          # 1. Initialize variable
+
+<p>while count <= 3:  # 2. Check condition
+    print(count)   # 3. Execute body
+    count += 1     # 4. Update variable (go to step 2)
+</code></pre></p>
+
+<strong>Flow:</strong>
+<ol>
+  <li><code>count = 1</code> → Is 1 <= 3? Yes → Print 1 → count = 2</li>
+  <li>Is 2 <= 3? Yes → Print 2 → count = 3</li>
+  <li>Is 3 <= 3? Yes → Print 3 → count = 4</li>
+  <li>Is 4 <= 3? No → Exit loop</li>
+</ol>
+</section>
+<section>
+    <h2>⚠️ Danger: Infinite Loops!</h2>
+
+<pre><code class="language-python"># DON'T RUN THIS - It will never stop!
+# count = 1
+# while count <= 5:
+#     print(count)
+#     # Forgot to update count!
+
+# This runs forever because count is always 1
+</code></pre>
+
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> <strong>Always make sure:</strong>
+<ol>
+  <li>Your condition can eventually become False</li>
+  <li>You update the loop variable inside the loop</li>
+</ol></div>
+</section>
+<section>
+    <h2>Practical Example: Countdown</h2>
+
+<pre><code class="language-python">import time
+
+<p>countdown = 5
+while countdown > 0:
+    print(f"{countdown}...")
+    countdown -= 1
+    # time.sleep(1)  # Uncomment to wait 1 second</p>
+
+<p>print("🚀 Liftoff!")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>5...
+4...
+3...
+2...
+1...
+🚀 Liftoff!
+</code></pre>
+</section>
+<section>
+    <h2>User Input Validation</h2>
+
+<p>Perfect use case for while loops!</p>
+
+<pre><code class="language-python"># Keep asking until valid input
+password = ""
+
+<p>while password != "secret123":
+    password = input("Enter password: ")
+    if password != "secret123":
+        print("❌ Wrong password, try again!")</p>
+
+<p>print("✅ Access granted!")
+</code></pre></p>
+</section>
+<section>
+    <h2>Menu Systems</h2>
+
+<pre><code class="language-python">choice = ""
+
+<p>while choice != "3":
+    print("\n--- Menu ---")
+    print("1. Say Hello")
+    print("2. Say Goodbye")
+    print("3. Exit")
+    
+    choice = input("Choose (1-3): ")
+    
+    if choice == "1":
+        print("Hello! 👋")
+    elif choice == "2":
+        print("Goodbye! 👋")
+    elif choice == "3":
+        print("Exiting...")
+    else:
+        print("Invalid choice!")</p>
+
+<p>print("Program ended.")
+</code></pre></p>
+</section>
+<section>
+    <h2>Guessing Game</h2>
+
+<pre><code class="language-python">import random
+
+<p>secret = random.randint(1, 10)
+guess = 0
+attempts = 0</p>
+
+<p>while guess != secret:
+    guess = int(input("Guess (1-10): "))
+    attempts += 1
+    
+    if guess < secret:
+        print("📈 Too low!")
+    elif guess > secret:
+        print("📉 Too high!")</p>
+
+<p>print(f"🎉 Correct! You got it in {attempts} tries!")
+</code></pre></p>
+</section>
+<section>
+    <h2>break: Exit Early</h2>
+
+<p>Stop the loop immediately:</p>
+
+<pre><code class="language-python">count = 1
+
+<p>while True:  # Infinite loop!
+    print(count)
+    if count >= 5:
+        break  # Exit the loop
+    count += 1</p>
+
+<p>print("Done!")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>1
+2
+3
+4
+5
+Done!
+</code></pre>
+</section>
+<section>
+    <h2>continue: Skip to Next</h2>
+
+<p>Skip the rest of this iteration:</p>
+
+<pre><code class="language-python">count = 0
+
+<p>while count < 10:
+    count += 1
+    if count % 2 == 0:  # Skip even numbers
+        continue
+    print(count)  # Only prints odd numbers
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>1
+3
+5
+7
+9
+</code></pre>
+</section>
+<section>
+    <h2>while with else</h2>
+
+<p>The else runs when condition becomes False (not on break):</p>
+
+<pre><code class="language-python">count = 1
+
+<p>while count <= 3:
+    print(count)
+    count += 1
+else:
+    print("Loop completed normally!")
+</code></pre></p>
+
+<pre><code class="language-python"># With break - else doesn't run
+count = 1
+while count <= 3:
+    if count == 2:
+        break
+    print(count)
+    count += 1
+else:
+    print("This won't print!")
+</code></pre>
+</section>
+<section>
+    <h2>Summing Numbers</h2>
+
+<pre><code class="language-python">total = 0
+number = 1
+
+<p>while number <= 100:
+    total += number
+    number += 1</p>
+
+<p>print(f"Sum of 1 to 100: {total}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Sum of 1 to 100: 5050
+</code></pre>
+</section>
+<section>
+    <h2>Finding First Match</h2>
+
+<pre><code class="language-python">numbers = [3, 7, 2, 9, 4, 6, 8]
+target = 9
+index = 0
+
+<p>while index < len(numbers):
+    if numbers[index] == target:
+        print(f"Found {target} at index {index}")
+        break
+    index += 1
+else:
+    print(f"{target} not found")
+</code></pre></p>
+</section>
+<section>
+    <h2>Processing Until Empty</h2>
+
+<pre><code class="language-python">tasks = ["Email", "Meeting", "Report", "Call"]
+
+<p>while tasks:  # Empty list is False
+    current = tasks.pop(0)  # Remove first item
+    print(f"✅ Completed: {current}")</p>
+
+<p>print("All tasks done!")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>✅ Completed: Email
+✅ Completed: Meeting
+✅ Completed: Report
+✅ Completed: Call
+All tasks done!
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.5: Password Validator (5 min)</h2>
+
+<pre><code class="language-python"># Create a password checker that:
+# 1. Asks user to create a password
+# 2. Password must be at least 8 characters
+# 3. Keep asking until valid password entered
+# 4. Then confirm by asking them to re-enter
+# 5. Keep asking until passwords match
+
+# Your code here:
+
+</code></pre>
+
+<div class="callout callout-tip"><strong>💡 Tip:</strong> 🤖 <strong>Stuck?</strong> Ask Gemini: "How do I validate password length in a while loop?"
+</div>
+</section>
+<section>
+    <h2>Exercise 5.5: Solution</h2>
+
+<pre><code class="language-python"># Step 1: Get valid password (at least 8 chars)
+password = ""
+while len(password) < 8:
+    password = input("Create password (min 8 chars): ")
+    if len(password) < 8:
+        print(f"❌ Too short! ({len(password)} chars)")
+
+<p>print("✅ Password accepted!")</p>
+
+# Step 2: Confirm password
+confirm = ""
+while confirm != password:
+    confirm = input("Confirm password: ")
+    if confirm != password:
+        print("❌ Passwords don't match!")
+
+<p>print("✅ Password confirmed and saved!")
+</code></pre></p>
+</section>
+<section>
+    <h2>Exercise 5.6: Number Guessing Game (5 min)</h2>
+
+<pre><code class="language-python"># Create a number guessing game:
+# 1. Generate random number 1-20
+# 2. Give player 5 attempts
+# 3. Tell them higher/lower after each guess
+# 4. End when they guess correctly or run out of attempts
+
+<p>import random</p>
+
+# Your code here:
+
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.6: Solution</h2>
+
+<pre><code class="language-python">import random
+
+<p>secret = random.randint(1, 20)
+attempts_left = 5
+won = False</p>
+
+<p>print("🎮 Guess the number (1-20)")
+print(f"You have {attempts_left} attempts")</p>
+
+<p>while attempts_left > 0 and not won:
+    guess = int(input("Your guess: "))
+    attempts_left -= 1
+    
+    if guess == secret:
+        print(f"🎉 Correct! You won with {5 - attempts_left} guesses!")
+        won = True
+    elif guess < secret:
+        print(f"📈 Higher! ({attempts_left} attempts left)")
+    else:
+        print(f"📉 Lower! ({attempts_left} attempts left)")</p>
+
+<p>if not won:
+    print(f"😢 Game over! The number was {secret}")
+</code></pre></p>
+</section>
+<section>
+    <h2>For vs While: Summary</h2>
+
+<pre><code class="language-python"># FOR: When you know the iterations
+for i in range(5):
+    print(i)
+
+# FOR: When iterating a collection
+for item in ["a", "b", "c"]:
+    print(item)
+
+# WHILE: When waiting for condition
+password = ""
+while password != "secret":
+    password = input("Password: ")
+
+# WHILE: When count is unknown
+import random
+rolls = 0
+while random.randint(1, 6) != 6:
+    rolls += 1
+print(f"Took {rolls + 1} rolls to get a 6")
+</code></pre>
+</section>
+<section>
+    <h2>Common While Loop Patterns</h2>
+
+<table>
+  <tr>
+    <th>Pattern</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td>Counter</td>
+    <td><code>while count < 10:</code></td>
+  </tr>
+  <tr>
+    <td>Sentinel</td>
+    <td><code>while answer != "quit":</code></td>
+  </tr>
+  <tr>
+    <td>Flag</td>
+    <td><code>while not done:</code></td>
+  </tr>
+  <tr>
+    <td>Input validation</td>
+    <td><code>while not valid:</code></td>
+  </tr>
+  <tr>
+    <td>Processing</td>
+    <td><code>while items:</code> (until empty)</td>
+  </tr>
+  <tr>
+    <td>Infinite + break</td>
+    <td><code>while True: ... break</code></td>
+  </tr>
+</table>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 6: List Comprehensions</h1>
+    <p>Elegant One-Liners (20 minutes)</p>
+</section>
+<section>
+    <h2>The Traditional Way</h2>
+
+<pre><code class="language-python"># Create list of squares
+squares = []
+for num in range(1, 6):
+    squares.append(num ** 2)
+print(squares)
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>[1, 4, 9, 16, 25]
+</code></pre>
+
+<p>This works, but there's a more elegant way...</p>
+</section>
+<section>
+    <h2>List Comprehension</h2>
+
+<p>Same result in one line:</p>
+
+<pre><code class="language-python">squares = [num ** 2 for num in range(1, 6)]
+print(squares)
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>[1, 4, 9, 16, 25]
+</code></pre>
+
+<p>Syntax: <code>[expression for item in iterable]</code></p>
+</section>
+<section>
+    <h2>Comparing Approaches</h2>
+
+<pre><code class="language-python"># Traditional (4 lines)
+result = []
+for x in range(5):
+    result.append(x ** 2)
+
+# List comprehension (1 line)
+result = [x ** 2 for x in range(5)]
+</code></pre>
+
+<p>Both produce <code>[0, 1, 4, 9, 16]</code></p>
+
+<p>Comprehensions are:
+<ul>
+  <li>More concise</li>
+  <li>More Pythonic</li>
+  <li>Often faster</li>
+  <li>Easier to read (once you learn them)</li>
+</ul></p>
+</section>
+<section>
+    <h2>More Comprehension Examples</h2>
+
+<pre><code class="language-python"># Double each number
+numbers = [1, 2, 3, 4, 5]
+doubled = [n * 2 for n in numbers]
+print(doubled)  # [2, 4, 6, 8, 10]
+
+# Convert to uppercase
+words = ["hello", "world"]
+upper = [w.upper() for w in words]
+print(upper)  # ['HELLO', 'WORLD']
+
+# Get lengths
+lengths = [len(w) for w in words]
+print(lengths)  # [5, 5]
+</code></pre>
+</section>
+<section>
+    <h2>Comprehensions with Conditionals</h2>
+
+<p>Add a filter:</p>
+
+<pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Only even numbers
+evens = [n for n in numbers if n % 2 == 0]
+print(evens)  # [2, 4, 6, 8, 10]
+
+# Squares of even numbers
+even_squares = [n ** 2 for n in numbers if n % 2 == 0]
+print(even_squares)  # [4, 16, 36, 64, 100]
+</code></pre>
+
+<p>Syntax: <code>[expression for item in iterable if condition]</code></p>
+</section>
+<section>
+    <h2>If-Else in Comprehensions</h2>
+
+<pre><code class="language-python">numbers = [1, 2, 3, 4, 5]
+
+# Transform based on condition
+labels = ["even" if n % 2 == 0 else "odd" for n in numbers]
+print(labels)  # ['odd', 'even', 'odd', 'even', 'odd']
+
+# Replace negative with 0
+values = [-3, -1, 0, 2, 5, -4]
+positive = [n if n > 0 else 0 for n in values]
+print(positive)  # [0, 0, 0, 2, 5, 0]
+</code></pre>
+
+<p>Note: the <code>if-else</code> goes BEFORE the <code>for</code> in this case!</p>
+</section>
+<section>
+    <h2>When to Use Comprehensions</h2>
+
+<strong>Use comprehensions for:</strong>
+<ul>
+  <li>Simple transformations</li>
+  <li>Filtering</li>
+  <li>One-liners that are still readable</li>
+</ul>
+<strong>Use traditional loops for:</strong>
+<ul>
+  <li>Complex logic</li>
+  <li>Multiple statements per iteration</li>
+  <li>When readability suffers</li>
+  <li>When you need to break or modify external state</li>
+</ul>
+</section>
+<section>
+    <h2>Exercise 6.1: Comprehension Practice (5 min)</h2>
+
+<pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 1. Create a list of cubes (n ** 3)
+cubes = ...
+
+# 2. Create a list of numbers greater than 5
+greater_than_5 = ...
+
+# 3. Create a list of "even" or "odd" for each number
+even_odd = ...
+
+# 4. Create a list of first 10 multiples of 7
+multiples_of_7 = ...
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 6.1: Solution</h2>
+
+<pre><code class="language-python">numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 1. Cubes
+cubes = [n ** 3 for n in numbers]
+print(cubes)  # [1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]
+
+# 2. Greater than 5
+greater_than_5 = [n for n in numbers if n > 5]
+print(greater_than_5)  # [6, 7, 8, 9, 10]
+
+# 3. Even or odd
+even_odd = ["even" if n % 2 == 0 else "odd" for n in numbers]
+print(even_odd)
+
+# 4. Multiples of 7
+multiples_of_7 = [7 * i for i in range(1, 11)]
+print(multiples_of_7)  # [7, 14, 21, 28, 35, 42, 49, 56, 63, 70]
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 7: Practice Projects</h1>
+    <p>Apply Everything (25 minutes)</p>
+</section>
+<section>
+    <h2>Project 1: Contact Book</h2>
+
+<p>Create a program that:
+<ul>
+  <li>Stores contacts as a list of dictionaries</li>
+  <li>Allows adding new contacts</li>
+  <li>Displays all contacts nicely formatted</li>
+</ul>
+<pre><code class="language-python">contacts = [
+    {"name": "Alice", "phone": "555-1234", "email": "alice@example.com"},
+    {"name": "Bob", "phone": "555-5678", "email": "bob@example.com"}
+]
+</code></pre></p>
+</section>
+<section>
+    <h2>Project 1: Solution</h2>
+
+<pre><code class="language-python">contacts = [
+    {"name": "Alice", "phone": "555-1234", "email": "alice@example.com"},
+    {"name": "Bob", "phone": "555-5678", "email": "bob@example.com"}
+]
+
+# Add a new contact
+new_contact = {
+    "name": "Charlie",
+    "phone": "555-9999",
+    "email": "charlie@example.com"
+}
+contacts.append(new_contact)
+
+# Display all contacts
+print("=" * 50)
+print("CONTACT BOOK".center(50))
+print("=" * 50)
+
+<p>for i, contact in enumerate(contacts, 1):
+    print(f"\nContact #{i}")
+    print(f"  Name:  {contact['name']}")
+    print(f"  Phone: {contact['phone']}")
+    print(f"  Email: {contact['email']}")</p>
+
+<p>print("\n" + "=" * 50)
+print(f"Total contacts: {len(contacts)}")
+</code></pre></p>
+</section>
+<section>
+    <h2>Project 2: Grade Analyzer</h2>
+
+<p>Given student scores, calculate:
+<ul>
+  <li>Average</li>
+  <li>Highest/lowest</li>
+  <li>Pass/fail counts</li>
+  <li>Letter grades</li>
+</ul>
+<pre><code class="language-python">scores = [85, 92, 78, 65, 90, 88, 55, 95, 72, 80]
+</code></pre></p>
+</section>
+<section>
+    <h2>Project 2: Solution</h2>
+
+<pre><code class="language-python">scores = [85, 92, 78, 65, 90, 88, 55, 95, 72, 80]
+
+# Basic stats
+average = sum(scores) / len(scores)
+highest = max(scores)
+lowest = min(scores)
+
+# Pass/fail (60 is passing)
+passing = [s for s in scores if s >= 60]
+failing = [s for s in scores if s < 60]
+
+# Assign grades
+def get_grade(score):
+    if score >= 90: return 'A'
+    if score >= 80: return 'B'
+    if score >= 70: return 'C'
+    if score >= 60: return 'D'
+    return 'F'
+
+<p>grades = [get_grade(s) for s in scores]</p>
+
+<p>print(f"Scores: {scores}")
+print(f"Average: {average:.1f}")
+print(f"Highest: {highest}, Lowest: {lowest}")
+print(f"Passing: {len(passing)}, Failing: {len(failing)}")
+print(f"Grades: {grades}")
+</code></pre></p>
+</section>
+<section>
+    <h2>Project 3: Word Frequency Counter</h2>
+
+<p>Count word frequencies in a sentence:</p>
+
+<pre><code class="language-python">text = "the quick brown fox jumps over the lazy dog the fox is quick"
+</code></pre>
+</section>
+<section>
+    <h2>Project 3: Solution</h2>
+
+<pre><code class="language-python">text = "the quick brown fox jumps over the lazy dog the fox is quick"
+
+# Split into words
+words = text.lower().split()
+
+# Count frequencies
+word_counts = {}
+for word in words:
+    word_counts[word] = word_counts.get(word, 0) + 1
+
+# Display sorted by frequency
+print("Word Frequencies:")
+print("-" * 20)
+
+<p>for word, count in sorted(word_counts.items(), key=lambda x: x[1], reverse=True):
+    bar = "█" * count
+    print(f"{word:10} {count:2} {bar}")</p>
+
+<p>print(f"\nTotal words: {len(words)}")
+print(f"Unique words: {len(word_counts)}")
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Module 2 Summary</h1>
+    
+</section>
+<section>
+    <h2>What You Learned Today</h2>
+
+<ol>
+  <li><strong>Lists</strong> - Ordered collections with indices</li>
+  <li><strong>List methods</strong> - append, insert, remove, pop, sort</li>
+  <li><strong>Slicing</strong> - Extract portions with <code>[start:stop:step]</code></li>
+  <li><strong>Dictionaries</strong> - Key-value pairs</li>
+  <li><strong>Dictionary methods</strong> - keys, values, items, get</li>
+  <li><strong>Conditionals</strong> - if, elif, else</li>
+  <li><strong>Comparison operators</strong> - ==, !=, <, >, <=, >=</li>
+  <li><strong>Logical operators</strong> - and, or, not</li>
+  <li><strong>For loops</strong> - Iterate over sequences</li>
+  <li><strong>Range</strong> - Generate number sequences</li>
+  <li><strong>Accumulator pattern</strong> - Build results in loops</li>
+  <li><strong>List comprehensions</strong> - Elegant one-liners</li>
+</ol>
+</section>
+<section>
+    <h2>Key Takeaways</h2>
+
+<ul>
+  <li><strong>Lists</strong> are ordered: <code>my_list[0]</code> gets first item</li>
+  <li><strong>Dictionaries</strong> use keys: <code>my_dict["key"]</code></li>
+  <li><strong>if/elif/else</strong> for decisions</li>
+  <li><strong>for loops</strong> iterate over collections</li>
+  <li><strong>Accumulator</strong>: start with 0 or [], build in loop</li>
+  <li><strong>Comprehensions</strong>: <code>[x**2 for x in range(5)]</code></li>
+</ul>
+</section>
+<section>
+    <h2>Before Next Session</h2>
+
+<p>✅ Complete all exercises in this notebook</p>
+
+<p>✅ Complete Module 2 Quiz in Moodle</p>
+
+<p>✅ Submit FizzBuzz assignment</p>
+
+<p>✅ Post in forum: Share a cool use of lists or dictionaries!</p>
+</section>
+<section>
+    <h2>Next Module Preview</h2>
+
+<strong>Module 3: Pandas</strong>
+
+<ul>
+  <li>Loading data from files</li>
+  <li>DataFrames and Series</li>
+  <li>Filtering and selecting data</li>
+  <li>GroupBy operations</li>
+  <li>Handling missing data</li>
+</ul>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Questions?</h1>
+    <p>Ask now, post in the forum, or ask Gemini!</p>
+</section>
+            
+        </div>
+    </div>
+    
+    <!-- RevealJS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/notes/notes.min.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            width: 1600,
+            height: 900,
+            margin: 0.1,
+            transition: 'slide',
+            plugins: [ RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

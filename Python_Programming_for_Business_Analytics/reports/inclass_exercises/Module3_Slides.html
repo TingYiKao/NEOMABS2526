@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: Pandas Fundamentals</title>
+    
+    <!-- RevealJS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/simple.min.css">
+    
+    <!-- Highlight.js for code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+    <style>
+        .reveal h1 { font-size: 2.2em; color: #2c3e50; }
+        .reveal h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        .reveal h3 { font-size: 1.3em; color: #34495e; }
+        .reveal pre { font-size: 0.7em; width: 100%; }
+        .reveal code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background: #f8f9fa; padding: 15px; display: block; overflow-x: auto; }
+        .reveal table { font-size: 0.8em; border-collapse: collapse; margin: 20px auto; }
+        .reveal th, .reveal td { border: 1px solid #ddd; padding: 10px 15px; text-align: left; }
+        .reveal th { background: #3498db; color: white; }
+        .reveal tr:nth-child(even) { background: #f9f9f9; }
+        .reveal .callout { padding: 15px 20px; border-radius: 8px; margin: 15px 0; text-align: left; }
+        .reveal .callout-tip { background: #d4edda; border-left: 5px solid #28a745; }
+        .reveal .callout-note { background: #d1ecf1; border-left: 5px solid #17a2b8; }
+        .reveal .callout-warning { background: #fff3cd; border-left: 5px solid #ffc107; }
+        .reveal ul, .reveal ol { text-align: left; display: block; margin-left: 1em; }
+        .reveal li { margin: 10px 0; }
+        .reveal section { text-align: left; }
+        .reveal section[data-background-color] { text-align: center; }
+        .reveal section[data-background-color] h1 { color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .reveal section[data-background-color] p { color: white; font-size: 1.2em; }
+        .reveal .slide-number { font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-color="#2c3e50">
+                <h1 style="color: white;">Module 3: Pandas Fundamentals</h1>
+                <p style="color: #ecf0f1; font-size: 1.3em;">DataFrames • Filtering • Dates • Strings • GroupBy</p>
+                <p style="color: #bdc3c7;">Python for Data Science Course</p>
+                <p style="color: #95a5a6; font-size: 0.9em; margin-top: 40px;">dr. Uroš Godnov</p>
+            </section>
+            
+            <section data-background-color="#1a5276">
+    <h1>🤖 Using Gemini AI for Pandas</h1>
+    <p>Your AI Assistant for Data Analysis</p>
+</section>
+<section>
+    <h2>Gemini Tips for Module 3</h2>
+
+<p>Pandas has many methods - Gemini can help you find the right one!</p>
+
+<strong>Essential prompts:</strong>
+
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Try Asking Gemini</th>
+  </tr>
+  <tr>
+    <td>Loading data</td>
+    <td>"How do I load a CSV file in pandas?"</td>
+  </tr>
+  <tr>
+    <td>Exploring</td>
+    <td>"What does df.info() show me?"</td>
+  </tr>
+  <tr>
+    <td>Filtering</td>
+    <td>"How do I filter rows where Age > 30?"</td>
+  </tr>
+  <tr>
+    <td>GroupBy</td>
+    <td>"How do I calculate average by group in pandas?"</td>
+  </tr>
+  <tr>
+    <td>Missing data</td>
+    <td>"How do I fill missing values in pandas?"</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>🤖 Pandas-Specific Gemini Tips</h2>
+
+<strong>For syntax help:</strong>
+<ul>
+  <li>"What's the difference between loc and iloc in pandas?"</li>
+  <li>"How do I select multiple columns in pandas?"</li>
+</ul>
+<strong>For data cleaning:</strong>
+<ul>
+  <li>"How do I convert a column to datetime in pandas?"</li>
+  <li>"How do I remove duplicates in pandas?"</li>
+</ul>
+<strong>For analysis:</strong>
+<ul>
+  <li>"How do I group by multiple columns in pandas?"</li>
+  <li>"Explain pandas groupby with an example"</li>
+</ul>
+<div class="callout callout-tip"><strong>💡 Tip:</strong> <strong>Pro tip:</strong> Paste your error message into Gemini for debugging help!
+</div>
+</section>
+<section>
+    <h2>🤖 When You Get Stuck</h2>
+
+<ol>
+  <li><strong>Read the error message</strong> - Often tells you what's wrong</li>
+  <li><strong>Check your column names</strong> - Spelling and case matter!</li>
+  <li><strong>Ask Gemini</strong> with your specific error</li>
+  <li><strong>Try df.head()</strong> - Make sure data looks right</li>
+</ol>
+<strong>Example prompt:</strong>
+> "I get KeyError: 'age' when running df['age'].mean(). The column exists but is named 'Age'. How do I fix this?"
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 1: Introduction to Pandas</h1>
+    <p>The Data Science Workhorse (20 minutes)</p>
+</section>
+<section>
+    <h2>What is Pandas?</h2>
+
+<ul>
+  <li><strong>Pan</strong>el <strong>Da</strong>ta library for data analysis</li>
+  <li>Created by Wes McKinney in 2008</li>
+  <li>The #1 Python library for working with tabular data</li>
+  <li>Think of it as: <strong>Excel in Python, but much more powerful!</strong></li>
+</ul>
+<pre><code class="language-python">import pandas as pd
+import numpy as np
+
+<p>print(f"Pandas version: {pd.__version__}")
+</code></pre></p>
+
+<div class="callout callout-note"><strong>📝 Note:</strong> <code>pd</code> is the standard abbreviation everyone uses for pandas.
+</div>
+</section>
+<section>
+    <h2>Why Learn Pandas?</h2>
+
+<table>
+  <tr>
+    <th>Task</th>
+    <th>Without Pandas</th>
+    <th>With Pandas</th>
+  </tr>
+  <tr>
+    <td>Load CSV</td>
+    <td>Many lines</td>
+    <td><code>pd.read_csv()</code></td>
+  </tr>
+  <tr>
+    <td>Filter rows</td>
+    <td>Manual loops</td>
+    <td>One line</td>
+  </tr>
+  <tr>
+    <td>Calculate average</td>
+    <td>Write function</td>
+    <td><code>df.mean()</code></td>
+  </tr>
+  <tr>
+    <td>Group & summarize</td>
+    <td>Complex code</td>
+    <td><code>df.groupby()</code></td>
+  </tr>
+  <tr>
+    <td>Handle dates</td>
+    <td>Very complex</td>
+    <td>Built-in support</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Pandas Data Structures</h2>
+
+<table>
+  <tr>
+    <th>Structure</th>
+    <th>Description</th>
+    <th>Like</th>
+  </tr>
+  <tr>
+    <td><strong>Series</strong></td>
+    <td>1D labeled array</td>
+    <td>Single spreadsheet column</td>
+  </tr>
+  <tr>
+    <td><strong>DataFrame</strong></td>
+    <td>2D labeled table</td>
+    <td>Entire spreadsheet</td>
+  </tr>
+</table>
+<pre><code class="language-python"># Series - like a single column
+ages = pd.Series([25, 30, 35], index=['Alice', 'Bob', 'Charlie'])
+
+# DataFrame - like a table
+df = pd.DataFrame({
+    'Name': ['Alice', 'Bob'],
+    'Age': [25, 30]
+})
+</code></pre>
+</section>
+<section>
+    <h2>Creating a DataFrame</h2>
+
+<pre><code class="language-python"># From a dictionary (most common method)
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'City': ['Ljubljana', 'Maribor', 'Celje']
+}
+df = pd.DataFrame(data)
+print(df)
+</code></pre>
+
+<pre><code>      Name  Age       City
+0    Alice   25  Ljubljana
+1      Bob   30    Maribor
+2  Charlie   35      Celje
+</code></pre>
+
+<p>The numbers 0, 1, 2 are the <strong>index</strong> (row labels).</p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 2: Loading and Exploring Data</h1>
+    <p>Working with Real Datasets (30 minutes)</p>
+</section>
+<section>
+    <h2>Loading CSV Files</h2>
+
+<pre><code class="language-python">import pandas as pd
+
+# From a URL (we'll use the Titanic dataset)
+url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+df = pd.read_csv(url)
+
+<p>print(f"Loaded {len(df)} rows and {len(df.columns)} columns")
+</code></pre></p>
+
+<pre><code class="language-python"># From a local file
+# df = pd.read_csv('my_data.csv')
+
+# Common options
+# df = pd.read_csv('file.csv', sep=';')           # Different separator
+# df = pd.read_csv('file.csv', encoding='utf-8')  # Specify encoding
+# df = pd.read_csv('file.csv', skiprows=2)        # Skip header rows
+</code></pre>
+</section>
+<section>
+    <h2>The Titanic Dataset</h2>
+
+<p>Contains information about 891 passengers:</p>
+
+<table>
+  <tr>
+    <th>Column</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>PassengerId</td>
+    <td>Unique ID number</td>
+  </tr>
+  <tr>
+    <td>Survived</td>
+    <td>0 = No, 1 = Yes</td>
+  </tr>
+  <tr>
+    <td>Pclass</td>
+    <td>Ticket class (1 = First, 2 = Second, 3 = Third)</td>
+  </tr>
+  <tr>
+    <td>Name</td>
+    <td>Passenger's full name</td>
+  </tr>
+  <tr>
+    <td>Sex</td>
+    <td>male or female</td>
+  </tr>
+  <tr>
+    <td>Age</td>
+    <td>Age in years</td>
+  </tr>
+  <tr>
+    <td>Fare</td>
+    <td>Ticket price</td>
+  </tr>
+  <tr>
+    <td>Embarked</td>
+    <td>Port: C = Cherbourg, Q = Queenstown, S = Southampton</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>First Look: shape</h2>
+
+<pre><code class="language-python"># How big is the data?
+print(df.shape)
+</code></pre>
+
+<pre><code>(891, 12)
+</code></pre>
+
+<p>This means: <strong>891 rows</strong> and <strong>12 columns</strong></p>
+
+<pre><code class="language-python"># Access separately
+print(f"Rows: {df.shape[0]}")
+print(f"Columns: {df.shape[1]}")
+</code></pre>
+</section>
+<section>
+    <h2>First Look: head() and tail()</h2>
+
+<pre><code class="language-python"># First 5 rows (default)
+df.head()
+
+# First 10 rows
+df.head(10)
+
+# Last 5 rows
+df.tail()
+
+# Last 3 rows
+df.tail(3)
+
+# Random sample
+df.sample(5)
+</code></pre>
+</section>
+<section>
+    <h2>Column Names</h2>
+
+<pre><code class="language-python"># List all column names
+print(df.columns)
+</code></pre>
+
+<pre><code>Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 
+       'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked'], dtype='object')
+</code></pre>
+
+<pre><code class="language-python"># As a regular Python list
+print(df.columns.tolist())
+</code></pre>
+</section>
+<section>
+    <h2>Data Types: dtypes</h2>
+
+<pre><code class="language-python">print(df.dtypes)
+</code></pre>
+
+<pre><code>PassengerId      int64
+Survived         int64
+Pclass           int64
+Name            object    <-- 'object' usually means string/text
+Sex             object
+Age            float64    <-- float because some values are missing
+SibSp            int64
+Parch            int64
+Ticket          object
+Fare           float64
+Cabin           object
+Embarked        object
+dtype: object
+</code></pre>
+</section>
+<section>
+    <h2>Comprehensive Info: info()</h2>
+
+<pre><code class="language-python">df.info()
+</code></pre>
+
+<pre><code><class 'pandas.core.frame.DataFrame'>
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64  <-- Only 714! Missing values!
+ 6   Cabin        204 non-null    object   <-- Lots missing!
+...
+</code></pre>
+</section>
+<section>
+    <h2>Statistical Summary: describe()</h2>
+
+<pre><code class="language-python">df.describe()
+</code></pre>
+
+<p>Shows for <strong>numeric columns only</strong>:
+<ul>
+  <li>count: non-missing values</li>
+  <li>mean: average</li>
+  <li>std: standard deviation</li>
+  <li>min, max: minimum and maximum</li>
+  <li>25%, 50%, 75%: quartiles (50% is median)</li>
+</ul></p>
+</section>
+<section>
+    <h2>Value Counts: Counting Categories</h2>
+
+<pre><code class="language-python"># How many of each value?
+print(df['Survived'].value_counts())
+</code></pre>
+
+<pre><code>0    549    (did not survive)
+1    342    (survived)
+Name: Survived, dtype: int64
+</code></pre>
+
+<pre><code class="language-python"># As percentages
+print(df['Survived'].value_counts(normalize=True))
+</code></pre>
+
+<pre><code>0    0.616162   (61.6%)
+1    0.383838   (38.4%)
+</code></pre>
+</section>
+<section>
+    <h2>Exploration Methods Summary</h2>
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>What it shows</th>
+  </tr>
+  <tr>
+    <td><code>df.shape</code></td>
+    <td>(rows, columns) tuple</td>
+  </tr>
+  <tr>
+    <td><code>df.columns</code></td>
+    <td>Column names</td>
+  </tr>
+  <tr>
+    <td><code>df.dtypes</code></td>
+    <td>Data type of each column</td>
+  </tr>
+  <tr>
+    <td><code>df.head(n)</code></td>
+    <td>First n rows</td>
+  </tr>
+  <tr>
+    <td><code>df.tail(n)</code></td>
+    <td>Last n rows</td>
+  </tr>
+  <tr>
+    <td><code>df.sample(n)</code></td>
+    <td>Random n rows</td>
+  </tr>
+  <tr>
+    <td><code>df.info()</code></td>
+    <td>Types + non-null counts</td>
+  </tr>
+  <tr>
+    <td><code>df.describe()</code></td>
+    <td>Statistics for numeric columns</td>
+  </tr>
+  <tr>
+    <td><code>df['col'].value_counts()</code></td>
+    <td>Count of each value</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Exercise 3.1: Explore the Titanic (10 min)</h2>
+
+<pre><code class="language-python">url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+df = pd.read_csv(url)
+
+# Answer these questions using pandas:
+# 1. How many rows and columns?
+# 2. What are the column names?
+# 3. What is the average fare?
+# 4. What is the average age?
+# 5. How many passengers in each class (Pclass)?
+# 6. How many male vs female passengers?
+# 7. What percentage survived?
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.1: Solutions</h2>
+
+<pre><code class="language-python"># 1. Rows and columns
+print(f"Shape: {df.shape}")  # (891, 12)
+
+# 2. Column names
+print(df.columns.tolist())
+
+# 3. Average fare
+print(f"Average fare: ${df['Fare'].mean():.2f}")  # $32.20
+
+# 4. Average age
+print(f"Average age: {df['Age'].mean():.1f}")  # 29.7
+
+# 5. Passengers by class
+print(df['Pclass'].value_counts().sort_index())
+
+# 6. Sex distribution
+print(df['Sex'].value_counts())
+
+# 7. Survival rate
+print(f"Survival rate: {df['Survived'].mean():.1%}")  # 38.4%
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 3: Selecting Data</h1>
+    <p>Columns and Rows (25 minutes)</p>
+</section>
+<section>
+    <h2>Selecting a Single Column</h2>
+
+<p>Use square brackets with the column name:</p>
+
+<pre><code class="language-python"># Returns a Series (1D)
+ages = df['Age']
+
+<p>print(type(ages))  # pandas.core.series.Series
+print(ages.head())
+</code></pre></p>
+
+<pre><code>0    22.0
+1    38.0
+2    26.0
+3    35.0
+4    35.0
+Name: Age, dtype: float64
+</code></pre>
+</section>
+<section>
+    <h2>Selecting Multiple Columns</h2>
+
+<p>Use double brackets with a list of column names:</p>
+
+<pre><code class="language-python"># Returns a DataFrame (2D)
+subset = df[['Name', 'Age', 'Survived']]
+
+<p>print(type(subset))  # pandas.core.frame.DataFrame
+print(subset.head())
+</code></pre></p>
+
+<pre><code>                              Name   Age  Survived
+0            Braund, Mr. Owen Harris  22.0         0
+1  Cumings, Mrs. John Bradley...     38.0         1
+2            Heikkinen, Miss. Laina  26.0         1
+</code></pre>
+</section>
+<section>
+    <h2>Single vs Double Brackets</h2>
+
+<pre><code class="language-python"># Single brackets → Series
+df['Age']
+
+# Double brackets → DataFrame (even for one column)
+df[['Age']]
+</code></pre>
+
+<p>Why does it matter?
+<ul>
+  <li>Series: simpler, for single column operations</li>
+  <li>DataFrame: keeps table structure, needed for some operations</li>
+</ul></p>
+</section>
+<section>
+    <h2>Selecting Rows by Position: iloc</h2>
+
+<code>iloc</code> = <strong>i</strong>nteger <strong>loc</strong>ation
+
+<pre><code class="language-python"># Single row (returns Series)
+df.iloc[0]       # First row
+df.iloc[-1]      # Last row
+
+# Multiple rows (returns DataFrame)
+df.iloc[0:5]     # First 5 rows (0, 1, 2, 3, 4)
+df.iloc[[0, 2, 4]]  # Specific rows
+
+# Rows AND columns
+df.iloc[0:5, 0:3]   # First 5 rows, first 3 columns
+df.iloc[:, 0]       # All rows, first column
+</code></pre>
+</section>
+<section>
+    <h2>Selecting Rows by Label: loc</h2>
+
+<code>loc</code> = <strong>loc</strong>ation by label
+
+<pre><code class="language-python"># By index label (default index is 0, 1, 2...)
+df.loc[0]        # Row with index label 0
+df.loc[0:4]      # Rows 0, 1, 2, 3, 4 (inclusive!)
+
+# Rows and columns by name
+df.loc[0:4, 'Name']              # Single column
+df.loc[0:4, ['Name', 'Age']]     # Multiple columns
+df.loc[0:4, 'Name':'Age']        # Column range
+</code></pre>
+
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> <code>loc</code> includes the endpoint! <code>loc[0:4]</code> gives 5 rows.
+<code>iloc</code> excludes it like normal Python! <code>iloc[0:4]</code> gives 4 rows.
+</div>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 4: Filtering Data</h1>
+    <p>Finding What You Need (35 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Gemini Tips for Filtering</h2>
+
+<strong>Common prompts:</strong>
+<ul>
+  <li>"How do I filter pandas DataFrame where column equals a value?"</li>
+  <li>"How do I filter with multiple conditions in pandas?"</li>
+  <li>"What's the difference between & and 'and' in pandas filtering?"</li>
+</ul>
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> <strong>Common mistake:</strong> Using <code>and</code> instead of <code>&</code> - ask Gemini why!
+</div>
+</section>
+<section>
+    <h2>Boolean Filtering: The Concept</h2>
+
+<pre><code class="language-python"># Step 1: Create a condition (True/False for each row)
+condition = df['Age'] >= 18
+print(condition.head())
+</code></pre>
+
+<pre><code>0    True
+1    True
+2    True
+3    True
+4    True
+Name: Age, dtype: bool
+</code></pre>
+
+<pre><code class="language-python"># Step 2: Use condition to filter
+adults = df[condition]
+# Or in one line:
+adults = df[df['Age'] >= 18]
+</code></pre>
+</section>
+<section>
+    <h2>Single Condition Examples</h2>
+
+<pre><code class="language-python"># Numeric comparisons
+adults = df[df['Age'] >= 18]
+children = df[df['Age'] < 18]
+exact_age = df[df['Age'] == 30]
+
+# Categorical comparisons
+survivors = df[df['Survived'] == 1]
+first_class = df[df['Pclass'] == 1]
+women = df[df['Sex'] == 'female']
+
+# Check results
+print(f"Adults: {len(adults)}")
+print(f"Survivors: {len(survivors)}")
+print(f"Women: {len(women)}")
+</code></pre>
+</section>
+<section>
+    <h2>Comparison Operators</h2>
+
+<table>
+  <tr>
+    <th>Operator</th>
+    <th>Meaning</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><code>==</code></td>
+    <td>Equal to</td>
+    <td><code>df['Sex'] == 'female'</code></td>
+  </tr>
+  <tr>
+    <td><code>!=</code></td>
+    <td>Not equal to</td>
+    <td><code>df['Pclass'] != 3</code></td>
+  </tr>
+  <tr>
+    <td><code><</code></td>
+    <td>Less than</td>
+    <td><code>df['Age'] < 18</code></td>
+  </tr>
+  <tr>
+    <td><code>></code></td>
+    <td>Greater than</td>
+    <td><code>df['Fare'] > 100</code></td>
+  </tr>
+  <tr>
+    <td><code><=</code></td>
+    <td>Less than or equal</td>
+    <td><code>df['Age'] <= 12</code></td>
+  </tr>
+  <tr>
+    <td><code>>=</code></td>
+    <td>Greater than or equal</td>
+    <td><code>df['Age'] >= 65</code></td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Multiple Conditions: AND</h2>
+
+<p>Use <code>&</code> (ampersand) for AND:</p>
+
+<pre><code class="language-python"># Women who survived
+women_survived = df[(df['Sex'] == 'female') & (df['Survived'] == 1)]
+print(f"Women who survived: {len(women_survived)}")
+
+# Adults in first class
+adult_first = df[(df['Age'] >= 18) & (df['Pclass'] == 1)]
+print(f"Adults in first class: {len(adult_first)}")
+
+# Children who survived
+child_survivors = df[(df['Age'] < 18) & (df['Survived'] == 1)]
+print(f"Children who survived: {len(child_survivors)}")
+</code></pre>
+
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> <strong>Important:</strong> Use <code>&</code> not <code>and</code>, and ALWAYS use parentheses around each condition!
+</div>
+</section>
+<section>
+    <h2>Multiple Conditions: OR</h2>
+
+<p>Use <code>|</code> (pipe) for OR:</p>
+
+<pre><code class="language-python"># First OR second class
+upper_class = df[(df['Pclass'] == 1) | (df['Pclass'] == 2)]
+print(f"Upper class: {len(upper_class)}")
+
+# Very young or very old
+extreme_ages = df[(df['Age'] < 5) | (df['Age'] > 70)]
+print(f"Very young or old: {len(extreme_ages)}")
+</code></pre>
+</section>
+<section>
+    <h2>Negation: NOT</h2>
+
+<p>Use <code>~</code> (tilde) for NOT:</p>
+
+<pre><code class="language-python"># NOT first class
+not_first = df[~(df['Pclass'] == 1)]
+print(f"Not first class: {len(not_first)}")
+
+# NOT survived (same as Survived == 0)
+died = df[~(df['Survived'] == 1)]
+print(f"Did not survive: {len(died)}")
+</code></pre>
+</section>
+<section>
+    <h2>Complex Conditions</h2>
+
+<pre><code class="language-python"># Adult women in first class who survived
+complex_filter = df[
+    (df['Age'] >= 18) & 
+    (df['Sex'] == 'female') & 
+    (df['Pclass'] == 1) & 
+    (df['Survived'] == 1)
+]
+print(f"Adult women in 1st class who survived: {len(complex_filter)}")
+
+# Men OR children who survived
+men_or_children_survived = df[
+    ((df['Sex'] == 'male') | (df['Age'] < 18)) & 
+    (df['Survived'] == 1)
+]
+</code></pre>
+</section>
+<section>
+    <h2>Filtering with isin()</h2>
+
+<p>Check if value is in a list:</p>
+
+<pre><code class="language-python"># Passengers in 1st or 2nd class
+upper_class = df[df['Pclass'].isin([1, 2])]
+print(f"1st or 2nd class: {len(upper_class)}")
+
+# Embarked at Cherbourg or Southampton
+ports = df[df['Embarked'].isin(['C', 'S'])]
+print(f"Embarked at C or S: {len(ports)}")
+
+# Specific ages
+specific_ages = df[df['Age'].isin([25, 30, 35])]
+</code></pre>
+</section>
+<section>
+    <h2>Filtering with between()</h2>
+
+<p>Check if value is in a range:</p>
+
+<pre><code class="language-python"># Age between 20 and 30 (inclusive)
+young_adults = df[df['Age'].between(20, 30)]
+print(f"Age 20-30: {len(young_adults)}")
+
+# Fare between 10 and 50
+mid_fare = df[df['Fare'].between(10, 50)]
+print(f"Fare $10-$50: {len(mid_fare)}")
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.2: Filtering Practice (10 min)</h2>
+
+<pre><code class="language-python"># Find and count:
+# 1. Children (Age < 18)
+# 2. Male survivors
+# 3. Passengers from Southampton (Embarked == 'S')
+# 4. Women in third class who survived
+# 5. Passengers aged 30-50 who paid more than $50
+# 6. First class passengers who did NOT survive
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.2: Solutions</h2>
+
+<pre><code class="language-python"># 1. Children
+children = df[df['Age'] < 18]
+print(f"Children: {len(children)}")
+
+# 2. Male survivors
+male_surv = df[(df['Sex'] == 'male') & (df['Survived'] == 1)]
+print(f"Male survivors: {len(male_surv)}")
+
+# 3. From Southampton
+southampton = df[df['Embarked'] == 'S']
+print(f"From Southampton: {len(southampton)}")
+
+# 4. Women in 3rd class who survived
+w3s = df[(df['Sex'] == 'female') & (df['Pclass'] == 3) & (df['Survived'] == 1)]
+print(f"Women 3rd class survived: {len(w3s)}")
+
+# 5. Age 30-50, fare > 50
+a30_50_rich = df[(df['Age'].between(30, 50)) & (df['Fare'] > 50)]
+print(f"Age 30-50, fare > $50: {len(a30_50_rich)}")
+
+# 6. First class who died
+fc_died = df[(df['Pclass'] == 1) & (df['Survived'] == 0)]
+print(f"First class died: {len(fc_died)}")
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 5: String Operations</h1>
+    <p>Working with Text Data (35 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Gemini Tips for String Operations</h2>
+
+<strong>Helpful prompts:</strong>
+<ul>
+  <li>"How do I clean text columns in pandas?"</li>
+  <li>"How do I extract part of a string in pandas?"</li>
+  <li>"How do I use .str.contains() in pandas?"</li>
+  <li>"How do I split a column by comma in pandas?"</li>
+</ul>
+<strong>For regex (pattern matching):</strong>
+<ul>
+  <li>"How do I extract text between parentheses using regex in pandas?"</li>
+</ul>
+</section>
+<section>
+    <h2>Why String Operations Matter</h2>
+
+<p>Real-world text data is messy:
+<ul>
+  <li>Inconsistent capitalization: "Male", "MALE", "male"</li>
+  <li>Extra whitespace: "  John  "</li>
+  <li>Need to extract parts: "Mr. John Smith" → "Mr."</li>
+  <li>Need to search: Find names containing "Mrs"</li>
+</ul>
+Pandas provides <code>.str</code> accessor for string operations.</p>
+</section>
+<section>
+    <h2>The .str Accessor</h2>
+
+<pre><code class="language-python"># Access string methods on a column
+df['Name'].str.method_name()
+
+# Examples:
+df['Name'].str.lower()      # All lowercase
+df['Name'].str.upper()      # All uppercase
+df['Name'].str.len()        # Length of each string
+df['Name'].str.strip()      # Remove whitespace
+</code></pre>
+</section>
+<section>
+    <h2>Case Conversion</h2>
+
+<pre><code class="language-python"># Create sample data
+names = pd.Series(['  alice  ', 'BOB', 'Charlie', 'diana smith'])
+
+<p>print("Original:")
+print(names.tolist())</p>
+
+<p>print("\nLowercase:")
+print(names.str.lower().tolist())</p>
+
+<p>print("\nUppercase:")
+print(names.str.upper().tolist())</p>
+
+<p>print("\nTitle Case:")
+print(names.str.title().tolist())</p>
+
+<p>print("\nCapitalize (first letter only):")
+print(names.str.capitalize().tolist())
+</code></pre></p>
+</section>
+<section>
+    <h2>Whitespace Handling</h2>
+
+<pre><code class="language-python"># Sample data with whitespace problems
+dirty = pd.Series(['  Alice  ', 'Bob\t', '\nCharlie', '  Diana  '])
+
+# Strip whitespace from both ends
+clean = dirty.str.strip()
+print(clean.tolist())  # ['Alice', 'Bob', 'Charlie', 'Diana']
+
+# Strip only left side
+dirty.str.lstrip()
+
+# Strip only right side
+dirty.str.rstrip()
+</code></pre>
+</section>
+<section>
+    <h2>Searching Text: contains()</h2>
+
+<pre><code class="language-python"># Find names containing "Mrs"
+has_mrs = df['Name'].str.contains('Mrs')
+mrs_passengers = df[has_mrs]
+print(f"Mrs passengers: {len(mrs_passengers)}")
+
+# Case-insensitive search
+has_mrs = df['Name'].str.contains('mrs', case=False)
+
+# Contains any of multiple patterns
+has_title = df['Name'].str.contains('Mr|Mrs|Miss|Master')
+</code></pre>
+</section>
+<section>
+    <h2>More Search Methods</h2>
+
+<pre><code class="language-python"># Starts with
+mr_names = df[df['Name'].str.startswith('Mr.')]
+
+# Ends with
+# Names ending with specific suffix
+ends_son = df[df['Name'].str.endswith('son')]
+
+# Match exact pattern (regex)
+# df['Name'].str.match(pattern)
+</code></pre>
+</section>
+<section>
+    <h2>Extracting Parts: split()</h2>
+
+<pre><code class="language-python"># Split names by comma
+# "Braund, Mr. Owen Harris" → ["Braund", " Mr. Owen Harris"]
+parts = df['Name'].str.split(',')
+print(parts.head())
+
+# Get just the last name (first part after split)
+df['LastName'] = df['Name'].str.split(',').str[0]
+print(df['LastName'].head())
+
+# Expand into multiple columns
+name_parts = df['Name'].str.split(',', expand=True)
+name_parts.columns = ['LastName', 'FirstAndTitle']
+</code></pre>
+</section>
+<section>
+    <h2>Extracting with Regular Expressions</h2>
+
+<pre><code class="language-python"># Extract title (Mr., Mrs., Miss, etc.)
+df['Title'] = df['Name'].str.extract(r'([A-Za-z]+)\.')
+
+<p>print(df['Title'].value_counts())
+</code></pre></p>
+
+<pre><code>Mr          517
+Miss        182
+Mrs         125
+Master       40
+...
+</code></pre>
+</section>
+<section>
+    <h2>Replacing Text</h2>
+
+<pre><code class="language-python"># Simple replacement
+df['Sex_short'] = df['Sex'].replace({'male': 'M', 'female': 'F'})
+
+# String replacement with .str.replace()
+# Remove all periods from names
+df['Name_clean'] = df['Name'].str.replace('.', '', regex=False)
+
+# Replace with regex
+df['Name_clean'] = df['Name'].str.replace(r'[^\w\s]', '', regex=True)
+</code></pre>
+</section>
+<section>
+    <h2>String Length and Counting</h2>
+
+<pre><code class="language-python"># Length of each string
+df['Name_length'] = df['Name'].str.len()
+print(df['Name_length'].describe())
+
+# Count occurrences of a character
+df['comma_count'] = df['Name'].str.count(',')
+
+# Count words (split by space)
+df['word_count'] = df['Name'].str.split().str.len()
+</code></pre>
+</section>
+<section>
+    <h2>Practical String Cleaning Example</h2>
+
+<pre><code class="language-python"># Messy data
+messy = pd.DataFrame({
+    'product': ['  APPLE  ', 'banana', 'CHERRY', '  Orange '],
+    'category': ['fruit', 'FRUIT', 'Fruit', 'fruit']
+})
+
+# Clean it
+messy['product'] = messy['product'].str.strip().str.title()
+messy['category'] = messy['category'].str.lower()
+
+<p>print(messy)
+</code></pre></p>
+
+<pre><code>   product category
+0    Apple    fruit
+1   Banana    fruit
+2   Cherry    fruit
+3   Orange    fruit
+</code></pre>
+</section>
+<section>
+    <h2>String Methods Summary</h2>
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>.str.lower()</code></td>
+    <td>Convert to lowercase</td>
+  </tr>
+  <tr>
+    <td><code>.str.upper()</code></td>
+    <td>Convert to uppercase</td>
+  </tr>
+  <tr>
+    <td><code>.str.title()</code></td>
+    <td>Title Case</td>
+  </tr>
+  <tr>
+    <td><code>.str.strip()</code></td>
+    <td>Remove whitespace</td>
+  </tr>
+  <tr>
+    <td><code>.str.contains()</code></td>
+    <td>Search for pattern</td>
+  </tr>
+  <tr>
+    <td><code>.str.startswith()</code></td>
+    <td>Check beginning</td>
+  </tr>
+  <tr>
+    <td><code>.str.endswith()</code></td>
+    <td>Check ending</td>
+  </tr>
+  <tr>
+    <td><code>.str.split()</code></td>
+    <td>Split into parts</td>
+  </tr>
+  <tr>
+    <td><code>.str.replace()</code></td>
+    <td>Replace text</td>
+  </tr>
+  <tr>
+    <td><code>.str.len()</code></td>
+    <td>String length</td>
+  </tr>
+  <tr>
+    <td><code>.str.extract()</code></td>
+    <td>Extract with regex</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Exercise 3.3: String Practice (10 min)</h2>
+
+<pre><code class="language-python"># Using the Titanic dataset:
+
+# 1. How many passengers have "Mr." in their name?
+# 2. How many have "Mrs." in their name?
+# 3. Extract the title (Mr, Mrs, Miss, etc.) into a new column
+# 4. What is the average length of passenger names?
+# 5. Create a column with just the last name
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.3: Solutions</h2>
+
+<pre><code class="language-python"># 1. Count "Mr."
+mr_count = df['Name'].str.contains('Mr\.').sum()
+print(f"Mr. passengers: {mr_count}")
+
+# 2. Count "Mrs."
+mrs_count = df['Name'].str.contains('Mrs\.').sum()
+print(f"Mrs. passengers: {mrs_count}")
+
+# 3. Extract title
+df['Title'] = df['Name'].str.extract(r'([A-Za-z]+)\.')
+print(df['Title'].value_counts().head())
+
+# 4. Average name length
+avg_len = df['Name'].str.len().mean()
+print(f"Average name length: {avg_len:.1f}")
+
+# 5. Last name
+df['LastName'] = df['Name'].str.split(',').str[0]
+print(df['LastName'].head())
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 6: Date and Time Operations</h1>
+    <p>Essential for Data Science (40 minutes)</p>
+</section>
+<section>
+    <h2>🤖 Gemini Tips for Date Operations</h2>
+
+<strong>Essential prompts:</strong>
+<ul>
+  <li>"How do I convert a string to datetime in pandas?"</li>
+  <li>"How do I extract year/month from a date in pandas?"</li>
+  <li>"How do I calculate age from birthdate in pandas?"</li>
+  <li>"How do I filter data by date range in pandas?"</li>
+</ul>
+<strong>For formatting:</strong>
+<ul>
+  <li>"What are the date format codes in Python strftime?"</li>
+</ul>
+<div class="callout callout-tip"><strong>💡 Tip:</strong> Dates are tricky! Don't hesitate to ask Gemini for help with date formats.
+</div>
+</section>
+<section>
+    <h2>Why Dates Matter</h2>
+
+<p>Dates are everywhere in data:
+<ul>
+  <li>Sales data: When was something purchased?</li>
+  <li>Events: When did something happen?</li>
+  <li>Time series: Stock prices, weather, website traffic</li>
+  <li>Age calculations: How old is a customer?</li>
+</ul>
+<strong>Dates are NOT strings!</strong> We need special handling.</p>
+</section>
+<section>
+    <h2>Creating Date Data</h2>
+
+<pre><code class="language-python"># Sample data with dates as strings
+data = {
+    'event': ['Meeting', 'Conference', 'Workshop'],
+    'date_str': ['2024-01-15', '2024-02-20', '2024-03-10']
+}
+df_dates = pd.DataFrame(data)
+
+# Check the type - it's object (string)!
+print(df_dates['date_str'].dtype)  # object
+</code></pre>
+</section>
+<section>
+    <h2>Converting Strings to Dates</h2>
+
+<pre><code class="language-python"># Convert to datetime
+df_dates['date'] = pd.to_datetime(df_dates['date_str'])
+
+# Now it's datetime64
+print(df_dates['date'].dtype)  # datetime64[ns]
+print(df_dates['date'])
+</code></pre>
+
+<pre><code>0   2024-01-15
+1   2024-02-20
+2   2024-03-10
+Name: date, dtype: datetime64[ns]
+</code></pre>
+</section>
+<section>
+    <h2>Handling Different Date Formats</h2>
+
+<pre><code class="language-python"># Pandas can often figure out the format
+dates = ['01/15/2024', '02-20-2024', '2024.03.10', 'March 5, 2024']
+pd.to_datetime(dates)
+
+# Specify format explicitly for speed and accuracy
+df['date'] = pd.to_datetime(df['date_str'], format='%Y-%m-%d')
+
+# Common format codes:
+# %Y = 4-digit year (2024)
+# %y = 2-digit year (24)
+# %m = month (01-12)
+# %d = day (01-31)
+# %H = hour (00-23)
+# %M = minute (00-59)
+# %S = second (00-59)
+</code></pre>
+</section>
+<section>
+    <h2>Date Format Codes</h2>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Meaning</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><code>%Y</code></td>
+    <td>4-digit year</td>
+    <td>2024</td>
+  </tr>
+  <tr>
+    <td><code>%y</code></td>
+    <td>2-digit year</td>
+    <td>24</td>
+  </tr>
+  <tr>
+    <td><code>%m</code></td>
+    <td>Month (zero-padded)</td>
+    <td>01, 12</td>
+  </tr>
+  <tr>
+    <td><code>%d</code></td>
+    <td>Day (zero-padded)</td>
+    <td>01, 31</td>
+  </tr>
+  <tr>
+    <td><code>%B</code></td>
+    <td>Full month name</td>
+    <td>January</td>
+  </tr>
+  <tr>
+    <td><code>%b</code></td>
+    <td>Abbreviated month</td>
+    <td>Jan</td>
+  </tr>
+  <tr>
+    <td><code>%A</code></td>
+    <td>Full weekday name</td>
+    <td>Monday</td>
+  </tr>
+  <tr>
+    <td><code>%a</code></td>
+    <td>Abbreviated weekday</td>
+    <td>Mon</td>
+  </tr>
+  <tr>
+    <td><code>%H</code></td>
+    <td>Hour (24-hour)</td>
+    <td>00, 23</td>
+  </tr>
+  <tr>
+    <td><code>%I</code></td>
+    <td>Hour (12-hour)</td>
+    <td>01, 12</td>
+  </tr>
+  <tr>
+    <td><code>%M</code></td>
+    <td>Minute</td>
+    <td>00, 59</td>
+  </tr>
+  <tr>
+    <td><code>%S</code></td>
+    <td>Second</td>
+    <td>00, 59</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Handling Messy Date Formats</h2>
+
+<pre><code class="language-python"># Mixed formats - use format='mixed'
+messy_dates = pd.Series(['2024-01-15', '01/20/2024', '2024.02.25'])
+clean_dates = pd.to_datetime(messy_dates, format='mixed')
+
+# Handle errors
+# errors='coerce' converts bad dates to NaT (Not a Time)
+dates_with_errors = pd.Series(['2024-01-15', 'invalid', '2024-03-10'])
+clean = pd.to_datetime(dates_with_errors, errors='coerce')
+print(clean)
+</code></pre>
+
+<pre><code>0   2024-01-15
+1          NaT
+2   2024-03-10
+dtype: datetime64[ns]
+</code></pre>
+</section>
+<section>
+    <h2>The .dt Accessor</h2>
+
+<p>Just like <code>.str</code> for strings, use <code>.dt</code> for datetime operations:</p>
+
+<pre><code class="language-python"># Create sample dates
+df_dates['date'] = pd.to_datetime(['2024-01-15', '2024-06-20', '2024-12-25'])
+
+# Extract components
+df_dates['year'] = df_dates['date'].dt.year
+df_dates['month'] = df_dates['date'].dt.month
+df_dates['day'] = df_dates['date'].dt.day
+df_dates['weekday'] = df_dates['date'].dt.weekday  # 0=Monday, 6=Sunday
+df_dates['day_name'] = df_dates['date'].dt.day_name()
+df_dates['month_name'] = df_dates['date'].dt.month_name()
+
+<p>print(df_dates)
+</code></pre></p>
+</section>
+<section>
+    <h2>Date Components Available</h2>
+
+<pre><code class="language-python"># All available through .dt accessor:
+df['date'].dt.year        # 2024
+df['date'].dt.month       # 1-12
+df['date'].dt.day         # 1-31
+df['date'].dt.hour        # 0-23
+df['date'].dt.minute      # 0-59
+df['date'].dt.second      # 0-59
+df['date'].dt.weekday     # 0-6 (Monday=0)
+df['date'].dt.dayofweek   # Same as weekday
+df['date'].dt.dayofyear   # 1-366
+df['date'].dt.quarter     # 1-4
+df['date'].dt.is_month_start  # True/False
+df['date'].dt.is_month_end    # True/False
+df['date'].dt.is_year_start   # True/False
+df['date'].dt.is_weekend      # True/False (Pandas 2.1+)
+</code></pre>
+</section>
+<section>
+    <h2>Filtering by Date</h2>
+
+<pre><code class="language-python"># Sample sales data
+sales = pd.DataFrame({
+    'date': pd.to_datetime(['2024-01-15', '2024-02-20', '2024-03-10', 
+                            '2024-06-15', '2024-12-25']),
+    'amount': [100, 200, 150, 300, 500]
+})
+
+# Filter by year
+sales_2024 = sales[sales['date'].dt.year == 2024]
+
+# Filter by month
+jan_sales = sales[sales['date'].dt.month == 1]
+
+# Filter by quarter
+q1_sales = sales[sales['date'].dt.quarter == 1]
+
+# Filter by date range
+start = '2024-02-01'
+end = '2024-06-30'
+range_sales = sales[(sales['date'] >= start) & (sales['date'] <= end)]
+</code></pre>
+</section>
+<section>
+    <h2>Date Arithmetic</h2>
+
+<pre><code class="language-python">from datetime import timedelta
+
+# Add/subtract days
+df['next_week'] = df['date'] + timedelta(days=7)
+df['last_month'] = df['date'] - timedelta(days=30)
+
+# Using pd.DateOffset for calendar-aware operations
+df['next_month'] = df['date'] + pd.DateOffset(months=1)
+df['next_year'] = df['date'] + pd.DateOffset(years=1)
+
+# Difference between dates
+df['days_until_end'] = (pd.Timestamp('2024-12-31') - df['date']).dt.days
+</code></pre>
+</section>
+<section>
+    <h2>Calculating Age from Birthdate</h2>
+
+<pre><code class="language-python"># Sample birthdate data
+people = pd.DataFrame({
+    'name': ['Alice', 'Bob', 'Charlie'],
+    'birthdate': pd.to_datetime(['1990-05-15', '1985-12-20', '2000-03-10'])
+})
+
+# Calculate age
+today = pd.Timestamp.today()
+people['age'] = (today - people['birthdate']).dt.days // 365
+
+# More accurate age calculation
+people['age_accurate'] = (
+    today.year - people['birthdate'].dt.year - 
+    ((today.month < people['birthdate'].dt.month) | 
+     ((today.month == people['birthdate'].dt.month) & 
+      (today.day < people['birthdate'].dt.day)))
+)
+</code></pre>
+</section>
+<section>
+    <h2>Formatting Dates for Display</h2>
+
+<pre><code class="language-python"># Convert datetime to string in specific format
+df['date_formatted'] = df['date'].dt.strftime('%B %d, %Y')
+# "January 15, 2024"
+
+<p>df['date_european'] = df['date'].dt.strftime('%d/%m/%Y')
+# "15/01/2024"</p>
+
+<p>df['date_short'] = df['date'].dt.strftime('%d %b %Y')
+# "15 Jan 2024"</p>
+
+<p>df['date_with_day'] = df['date'].dt.strftime('%A, %B %d, %Y')
+# "Monday, January 15, 2024"
+</code></pre></p>
+</section>
+<section>
+    <h2>Practical Example: Date Cleaning</h2>
+
+<pre><code class="language-python"># Messy date data
+messy = pd.DataFrame({
+    'event': ['Meeting', 'Conference', 'Workshop', 'Seminar'],
+    'date': ['2024-01-15', '01/20/2024', 'February 5, 2024', 'invalid']
+})
+
+# Convert with error handling
+messy['date_clean'] = pd.to_datetime(messy['date'], format='mixed', errors='coerce')
+
+# Check for invalid dates
+invalid = messy[messy['date_clean'].isna()]
+print(f"Invalid dates: {len(invalid)}")
+
+# Fill or drop invalid
+messy = messy.dropna(subset=['date_clean'])
+# OR: messy['date_clean'] = messy['date_clean'].fillna(pd.Timestamp('2024-01-01'))
+</code></pre>
+</section>
+<section>
+    <h2>Date Methods Summary</h2>
+
+<table>
+  <tr>
+    <th>Method</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>pd.to_datetime()</code></td>
+    <td>Convert to datetime</td>
+  </tr>
+  <tr>
+    <td><code>.dt.year</code>, <code>.dt.month</code>, <code>.dt.day</code></td>
+    <td>Extract components</td>
+  </tr>
+  <tr>
+    <td><code>.dt.weekday</code>, <code>.dt.day_name()</code></td>
+    <td>Day of week</td>
+  </tr>
+  <tr>
+    <td><code>.dt.quarter</code></td>
+    <td>Quarter (1-4)</td>
+  </tr>
+  <tr>
+    <td><code>.dt.strftime()</code></td>
+    <td>Format as string</td>
+  </tr>
+  <tr>
+    <td><code>+ timedelta(days=n)</code></td>
+    <td>Add days</td>
+  </tr>
+  <tr>
+    <td><code>+ pd.DateOffset(months=n)</code></td>
+    <td>Add months</td>
+  </tr>
+  <tr>
+    <td><code>date2 - date1</code></td>
+    <td>Date difference</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Exercise 3.4: Date Practice (10 min)</h2>
+
+<pre><code class="language-python"># Create this DataFrame and answer the questions:
+events = pd.DataFrame({
+    'event': ['New Year', 'Valentine', 'Easter', 'Christmas'],
+    'date': ['2024-01-01', '2024-02-14', '2024-03-31', '2024-12-25']
+})
+
+# 1. Convert 'date' column to datetime
+# 2. Extract the month name
+# 3. Extract the day of week name
+# 4. Calculate days until each event from today
+# 5. Which events fall on a weekend?
+# 6. Format dates as "Month Day, Year" (e.g., "January 1, 2024")
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.4: Solutions</h2>
+
+<pre><code class="language-python">events = pd.DataFrame({
+    'event': ['New Year', 'Valentine', 'Easter', 'Christmas'],
+    'date': ['2024-01-01', '2024-02-14', '2024-03-31', '2024-12-25']
+})
+
+# 1. Convert to datetime
+events['date'] = pd.to_datetime(events['date'])
+
+# 2. Month name
+events['month_name'] = events['date'].dt.month_name()
+
+# 3. Day of week name
+events['day_name'] = events['date'].dt.day_name()
+
+# 4. Days until event
+today = pd.Timestamp.today()
+events['days_until'] = (events['date'] - today).dt.days
+
+# 5. Weekend events (Saturday=5, Sunday=6)
+events['is_weekend'] = events['date'].dt.weekday >= 5
+weekend_events = events[events['is_weekend']]
+print(weekend_events)
+
+# 6. Format dates
+events['formatted'] = events['date'].dt.strftime('%B %d, %Y')
+print(events)
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 7: GroupBy Operations</h1>
+    <p>Split-Apply-Combine (30 minutes)</p>
+</section>
+<section>
+    <h2>What is GroupBy?</h2>
+
+<p>GroupBy follows the <strong>split-apply-combine</strong> pattern:</p>
+
+<ol>
+  <li><strong>Split</strong>: Divide data into groups</li>
+  <li><strong>Apply</strong>: Calculate something for each group</li>
+  <li><strong>Combine</strong>: Put results back together</li>
+</ol>
+</section>
+<section>
+    <h2>Basic GroupBy Syntax</h2>
+
+<pre><code class="language-python"># Average fare by passenger class
+avg_fare = df.groupby('Pclass')['Fare'].mean()
+print(avg_fare)
+</code></pre>
+
+<pre><code>Pclass
+1    84.154687
+2    20.662183
+3    13.675550
+Name: Fare, dtype: float64
+</code></pre>
+</section>
+<section>
+    <h2>GroupBy Structure</h2>
+
+<pre><code class="language-python"># Syntax:
+df.groupby('column_to_group_by')['column_to_aggregate'].function()
+
+# Examples:
+df.groupby('Sex')['Survived'].mean()      # Survival rate by sex
+df.groupby('Pclass')['Age'].mean()        # Average age by class
+df.groupby('Embarked')['Fare'].sum()      # Total fare by port
+</code></pre>
+</section>
+<section>
+    <h2>Common Aggregation Functions</h2>
+
+<table>
+  <tr>
+    <th>Function</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>mean()</code></td>
+    <td>Average</td>
+  </tr>
+  <tr>
+    <td><code>sum()</code></td>
+    <td>Total</td>
+  </tr>
+  <tr>
+    <td><code>count()</code></td>
+    <td>Number of values</td>
+  </tr>
+  <tr>
+    <td><code>min()</code></td>
+    <td>Minimum</td>
+  </tr>
+  <tr>
+    <td><code>max()</code></td>
+    <td>Maximum</td>
+  </tr>
+  <tr>
+    <td><code>std()</code></td>
+    <td>Standard deviation</td>
+  </tr>
+  <tr>
+    <td><code>median()</code></td>
+    <td>Middle value</td>
+  </tr>
+  <tr>
+    <td><code>first()</code></td>
+    <td>First value</td>
+  </tr>
+  <tr>
+    <td><code>last()</code></td>
+    <td>Last value</td>
+  </tr>
+  <tr>
+    <td><code>nunique()</code></td>
+    <td>Number of unique values</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Multiple Aggregations with agg()</h2>
+
+<pre><code class="language-python"># Multiple functions on one column
+df.groupby('Pclass')['Fare'].agg(['mean', 'min', 'max', 'count'])
+
+# Different functions for different columns
+summary = df.groupby('Pclass').agg({
+    'Survived': 'mean',           # Survival rate
+    'Age': ['mean', 'min', 'max'], # Age statistics
+    'Fare': 'mean',               # Average fare
+    'PassengerId': 'count'        # Count
+})
+print(summary)
+</code></pre>
+</section>
+<section>
+    <h2>Grouping by Multiple Columns</h2>
+
+<pre><code class="language-python"># Group by class AND sex
+survival_by_class_sex = df.groupby(['Pclass', 'Sex'])['Survived'].mean()
+print(survival_by_class_sex)
+</code></pre>
+
+<pre><code>Pclass  Sex   
+1       female    0.968085
+        male      0.368852
+2       female    0.921053
+        male      0.157407
+3       female    0.500000
+        male      0.135447
+Name: Survived, dtype: float64
+</code></pre>
+</section>
+<section>
+    <h2>Converting GroupBy to DataFrame</h2>
+
+<pre><code class="language-python"># reset_index() converts back to DataFrame
+survival_df = df.groupby(['Pclass', 'Sex'])['Survived'].mean().reset_index()
+survival_df.columns = ['Class', 'Sex', 'SurvivalRate']
+print(survival_df)
+</code></pre>
+
+<pre><code>   Class     Sex  SurvivalRate
+0      1  female      0.968085
+1      1    male      0.368852
+2      2  female      0.921053
+...
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.5: GroupBy Practice (10 min)</h2>
+
+<pre><code class="language-python"># Calculate using GroupBy:
+# 1. Average age by sex
+# 2. Survival rate by embarkation port
+# 3. Average fare by class and survival status
+# 4. Count of passengers by class and sex
+# 5. For each class: min, max, and average age
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.5: Solutions</h2>
+
+<pre><code class="language-python"># 1. Average age by sex
+print(df.groupby('Sex')['Age'].mean())
+
+# 2. Survival rate by port
+print(df.groupby('Embarked')['Survived'].mean())
+
+# 3. Average fare by class and survival
+print(df.groupby(['Pclass', 'Survived'])['Fare'].mean())
+
+# 4. Count by class and sex
+print(df.groupby(['Pclass', 'Sex'])['PassengerId'].count())
+
+# 5. Age stats by class
+print(df.groupby('Pclass')['Age'].agg(['min', 'max', 'mean']))
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 8: Missing Data</h1>
+    <p>Handling Gaps (20 minutes)</p>
+</section>
+<section>
+    <h2>Finding Missing Values</h2>
+
+<pre><code class="language-python"># Count missing per column
+print(df.isna().sum())
+</code></pre>
+
+<pre><code>PassengerId      0
+Survived         0
+Age            177   <-- 177 missing!
+Cabin          687   <-- Most missing!
+Embarked         2
+</code></pre>
+
+<pre><code class="language-python"># Percentage missing
+print((df.isna().sum() / len(df) * 100).round(1))
+</code></pre>
+</section>
+<section>
+    <h2>Filling Missing Values</h2>
+
+<pre><code class="language-python"># Fill with a specific value
+df['Cabin_filled'] = df['Cabin'].fillna('Unknown')
+
+# Fill with mean (for numeric columns)
+df['Age_filled'] = df['Age'].fillna(df['Age'].mean())
+
+# Fill with median (better for skewed data)
+df['Age_filled'] = df['Age'].fillna(df['Age'].median())
+
+# Fill with mode (for categorical)
+df['Embarked'] = df['Embarked'].fillna(df['Embarked'].mode()[0])
+</code></pre>
+</section>
+<section>
+    <h2>Dropping Missing Values</h2>
+
+<pre><code class="language-python"># Drop rows with ANY missing value
+df_clean = df.dropna()
+print(f"Rows remaining: {len(df_clean)}")  # Only 183!
+
+# Drop rows missing specific column
+df_with_age = df.dropna(subset=['Age'])
+print(f"Rows with age: {len(df_with_age)}")  # 714
+
+# Drop columns with too many missing
+df_less_cols = df.dropna(axis=1, thresh=500)  # Keep cols with >= 500 non-null
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Module 3 Summary</h1>
+    
+</section>
+<section>
+    <h2>What You Learned</h2>
+
+<ol>
+  <li><strong>Loading data</strong>: <code>pd.read_csv()</code></li>
+  <li><strong>Exploring</strong>: <code>head()</code>, <code>info()</code>, <code>describe()</code>, <code>value_counts()</code></li>
+  <li><strong>Selecting</strong>: <code>df['col']</code>, <code>df[['col1', 'col2']]</code>, <code>iloc</code>, <code>loc</code></li>
+  <li><strong>Filtering</strong>: <code>df[condition]</code>, <code>&</code>, <code>|</code>, <code>isin()</code>, <code>between()</code></li>
+  <li><strong>String operations</strong>: <code>.str.lower()</code>, <code>.str.contains()</code>, <code>.str.split()</code></li>
+  <li><strong>Date operations</strong>: <code>pd.to_datetime()</code>, <code>.dt.year</code>, <code>.dt.month</code></li>
+  <li><strong>GroupBy</strong>: <code>df.groupby('col')['val'].mean()</code></li>
+  <li><strong>Missing data</strong>: <code>isna()</code>, <code>fillna()</code>, <code>dropna()</code></li>
+</ol>
+</section>
+<section>
+    <h2>Key Patterns to Remember</h2>
+
+<pre><code class="language-python"># Load
+df = pd.read_csv('file.csv')
+
+# Explore
+df.shape, df.head(), df.info(), df.describe()
+
+# Filter
+df[df['col'] > value]
+df[(cond1) & (cond2)]
+
+# Strings
+df['col'].str.lower().str.strip()
+
+# Dates
+df['date'] = pd.to_datetime(df['date_str'])
+df['year'] = df['date'].dt.year
+
+# Group
+df.groupby('col')['val'].mean()
+
+# Missing
+df['col'].fillna(df['col'].median())
+</code></pre>
+</section>
+<section>
+    <h2>Next: Module 4</h2>
+
+<p>Self-study practice with:
+<ul>
+  <li>Python review</li>
+  <li>Gapminder dataset</li>
+  <li>Data cleaning challenges</li>
+  <li>Preparation for visualization</li>
+</ul></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Questions?</h1>
+    <p>Ask in the forum or use Gemini!</p>
+</section>
+            
+        </div>
+    </div>
+    
+    <!-- RevealJS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/notes/notes.min.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            width: 1600,
+            height: 900,
+            margin: 0.1,
+            transition: 'slide',
+            plugins: [ RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

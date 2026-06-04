@@ -1,0 +1,2729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Python Foundations</title>
+    
+    <!-- RevealJS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/simple.min.css">
+    
+    <!-- Highlight.js for code -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+    <style>
+        .reveal h1 { font-size: 2.2em; color: #2c3e50; }
+        .reveal h2 { font-size: 1.6em; color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        .reveal h3 { font-size: 1.3em; color: #34495e; }
+        .reveal pre { font-size: 0.7em; width: 100%; }
+        .reveal code { background: #f4f4f4; padding: 2px 6px; border-radius: 3px; }
+        .reveal pre code { background: #f8f9fa; padding: 15px; display: block; overflow-x: auto; }
+        .reveal table { font-size: 0.8em; border-collapse: collapse; margin: 20px auto; }
+        .reveal th, .reveal td { border: 1px solid #ddd; padding: 10px 15px; text-align: left; }
+        .reveal th { background: #3498db; color: white; }
+        .reveal tr:nth-child(even) { background: #f9f9f9; }
+        .reveal .callout { padding: 15px 20px; border-radius: 8px; margin: 15px 0; text-align: left; }
+        .reveal .callout-tip { background: #d4edda; border-left: 5px solid #28a745; }
+        .reveal .callout-note { background: #d1ecf1; border-left: 5px solid #17a2b8; }
+        .reveal .callout-warning { background: #fff3cd; border-left: 5px solid #ffc107; }
+        .reveal ul, .reveal ol { text-align: left; display: block; margin-left: 1em; }
+        .reveal li { margin: 10px 0; }
+        .reveal section { text-align: left; }
+        .reveal section[data-background-color] { text-align: center; }
+        .reveal section[data-background-color] h1 { color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .reveal section[data-background-color] p { color: white; font-size: 1.2em; }
+        .reveal .slide-number { font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Title Slide -->
+            <section data-background-color="#2c3e50">
+                <h1 style="color: white;">Module 1: Python Foundations</h1>
+                <p style="color: #ecf0f1; font-size: 1.3em;">Variables • Data Types • Operations • F-strings • Errors</p>
+                <p style="color: #bdc3c7;">Python for Data Science Course</p>
+                <p style="color: #95a5a6; font-size: 0.9em; margin-top: 40px;">dr. Uroš Godnov</p>
+            </section>
+            
+            <section data-background-color="#2c3e50">
+    <h1>Part 1: Welcome to Python</h1>
+    <p>Introduction and Setup (30 minutes)</p>
+</section>
+<section>
+    <h2>What is Python?</h2>
+
+<ul>
+  <li>Created by Guido van Rossum in 1991</li>
+  <li>Named after Monty Python (not the snake!)</li>
+  <li>One of the most popular programming languages worldwide</li>
+  <li>Used by Google, Netflix, Instagram, Spotify, NASA, CERN</li>
+</ul>
+<strong>Why Python for Data Science?</strong>
+
+<ul>
+  <li>Easy to read and write (looks like English)</li>
+  <li>Huge ecosystem of libraries (pandas, numpy, matplotlib, scikit-learn)</li>
+  <li>Great community and documentation</li>
+  <li>Free and open source</li>
+  <li>Industry standard for data science and machine learning</li>
+</ul>
+</section>
+<section>
+    <h2>Who Uses Python?</h2>
+
+<table>
+  <tr>
+    <th>Company</th>
+    <th>How They Use Python</th>
+  </tr>
+  <tr>
+    <td>Google</td>
+    <td>Search algorithms, YouTube</td>
+  </tr>
+  <tr>
+    <td>Netflix</td>
+    <td>Recommendation engine</td>
+  </tr>
+  <tr>
+    <td>Instagram</td>
+    <td>Backend infrastructure</td>
+  </tr>
+  <tr>
+    <td>Spotify</td>
+    <td>Music recommendations</td>
+  </tr>
+  <tr>
+    <td>NASA</td>
+    <td>Scientific computing</td>
+  </tr>
+  <tr>
+    <td>Banks</td>
+    <td>Risk analysis, fraud detection</td>
+  </tr>
+  <tr>
+    <td>Hospitals</td>
+    <td>Medical image analysis</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>What is Google Colab?</h2>
+
+<ul>
+  <li>Free cloud-based Python environment by Google</li>
+  <li>Runs entirely in your browser - no installation needed</li>
+  <li>Based on Jupyter Notebooks</li>
+  <li>Free GPU/TPU for machine learning</li>
+  <li>Easy to share and collaborate</li>
+  <li>Saves automatically to Google Drive</li>
+</ul>
+<strong>We'll use Colab for the entire course.</strong>
+</section>
+<section>
+    <h2>Colab Interface Tour</h2>
+
+<strong>Key elements:</strong>
+
+<ol>
+  <li><strong>Code cells</strong> - where you write and run Python code</li>
+  <li><strong>Text cells</strong> - for notes and documentation (Markdown)</li>
+  <li><strong>Run button</strong> (▶️) - click to execute the cell</li>
+  <li><strong>Keyboard shortcut:</strong> <code>Shift + Enter</code> to run current cell</li>
+  <li><strong>Ctrl + Enter</strong> - run cell but stay in it</li>
+  <li><strong>Alt + Enter</strong> - run cell and create new one below</li>
+</ol>
+<strong>Let's practice running cells now!</strong>
+</section>
+<section>
+    <h2>Your First Python Code</h2>
+
+<p>Type this in a code cell and press Shift+Enter:</p>
+
+<pre><code class="language-python">print("Hello, World!")
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>Hello, World!
+</code></pre>
+
+<p>🎉 Congratulations! You just wrote your first Python program!</p>
+
+<div class="callout callout-tip"><strong>💡 Tip:</strong> <code>print()</code> is a <strong>function</strong> that displays text on the screen. We'll learn more about functions later.
+</div>
+</section>
+<section>
+    <h2>What Just Happened?</h2>
+
+<pre><code class="language-python">print("Hello, World!")
+</code></pre>
+
+<p>Breaking it down:</p>
+
+<ul>
+  <li><code>print</code> - the name of a built-in function</li>
+  <li><code>(</code> <code>)</code> - parentheses that contain what we want to print</li>
+  <li><code>"Hello, World!"</code> - a <strong>string</strong> (text) in quotes</li>
+  <li>The function displays the text and moves to next line</li>
+</ul>
+</section>
+<section>
+    <h2>Exercise 1.1: Hello You! (5 min)</h2>
+
+<p>Modify the code to print YOUR own greeting:</p>
+
+<pre><code class="language-python">print("Hello, [Your Name]!")
+</code></pre>
+
+<p>Now try printing multiple lines:</p>
+
+<pre><code class="language-python">print("Line 1: Hello!")
+print("Line 2: Welcome to Python!")
+print("Line 3: Let's learn together!")
+</code></pre>
+
+<strong>Challenge:</strong> Print your name, your city, and your favorite food on three separate lines.
+</section>
+<section>
+    <h2>Comments in Python</h2>
+
+<p>Comments explain your code - Python ignores them completely.</p>
+
+<pre><code class="language-python"># This is a comment - Python ignores this line
+print("Hello")  # This comment is at the end of a line
+
+# Comments help you and others understand your code
+# Use them liberally!
+
+# TODO: This is a common way to mark tasks
+# FIXME: This marks something that needs fixing
+</code></pre>
+
+<div class="callout callout-note"><strong>📝 Note:</strong> Good programmers write lots of comments. Your future self will thank you!
+</div>
+</section>
+<section>
+    <h2>Using Gemini AI in Colab</h2>
+
+<p>::: {.callout-important}
+<h2>How to Access Gemini</h2>
+<ol>
+  <li>Click in any code cell</li>
+  <li>Press <code>Ctrl + Shift + Space</code> (Windows/Linux) or <code>Cmd + Shift + Space</code> (Mac)</li>
+  <li>Or click the ✨ sparkle icon on the left of the cell</li>
+  <li>Type your question in plain English</li>
+  <li>Review the generated code before running!</li>
+</ol>:::</p>
+
+<strong>Try it now:</strong> Ask Gemini "Write a print statement that says Hello World"
+</section>
+<section>
+    <h2>Gemini: Your Coding Partner</h2>
+
+<strong>Good uses of Gemini:</strong>
+
+<ul>
+  <li>"How do I...?" syntax questions</li>
+  <li>"What does this error mean?"</li>
+  <li>"Explain this code to me"</li>
+  <li>"Is there a better way to do this?"</li>
+  <li>"Give me an example of..."</li>
+</ul>
+<strong>The Golden Rule:</strong> Always READ and UNDERSTAND the code before using it!
+
+<p>Gemini is a helper, not a replacement for learning.</p>
+</section>
+<section>
+    <h2>Exercise 1.2: Gemini Practice (5 min)</h2>
+
+<p>Try these Gemini prompts:</p>
+
+<ol>
+  <li>"Write code that prints my name three times"</li>
+  <li>"How do I print a blank line in Python?"</li>
+  <li>"Write a print statement with an emoji"</li>
+</ol>
+For each:
+
+<ul>
+  <li>Read the generated code</li>
+  <li>Try to understand what it does</li>
+  <li>Run it</li>
+  <li>Modify it slightly</li>
+</ul>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 2: Variables</h1>
+    <p>Storing and Naming Your Data (45 minutes)</p>
+</section>
+<section>
+    <h2>What is a Variable?</h2>
+
+<p>A variable is like a <strong>labeled box</strong> that stores data.</p>
+
+<pre><code class="language-python">name = "Alice"
+</code></pre>
+
+<ul>
+  <li><code>name</code> is the <strong>label</strong> (variable name)</li>
+  <li><code>"Alice"</code> is the <strong>content</strong> (value)</li>
+  <li><code>=</code> is the <strong>assignment operator</strong> (puts value in box)</li>
+</ul>
+Think of it as: "Create a box labeled 'name' and put 'Alice' inside"
+</section>
+<section>
+    <h2>Why Do We Need Variables?</h2>
+
+<p>Without variables:
+<pre><code class="language-python">print(5 + 3)
+print(5 * 3)
+print(5 - 3)
+# What if we want to change 5 to 10? Must change everywhere!
+</code></pre></p>
+
+<p>With variables:
+<pre><code class="language-python">number = 5
+print(number + 3)
+print(number * 3)
+print(number - 3)
+# To change, just modify once: number = 10
+</code></pre></p>
+
+<p>Variables make code <strong>flexible</strong> and <strong>reusable</strong>.</p>
+</section>
+<section>
+    <h2>Creating Variables</h2>
+
+<pre><code class="language-python"># Text (called a "string")
+name = "Alice"
+
+# Whole number (called an "integer")
+age = 28
+
+# Decimal number (called a "float")
+height = 1.65
+
+# True/False value (called a "boolean")
+is_student = True
+</code></pre>
+
+<div class="callout callout-note"><strong>📝 Note:</strong> Lines starting with <code>#</code> are <strong>comments</strong> - Python ignores them. Use them to explain your code!
+</div>
+</section>
+<section>
+    <h2>Using Variables</h2>
+
+<p>Once created, use variables by their name:</p>
+
+<pre><code class="language-python">name = "Alice"
+age = 28
+
+<p>print(name)
+print(age)
+print(name)  # Can use as many times as you want
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Alice
+28
+Alice
+</code></pre>
+
+<p>Variables remember their values until you change them or the program ends.</p>
+</section>
+<section>
+    <h2>Changing Variable Values</h2>
+
+<p>Variables can change (that's why they're called "variables"!):</p>
+
+<pre><code class="language-python">score = 100
+print(score)
+
+<p>score = 150
+print(score)</p>
+
+<p>score = score + 50  # Use old value to calculate new value
+print(score)
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>100
+150
+200
+</code></pre>
+</section>
+<section>
+    <h2>Understanding Assignment</h2>
+
+<p>The <code>=</code> sign in Python is NOT like math equality!</p>
+
+<pre><code class="language-python">x = 5      # "Put 5 into the box labeled x"
+x = x + 1  # "Take value from x, add 1, put result back in x"
+print(x)   # 6
+</code></pre>
+
+<p>This is different from math where <code>x = x + 1</code> makes no sense!</p>
+
+<p>In Python, <code>=</code> means "assign the value on the right to the variable on the left."</p>
+</section>
+<section>
+    <h2>Variable Naming Rules (MUST Follow)</h2>
+
+<strong>Required rules:</strong>
+
+<ol>
+  <li>Must start with letter or underscore (<code>_</code>)</li>
+  <li>Can only contain letters, numbers, underscores</li>
+  <li>Cannot contain spaces or special characters</li>
+  <li>Cannot be Python keywords</li>
+  <li>Case-sensitive (<code>age</code> ≠ <code>Age</code> ≠ <code>AGE</code>)</li>
+</ol>
+<pre><code class="language-python"># VALID names:
+name = "Alice"
+first_name = "Alice"
+name2 = "Alice"
+_private = "Alice"
+
+# INVALID names (will cause errors):
+# 2name = "Alice"      # Starts with number
+# first-name = "Alice" # Contains hyphen
+# first name = "Alice" # Contains space
+# class = "Alice"      # Python keyword
+</code></pre>
+</section>
+<section>
+    <h2>Python Keywords (Reserved)</h2>
+
+<p>These words have special meaning - you can't use them as variable names:</p>
+
+<pre><code>False    class     finally   is        return
+None     continue  for       lambda    try
+True     def       from      nonlocal  while
+and      del       global    not       with
+as       elif      if        or        yield
+assert   else      import    pass
+break    except    in        raise
+</code></pre>
+
+<p>If you try to use one, you'll get a <code>SyntaxError</code>.</p>
+</section>
+<section>
+    <h2>Variable Naming Conventions (SHOULD Follow)</h2>
+
+<strong>Python Style Guide (PEP 8) recommendations:</strong>
+
+<pre><code class="language-python"># GOOD - snake_case (words separated by underscores)
+student_name = "Alice"
+total_score = 95
+is_valid = True
+
+# AVOID - but technically valid
+studentName = "Alice"   # camelCase (used in JavaScript)
+StudentName = "Alice"   # PascalCase (used for classes)
+TOTAL_SCORE = 95        # SCREAMING_CASE (used for constants)
+
+# BAD - hard to read
+studentname = "Alice"
+s = "Alice"
+x = 95
+</code></pre>
+</section>
+<section>
+    <h2>Descriptive Variable Names</h2>
+
+<pre><code class="language-python"># BAD - What do these mean?
+a = 50000
+b = 0.22
+c = a - (a * b)
+
+# GOOD - Self-documenting code
+salary = 50000
+tax_rate = 0.22
+net_income = salary - (salary * tax_rate)
+</code></pre>
+
+<p>Good variable names make code <strong>readable</strong> without needing comments.</p>
+</section>
+<section>
+    <h2>Exercise 2.1: Create Your Profile (5 min)</h2>
+
+<p>Create variables for yourself:</p>
+
+<pre><code class="language-python"># Your information
+my_name = "..."        # Your name (string)
+my_age = ...           # Your age (integer)
+my_height = ...        # Height in meters (float)
+my_city = "..."        # Your city (string)
+favorite_food = "..."  # Favorite food (string)
+likes_coffee = ...     # True or False (boolean)
+
+# Print them all
+print(my_name)
+print(my_age)
+print(my_height)
+print(my_city)
+print(favorite_food)
+print(likes_coffee)
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 2.1: Solution</h2>
+
+<pre><code class="language-python">my_name = "Marko"
+my_age = 32
+my_height = 1.78
+my_city = "Ljubljana"
+favorite_food = "Pizza"
+likes_coffee = True
+
+<p>print(my_name)
+print(my_age)
+print(my_height)
+print(my_city)
+print(favorite_food)
+print(likes_coffee)
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Marko
+32
+1.78
+Ljubljana
+Pizza
+True
+</code></pre>
+</section>
+<section>
+    <h2>Multiple Assignment</h2>
+
+<p>Python allows assigning multiple variables at once:</p>
+
+<pre><code class="language-python"># Assign same value to multiple variables
+a = b = c = 0
+print(a, b, c)
+
+# Assign different values in one line
+x, y, z = 1, 2, 3
+print(x, y, z)
+
+# Swap values (very useful!)
+x, y = y, x
+print(x, y)  # Values are swapped!
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>0 0 0
+1 2 3
+2 1
+</code></pre>
+</section>
+<section>
+    <h2>Practical Example: Personal Data</h2>
+
+<pre><code class="language-python"># Personal information
+first_name = "Ana"
+last_name = "Novak"
+birth_year = 1995
+current_year = 2024
+
+# Calculated values
+age = current_year - birth_year
+full_name = first_name + " " + last_name
+
+# Display
+print("Name:", full_name)
+print("Age:", age)
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>Name: Ana Novak
+Age: 29
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 2.2: Rectangle Calculator (5 min)</h2>
+
+<pre><code class="language-python"># Given dimensions
+width = 5
+height = 3
+
+# Calculate these values:
+area = ...       # width × height
+perimeter = ...  # 2 × (width + height)
+diagonal = ...   # √(width² + height²) - hint: use ** 0.5 for square root
+
+# Print results
+print("Width:", width)
+print("Height:", height)
+print("Area:", area)
+print("Perimeter:", perimeter)
+print("Diagonal:", diagonal)
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 2.2: Solution</h2>
+
+<pre><code class="language-python">width = 5
+height = 3
+
+<p>area = width * height
+perimeter = 2 * (width + height)
+diagonal = (width<strong>2 + height</strong>2) ** 0.5</p>
+
+<p>print("Width:", width)
+print("Height:", height)
+print("Area:", area)
+print("Perimeter:", perimeter)
+print("Diagonal:", diagonal)
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Width: 5
+Height: 3
+Area: 15
+Perimeter: 16
+Diagonal: 5.830951894845301
+</code></pre>
+</section>
+<section>
+    <h2>Gemini Exercise: Variables</h2>
+
+<p>Ask Gemini:</p>
+
+<p>> "Create variables for a book including title, author, year published, number of pages, and whether I've read it"</p>
+
+<p>Then:</p>
+
+<ol>
+  <li>Read the generated code carefully</li>
+  <li>Run it to make sure it works</li>
+  <li>Modify it for YOUR favorite book</li>
+  <li>Add a variable for your rating (1-5)</li>
+</ol>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 3: Data Types</h1>
+    <p>Different Kinds of Data (30 minutes)</p>
+</section>
+<section>
+    <h2>The Four Basic Types</h2>
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Python Name</th>
+    <th>Examples</th>
+    <th>Use For</th>
+  </tr>
+  <tr>
+    <td>Integer</td>
+    <td><code>int</code></td>
+    <td><code>42</code>, <code>-7</code>, <code>0</code></td>
+    <td>Counting, IDs, ages</td>
+  </tr>
+  <tr>
+    <td>Float</td>
+    <td><code>float</code></td>
+    <td><code>3.14</code>, <code>-0.5</code>, <code>2.0</code></td>
+    <td>Measurements, prices</td>
+  </tr>
+  <tr>
+    <td>String</td>
+    <td><code>str</code></td>
+    <td><code>"Hello"</code>, <code>'World'</code></td>
+    <td>Text, names, messages</td>
+  </tr>
+  <tr>
+    <td>Boolean</td>
+    <td><code>bool</code></td>
+    <td><code>True</code>, <code>False</code></td>
+    <td>Yes/No, On/Off decisions</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Integers (int)</h2>
+
+<p>Whole numbers - no decimal point.</p>
+
+<pre><code class="language-python">age = 28
+year = 2024
+temperature = -5
+population = 2000000
+zero = 0
+
+<p>print(age)
+print(type(age))
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>28
+<class 'int'>
+</code></pre>
+
+<p>Integers can be as large as your memory allows (no limit in Python 3).</p>
+</section>
+<section>
+    <h2>Integer Examples</h2>
+
+<pre><code class="language-python"># Counting things
+num_students = 25
+items_in_cart = 3
+
+# IDs and indices
+user_id = 12345
+row_number = 0
+
+# Quantities
+days_until_deadline = 14
+retry_count = 3
+
+# Can be negative
+balance = -50
+floors_below_ground = -2
+</code></pre>
+</section>
+<section>
+    <h2>Floats (float)</h2>
+
+<p>Numbers with decimal points.</p>
+
+<pre><code class="language-python">height = 1.75
+price = 19.99
+pi = 3.14159
+negative = -0.5
+also_float = 2.0  # Still a float because of decimal!
+
+<p>print(height)
+print(type(height))
+print(type(2.0))
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>1.75
+<class 'float'>
+<class 'float'>
+</code></pre>
+</section>
+<section>
+    <h2>Float Examples</h2>
+
+<pre><code class="language-python"># Measurements
+weight_kg = 68.5
+distance_km = 42.195
+
+# Money
+price = 29.99
+tax_rate = 0.22
+
+# Scientific values
+pi = 3.14159
+gravity = 9.81
+
+# Percentages (as decimals)
+completion = 0.75  # 75%
+accuracy = 0.9823  # 98.23%
+</code></pre>
+</section>
+<section>
+    <h2>Float Precision Warning</h2>
+
+<p>Floats have limited precision - be careful with comparisons!</p>
+
+<pre><code class="language-python">a = 0.1 + 0.2
+print(a)
+print(a == 0.3)  # Surprising result!
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>0.30000000000000004
+False
+</code></pre>
+
+<p>This is a fundamental limitation of how computers store decimals. For money, consider using integers (cents) or the <code>decimal</code> module.</p>
+</section>
+<section>
+    <h2>Strings (str)</h2>
+
+<p>Text enclosed in quotes (single or double).</p>
+
+<pre><code class="language-python">name = "Alice"
+city = 'Ljubljana'  # Single quotes work too
+message = "Hello, World!"
+empty = ""  # Empty string
+
+<p>print(name)
+print(type(name))
+print(len(message))  # Length of string
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Alice
+<class 'str'>
+13
+</code></pre>
+</section>
+<section>
+    <h2>String Quote Rules</h2>
+
+<pre><code class="language-python"># Single and double quotes are equivalent
+name1 = "Alice"
+name2 = 'Alice'
+print(name1 == name2)  # True
+
+# Use opposite quotes to include quotes inside
+quote1 = "She said 'Hello'"
+quote2 = 'He said "Hi"'
+print(quote1)
+print(quote2)
+
+# Or use escape character \
+quote3 = "She said \"Hello\""
+print(quote3)
+</code></pre>
+</section>
+<section>
+    <h2>Multi-line Strings</h2>
+
+<p>Use triple quotes for strings spanning multiple lines:</p>
+
+<pre><code class="language-python">long_text = """This is a
+multi-line
+string that spans
+several lines."""
+
+<p>print(long_text)
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>This is a
+multi-line
+string that spans
+several lines.
+</code></pre>
+</section>
+<section>
+    <h2>Booleans (bool)</h2>
+
+<p>Only two possible values: <code>True</code> or <code>False</code></p>
+
+<pre><code class="language-python">is_student = True
+has_license = False
+is_adult = True
+likes_python = True
+
+<p>print(is_student)
+print(type(is_student))
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>True
+<class 'bool'>
+</code></pre>
+
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> <code>True</code> and <code>False</code> MUST be capitalized! <code>true</code> and <code>false</code> won't work.
+</div>
+</section>
+<section>
+    <h2>Boolean Examples</h2>
+
+<pre><code class="language-python"># Status flags
+is_logged_in = True
+is_admin = False
+email_verified = True
+
+# Feature toggles
+dark_mode = True
+notifications_enabled = False
+
+# Comparisons return booleans
+age = 25
+is_adult = age >= 18  # True
+is_teenager = age < 20  # False
+
+<p>print(is_adult)
+print(is_teenager)
+</code></pre></p>
+</section>
+<section>
+    <h2>The type() Function</h2>
+
+<p>Check any value's type with <code>type()</code>:</p>
+
+<pre><code class="language-python">print(type(42))
+print(type(3.14))
+print(type("Hello"))
+print(type(True))
+print(type(None))  # Special "no value" type
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code><class 'int'>
+<class 'float'>
+<class 'str'>
+<class 'bool'>
+<class 'NoneType'>
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.1: Type Detective (5 min)</h2>
+
+<p>What is the type of each value? Guess first, then check with <code>type()</code>!</p>
+
+<pre><code class="language-python">a = 42
+b = 42.0
+c = "42"
+d = True
+e = "True"
+f = ""
+g = 0
+h = 0.0
+i = "3.14"
+j = None
+</code></pre>
+
+<p>Write your guesses, then verify with code.</p>
+</section>
+<section>
+    <h2>Exercise 3.1: Answers</h2>
+
+<pre><code class="language-python">print(type(42))      # int
+print(type(42.0))    # float (has decimal point!)
+print(type("42"))    # str (in quotes!)
+print(type(True))    # bool
+print(type("True"))  # str (in quotes!)
+print(type(""))      # str (empty string is still a string)
+print(type(0))       # int
+print(type(0.0))     # float
+print(type("3.14"))  # str
+print(type(None))    # NoneType
+</code></pre>
+</section>
+<section>
+    <h2>Type Conversion</h2>
+
+<p>Convert between types using functions:</p>
+
+<pre><code class="language-python"># String to integer
+age_str = "25"
+age_int = int(age_str)
+print(age_int + 5)  # 30 (math works!)
+
+# Integer to string
+num = 42
+num_str = str(num)
+print("The answer is " + num_str)
+
+# Integer to float
+x = float(10)
+print(x)  # 10.0
+
+# Float to integer (truncates!)
+y = int(3.9)
+print(y)  # 3 (not 4!)
+</code></pre>
+</section>
+<section>
+    <h2>Type Conversion Functions</h2>
+
+<table>
+  <tr>
+    <th>Function</th>
+    <th>Converts To</th>
+    <th>Example</th>
+    <th>Result</th>
+  </tr>
+  <tr>
+    <td><code>int()</code></td>
+    <td>Integer</td>
+    <td><code>int("42")</code></td>
+    <td><code>42</code></td>
+  </tr>
+  <tr>
+    <td><code>float()</code></td>
+    <td>Float</td>
+    <td><code>float("3.14")</code></td>
+    <td><code>3.14</code></td>
+  </tr>
+  <tr>
+    <td><code>str()</code></td>
+    <td>String</td>
+    <td><code>str(42)</code></td>
+    <td><code>"42"</code></td>
+  </tr>
+  <tr>
+    <td><code>bool()</code></td>
+    <td>Boolean</td>
+    <td><code>bool(1)</code></td>
+    <td><code>True</code></td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Type Conversion Errors</h2>
+
+<pre><code class="language-python"># This works
+int("42")      # 42
+
+# These FAIL!
+int("hello")   # ValueError: invalid literal
+int("3.14")    # ValueError: invalid literal
+int("")        # ValueError: invalid literal
+
+# For decimals, convert to float first
+float("3.14")           # 3.14
+int(float("3.14"))      # 3
+</code></pre>
+
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> Always validate user input before converting!
+</div>
+</section>
+<section>
+    <h2>Boolean Conversion</h2>
+
+<p>Everything can become a boolean - some values are "truthy" or "falsy":</p>
+
+<pre><code class="language-python"># Falsy values (become False)
+print(bool(0))       # False
+print(bool(0.0))     # False
+print(bool(""))      # False (empty string)
+print(bool([]))      # False (empty list)
+print(bool(None))    # False
+
+# Truthy values (become True)
+print(bool(1))       # True
+print(bool(-5))      # True (any non-zero)
+print(bool("hello")) # True (non-empty string)
+print(bool("False")) # True! (non-empty string)
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.2: Type Conversion Practice (5 min)</h2>
+
+<pre><code class="language-python"># 1. Convert to integer and add 10
+price = "199"
+new_price = ...  # Should be 209
+
+# 2. Convert to string and concatenate
+quantity = 5
+message = "You ordered " + ... + " items"
+
+# 3. Fix this (TypeError)
+age = "25"
+next_year = age + 1  # Will error! Fix it.
+
+# 4. Convert user input (assume they typed "3.14")
+user_input = "3.14"
+number = ...  # Convert to float, then to int
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 3.2: Solutions</h2>
+
+<pre><code class="language-python"># 1. Convert to integer and add 10
+price = "199"
+new_price = int(price) + 10
+print(new_price)  # 209
+
+# 2. Convert to string and concatenate
+quantity = 5
+message = "You ordered " + str(quantity) + " items"
+print(message)
+
+# 3. Fix the TypeError
+age = "25"
+next_year = int(age) + 1
+print(next_year)  # 26
+
+# 4. Convert user input
+user_input = "3.14"
+number = int(float(user_input))
+print(number)  # 3
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 4: Operations</h1>
+    <p>Math and String Manipulation (30 minutes)</p>
+</section>
+<section>
+    <h2>Arithmetic Operators</h2>
+
+<table>
+  <tr>
+    <th>Operator</th>
+    <th>Name</th>
+    <th>Example</th>
+    <th>Result</th>
+  </tr>
+  <tr>
+    <td><code>+</code></td>
+    <td>Addition</td>
+    <td><code>10 + 3</code></td>
+    <td><code>13</code></td>
+  </tr>
+  <tr>
+    <td><code>-</code></td>
+    <td>Subtraction</td>
+    <td><code>10 - 3</code></td>
+    <td><code>7</code></td>
+  </tr>
+  <tr>
+    <td><code>*</code></td>
+    <td>Multiplication</td>
+    <td><code>10 * 3</code></td>
+    <td><code>30</code></td>
+  </tr>
+  <tr>
+    <td><code>/</code></td>
+    <td>Division</td>
+    <td><code>10 / 3</code></td>
+    <td><code>3.333...</code></td>
+  </tr>
+  <tr>
+    <td><code>//</code></td>
+    <td>Floor Division</td>
+    <td><code>10 // 3</code></td>
+    <td><code>3</code></td>
+  </tr>
+  <tr>
+    <td><code>%</code></td>
+    <td>Modulo (Remainder)</td>
+    <td><code>10 % 3</code></td>
+    <td><code>1</code></td>
+  </tr>
+  <tr>
+    <td><code>**</code></td>
+    <td>Exponent (Power)</td>
+    <td><code>10 ** 3</code></td>
+    <td><code>1000</code></td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Basic Math Examples</h2>
+
+<pre><code class="language-python">a = 10
+b = 3
+
+<p>print(f"Addition:       {a} + {b} = {a + b}")
+print(f"Subtraction:    {a} - {b} = {a - b}")
+print(f"Multiplication: {a} <em> {b} = {a </em> b}")
+print(f"Division:       {a} / {b} = {a / b:.2f}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Addition:       10 + 3 = 13
+Subtraction:    10 - 3 = 7
+Multiplication: 10 * 3 = 30
+Division:       10 / 3 = 3.33
+</code></pre>
+</section>
+<section>
+    <h2>Division Types Explained</h2>
+
+<pre><code class="language-python">print("Regular division (/):")
+print(f"  10 / 3 = {10 / 3}")   # 3.333...
+print(f"  10 / 2 = {10 / 2}")   # 5.0 (still float!)
+
+<p>print("\nFloor division (//):")
+print(f"  10 // 3 = {10 // 3}") # 3 (rounds down)
+print(f"  10 // 2 = {10 // 2}") # 5</p>
+
+<p>print("\nModulo (%):")
+print(f"  10 % 3 = {10 % 3}")   # 1 (remainder)
+print(f"  10 % 2 = {10 % 2}")   # 0 (evenly divisible)
+</code></pre></p>
+</section>
+<section>
+    <h2>Practical Uses of Modulo</h2>
+
+<pre><code class="language-python"># Check if number is even or odd
+number = 7
+if number % 2 == 0:
+    print("Even")
+else:
+    print("Odd")
+
+# Get last digit of a number
+year = 2024
+last_digit = year % 10
+print(f"Last digit of {year} is {last_digit}")  # 4
+
+# Convert minutes to hours and minutes
+total_minutes = 135
+hours = total_minutes // 60
+minutes = total_minutes % 60
+print(f"{total_minutes} minutes = {hours}h {minutes}m")
+</code></pre>
+</section>
+<section>
+    <h2>Exponents and Roots</h2>
+
+<pre><code class="language-python"># Powers
+print(2 ** 3)     # 8 (2³)
+print(10 ** 2)    # 100 (10²)
+print(5 ** 0)     # 1 (anything⁰ = 1)
+
+# Square root (power of 0.5)
+print(16 ** 0.5)  # 4.0
+print(25 ** 0.5)  # 5.0
+
+# Cube root (power of 1/3)
+print(27 ** (1/3))  # 3.0
+
+# Scientific notation
+distance_to_moon = 3.84e8  # 384,000,000 meters
+print(distance_to_moon)
+</code></pre>
+</section>
+<section>
+    <h2>Order of Operations (PEMDAS/BODMAS)</h2>
+
+<p>Python follows standard math order:</p>
+
+<ol>
+  <li><strong>P</strong>arentheses / <strong>B</strong>rackets</li>
+  <li><strong>E</strong>xponents / <strong>O</strong>rders</li>
+  <li><strong>M</strong>ultiplication and <strong>D</strong>ivision (left to right)</li>
+  <li><strong>A</strong>ddition and <strong>S</strong>ubtraction (left to right)</li>
+</ol>
+<pre><code class="language-python">print(2 + 3 * 4)       # 14 (not 20!)
+print((2 + 3) * 4)     # 20
+print(2 <strong> 3 </strong> 2)     # 512 (exponents: right to left)
+print((2 <strong> 3) </strong> 2)   # 64
+print(10 - 4 - 2)      # 4 (left to right)
+</code></pre>
+</section>
+<section>
+    <h2>Assignment Operators (Shortcuts)</h2>
+
+<p>Instead of <code>x = x + 5</code>, use shortcuts:</p>
+
+<pre><code class="language-python">x = 10
+print(f"Start: {x}")
+
+<p>x += 5   # Same as: x = x + 5
+print(f"After += 5: {x}")</p>
+
+<p>x -= 3   # Same as: x = x - 3
+print(f"After -= 3: {x}")</p>
+
+<p>x <em>= 2   # Same as: x = x </em> 2
+print(f"After *= 2: {x}")</p>
+
+<p>x //= 4  # Same as: x = x // 4
+print(f"After //= 4: {x}")
+</code></pre></p>
+</section>
+<section>
+    <h2>All Assignment Operators</h2>
+
+<table>
+  <tr>
+    <th>Operator</th>
+    <th>Example</th>
+    <th>Equivalent</th>
+  </tr>
+  <tr>
+    <td><code>+=</code></td>
+    <td><code>x += 5</code></td>
+    <td><code>x = x + 5</code></td>
+  </tr>
+  <tr>
+    <td><code>-=</code></td>
+    <td><code>x -= 5</code></td>
+    <td><code>x = x - 5</code></td>
+  </tr>
+  <tr>
+    <td><code>*=</code></td>
+    <td><code>x *= 5</code></td>
+    <td><code>x = x * 5</code></td>
+  </tr>
+  <tr>
+    <td><code>/=</code></td>
+    <td><code>x /= 5</code></td>
+    <td><code>x = x / 5</code></td>
+  </tr>
+  <tr>
+    <td><code>//=</code></td>
+    <td><code>x //= 5</code></td>
+    <td><code>x = x // 5</code></td>
+  </tr>
+  <tr>
+    <td><code>%=</code></td>
+    <td><code>x %= 5</code></td>
+    <td><code>x = x % 5</code></td>
+  </tr>
+  <tr>
+    <td><code>**=</code></td>
+    <td><code>x **= 5</code></td>
+    <td><code>x = x ** 5</code></td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Exercise 4.1: Math Practice (5 min)</h2>
+
+<pre><code class="language-python"># Calculate these values:
+
+# 1. Area of a circle with radius 7 (π × r²)
+pi = 3.14159
+radius = 7
+circle_area = ...
+
+# 2. Hypotenuse of right triangle (√(a² + b²))
+side_a = 3
+side_b = 4
+hypotenuse = ...
+
+# 3. Compound interest: A = P(1 + r)^t
+principal = 1000
+rate = 0.05
+years = 10
+final_amount = ...
+
+# 4. How many weeks and days in 100 days?
+total_days = 100
+weeks = ...
+remaining_days = ...
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 4.1: Solutions</h2>
+
+<pre><code class="language-python"># 1. Circle area
+pi = 3.14159
+radius = 7
+circle_area = pi * radius ** 2
+print(f"Circle area: {circle_area:.2f}")  # 153.94
+
+# 2. Hypotenuse
+side_a = 3
+side_b = 4
+hypotenuse = (side_a<strong>2 + side_b</strong>2) ** 0.5
+print(f"Hypotenuse: {hypotenuse}")  # 5.0
+
+# 3. Compound interest
+principal = 1000
+rate = 0.05
+years = 10
+final_amount = principal * (1 + rate) ** years
+print(f"Final amount: ${final_amount:.2f}")  # $1628.89
+
+# 4. Weeks and days
+total_days = 100
+weeks = total_days // 7
+remaining_days = total_days % 7
+print(f"{total_days} days = {weeks} weeks and {remaining_days} days")
+</code></pre>
+</section>
+<section>
+    <h2>String Concatenation</h2>
+
+<p>Joining strings together with <code>+</code>:</p>
+
+<pre><code class="language-python">first_name = "Ana"
+last_name = "Novak"
+
+# Concatenation
+full_name = first_name + " " + last_name
+print(full_name)
+
+# Building longer strings
+greeting = "Hello, " + full_name + "!"
+print(greeting)
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>Ana Novak
+Hello, Ana Novak!
+</code></pre>
+</section>
+<section>
+    <h2>String Repetition</h2>
+
+<p>Repeating strings with <code>*</code>:</p>
+
+<pre><code class="language-python">print("=" * 30)
+print("Hello! " * 3)
+print("-" * 40)
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>==============================
+Hello! Hello! Hello! 
+----------------------------------------
+</code></pre>
+
+<p>Useful for creating visual separators!</p>
+</section>
+<section>
+    <h2>String Length</h2>
+
+<pre><code class="language-python">message = "Hello, World!"
+print(len(message))  # 13 (including space and punctuation)
+
+<p>empty = ""
+print(len(empty))    # 0</p>
+
+<p>name = "Ljubljana"
+print(len(name))     # 9
+</code></pre></p>
+
+<p>The <code>len()</code> function counts ALL characters including spaces and punctuation.</p>
+</section>
+<section>
+    <h2>String Methods</h2>
+
+<p>Methods are functions attached to strings (use dot notation):</p>
+
+<pre><code class="language-python">text = "Hello, World!"
+
+<p>print(text.upper())       # HELLO, WORLD!
+print(text.lower())       # hello, world!
+print(text.title())       # Hello, World!
+print(text.swapcase())    # hELLO, wORLD!
+</code></pre></p>
+</section>
+<section>
+    <h2>More String Methods</h2>
+
+<pre><code class="language-python">text = "  Hello, World!  "
+
+# Whitespace handling
+print(text.strip())       # "Hello, World!" (removes both sides)
+print(text.lstrip())      # "Hello, World!  " (left only)
+print(text.rstrip())      # "  Hello, World!" (right only)
+
+# Finding and replacing
+print(text.strip().replace("World", "Python"))  # Hello, Python!
+print(text.strip().count("l"))                  # 3
+print(text.strip().find("World"))               # 7 (index)
+</code></pre>
+</section>
+<section>
+    <h2>String Checking Methods</h2>
+
+<pre><code class="language-python"># Check what string contains
+print("hello".isalpha())      # True (only letters)
+print("12345".isdigit())      # True (only digits)
+print("hello123".isalnum())   # True (letters or digits)
+print("   ".isspace())        # True (only whitespace)
+
+# Check start/end
+text = "Hello, World!"
+print(text.startswith("Hello"))  # True
+print(text.startswith("hello"))  # False (case-sensitive!)
+print(text.endswith("!"))        # True
+print(text.endswith("?"))        # False
+</code></pre>
+</section>
+<section>
+    <h2>String Indexing</h2>
+
+<p>Access individual characters by position (index):</p>
+
+<pre><code class="language-python">word = "Python"
+#       012345  (positive index, from left)
+#      -654321  (negative index, from right)
+
+<p>print(word[0])    # P (first)
+print(word[1])    # y (second)
+print(word[5])    # n (sixth, last)
+print(word[-1])   # n (last)
+print(word[-2])   # o (second to last)
+</code></pre></p>
+
+<div class="callout callout-warning"><strong>⚠️ Warning:</strong> Indexing starts at <strong>0</strong>, not 1! First character is <code>[0]</code>.
+</div>
+</section>
+<section>
+    <h2>String Slicing</h2>
+
+<p>Extract substrings with <code>[start:stop:step]</code>:</p>
+
+<pre><code class="language-python">word = "Python"
+
+<p>print(word[0:3])   # Pyt (index 0, 1, 2)
+print(word[:3])    # Pyt (from start to 3)
+print(word[3:])    # hon (from 3 to end)
+print(word[1:5])   # ytho (1, 2, 3, 4)
+print(word[::2])   # Pto (every 2nd character)
+print(word[::-1])  # nohtyP (reversed!)
+</code></pre></p>
+
+<strong>Note:</strong> The <code>stop</code> index is NOT included (exclusive).
+</section>
+<section>
+    <h2>Exercise 4.2: String Practice (5 min)</h2>
+
+<pre><code class="language-python">sentence = "  Python Programming is FUN!  "
+
+# 1. Remove extra spaces
+clean = ...
+
+# 2. Convert to lowercase
+lower = ...
+
+# 3. Replace "FUN" with "AWESOME"
+awesome = ...
+
+# 4. Get just "Python" (first word)
+first_word = ...
+
+# 5. Count letter 'n' (case-insensitive)
+n_count = ...
+
+# 6. Check if it ends with "!"
+has_exclaim = ...
+
+# 7. Reverse the cleaned string
+reversed_str = ...
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 4.2: Solutions</h2>
+
+<pre><code class="language-python">sentence = "  Python Programming is FUN!  "
+
+<p>clean = sentence.strip()
+print(f"1. Clean: '{clean}'")</p>
+
+<p>lower = clean.lower()
+print(f"2. Lower: '{lower}'")</p>
+
+<p>awesome = clean.replace("FUN", "AWESOME")
+print(f"3. Awesome: '{awesome}'")</p>
+
+<p>first_word = clean.split()[0]
+print(f"4. First word: '{first_word}'")</p>
+
+<p>n_count = clean.lower().count('n')
+print(f"5. Count of 'n': {n_count}")</p>
+
+<p>has_exclaim = clean.endswith("!")
+print(f"6. Ends with '!': {has_exclaim}")</p>
+
+<p>reversed_str = clean[::-1]
+print(f"7. Reversed: '{reversed_str}'")
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 5: F-Strings</h1>
+    <p>Formatted String Literals (20 minutes)</p>
+</section>
+<section>
+    <h2>The Problem</h2>
+
+<p>How do we combine text and variables?</p>
+
+<pre><code class="language-python">name = "Alice"
+age = 28
+
+# Concatenation is clunky:
+message = "My name is " + name + " and I am " + str(age) + " years old."
+print(message)
+</code></pre>
+
+<p>There must be a better way!</p>
+</section>
+<section>
+    <h2>F-Strings to the Rescue!</h2>
+
+<p>Put <code>f</code> before the string and variables inside <code>{curly braces}</code>:</p>
+
+<pre><code class="language-python">name = "Alice"
+age = 28
+
+# F-string way - clean and readable!
+message = f"My name is {name} and I am {age} years old."
+print(message)
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>My name is Alice and I am 28 years old.
+</code></pre>
+</section>
+<section>
+    <h2>F-String Syntax</h2>
+
+<pre><code class="language-python">name = "Alice"
+score = 95
+
+# The f before quotes is required!
+greeting = f"Hello, {name}!"
+result = f"You scored {score} points."
+
+<p>print(greeting)
+print(result)</p>
+
+# Without the f, braces are literal text:
+no_f = "Hello, {name}!"  # Prints: Hello, {name}!
+print(no_f)
+</code></pre>
+</section>
+<section>
+    <h2>Expressions in F-Strings</h2>
+
+<p>You can put any Python expression inside the braces:</p>
+
+<pre><code class="language-python">x = 10
+y = 5
+
+<p>print(f"Sum: {x + y}")
+print(f"Product: {x * y}")
+print(f"x squared: {x ** 2}")
+print(f"Is x bigger? {x > y}")
+print(f"Division: {x / y}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Sum: 15
+Product: 50
+x squared: 100
+Is x bigger? True
+Division: 2.0
+</code></pre>
+</section>
+<section>
+    <h2>Function Calls in F-Strings</h2>
+
+<pre><code class="language-python">name = "alice"
+items = ["apple", "banana", "cherry"]
+
+<p>print(f"Original: {name}")
+print(f"Upper: {name.upper()}")
+print(f"Title: {name.title()}")
+print(f"Length: {len(name)}")
+print(f"Number of items: {len(items)}")
+</code></pre></p>
+
+<strong>Output:</strong>
+<pre><code>Original: alice
+Upper: ALICE
+Title: Alice
+Length: 5
+Number of items: 3
+</code></pre>
+</section>
+<section>
+    <h2>Number Formatting: Decimal Places</h2>
+
+<pre><code class="language-python">pi = 3.14159265359
+price = 19.5
+
+# .Xf = X decimal places
+print(f"Pi: {pi}")           # 3.14159265359
+print(f"Pi: {pi:.2f}")       # 3.14
+print(f"Pi: {pi:.4f}")       # 3.1416
+
+<p>print(f"Price: ${price}")    # $19.5
+print(f"Price: ${price:.2f}")# $19.50
+</code></pre></p>
+
+<p>The <code>f</code> after the number means "fixed-point" (show as decimal).</p>
+</section>
+<section>
+    <h2>Number Formatting: Thousands Separator</h2>
+
+<pre><code class="language-python">population = 2100000
+salary = 52750.50
+
+# Use comma for thousands separator
+print(f"Population: {population:,}")
+print(f"Salary: ${salary:,.2f}")
+
+# Use underscore (Python 3.6+)
+print(f"Population: {population:_}")
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code>Population: 2,100,000
+Salary: $52,750.50
+Population: 2_100_000
+</code></pre>
+</section>
+<section>
+    <h2>Number Formatting: Percentages</h2>
+
+<pre><code class="language-python">ratio = 0.756
+accuracy = 0.9823
+completion = 0.5
+
+<p>print(f"Ratio: {ratio:.1%}")       # 75.6%
+print(f"Accuracy: {accuracy:.2%}") # 98.23%
+print(f"Complete: {completion:.0%}")# 50%
+</code></pre></p>
+
+<p>The <code>%</code> multiplies by 100 and adds the percent sign.</p>
+</section>
+<section>
+    <h2>Number Formatting: Alignment and Padding</h2>
+
+<pre><code class="language-python">name = "Alice"
+score = 42
+
+# Width and alignment
+print(f"|{name:>15}|")  # Right align, width 15
+print(f"|{name:<15}|")  # Left align
+print(f"|{name:^15}|")  # Center
+
+# Zero padding
+print(f"ID: {score:05}")    # 00042
+print(f"Hex: {score:04x}")  # 002a
+</code></pre>
+
+<strong>Output:</strong>
+<pre><code><table>
+  <tr>
+    <th>Alice</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+  </tr>
+  <tr>
+    <td>Alice</td>
+  </tr>
+</table>ID: 00042
+Hex: 002a
+</code></pre>
+</section>
+<section>
+    <h2>Practical F-String Examples</h2>
+
+<pre><code class="language-python"># Receipt line
+item = "Coffee"
+price = 4.50
+print(f"{item:.<20} ${price:.2f}")
+# Coffee.............. $4.50
+
+# Table row
+name = "Alice"
+score = 95
+print(f"| {name:<12} | {score:>5} |")
+# | Alice        |    95 |
+
+# Progress bar
+progress = 0.73
+bar = "=" <em> int(progress </em> 20)
+print(f"[{bar:<20}] {progress:.0%}")
+# [==============      ] 73%
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.1: Pay Slip (10 min)</h2>
+
+<p>Create a formatted pay slip:</p>
+
+<pre><code class="language-python"># Input data
+employee = "Marko Horvat"
+hours = 37.5
+rate = 25.50
+tax_rate = 0.22
+
+# Calculations
+gross = hours * rate
+tax = gross * tax_rate
+net = gross - tax
+
+# Create this output:
+# ====================================
+#          PAY SLIP
+# ====================================
+# Employee:     Marko Horvat
+# Hours:                 37.50
+# Rate:                 $25.50
+# ------------------------------------
+# Gross Pay:           $956.25
+# Tax (22.0%):        -$210.38
+# ------------------------------------
+# NET PAY:             $745.88
+# ====================================
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.1: Solution</h2>
+
+<pre><code class="language-python">employee = "Marko Horvat"
+hours = 37.5
+rate = 25.50
+tax_rate = 0.22
+
+<p>gross = hours * rate
+tax = gross * tax_rate
+net = gross - tax</p>
+
+<p>print("=" * 36)
+print(f"{'PAY SLIP':^36}")
+print("=" * 36)
+print(f"Employee:     {employee}")
+print(f"Hours:        {hours:>18.2f}")
+print(f"Rate:         ${rate:>17.2f}")
+print("-" * 36)
+print(f"Gross Pay:    ${gross:>17,.2f}")
+print(f"Tax ({tax_rate:.1%}):   -${tax:>16,.2f}")
+print("-" * 36)
+print(f"NET PAY:      ${net:>17,.2f}")
+print("=" * 36)
+</code></pre></p>
+</section>
+<section>
+    <h2>Exercise 5.2: Data Report (5 min)</h2>
+
+<pre><code class="language-python"># Data
+product = "Widget Pro"
+units_sold = 15234
+unit_price = 29.99
+total_revenue = units_sold * unit_price
+target = 500000
+achievement = total_revenue / target
+
+# Create a formatted report showing:
+# - Product name
+# - Units sold with thousands separator
+# - Unit price with 2 decimals
+# - Total revenue with $ and thousands separator
+# - Target achievement as percentage
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.2: Solution</h2>
+
+<pre><code class="language-python">product = "Widget Pro"
+units_sold = 15234
+unit_price = 29.99
+total_revenue = units_sold * unit_price
+target = 500000
+achievement = total_revenue / target
+
+<p>print(f"\n{'SALES REPORT':=^40}\n")
+print(f"Product:         {product}")
+print(f"Units Sold:      {units_sold:,}")
+print(f"Unit Price:      ${unit_price:.2f}")
+print(f"Total Revenue:   ${total_revenue:,.2f}")
+print(f"Target:          ${target:,.2f}")
+print(f"Achievement:     {achievement:.1%}")</p>
+
+<p>if achievement >= 1:
+    print("\n🎉 Target achieved!")
+else:
+    shortfall = target - total_revenue
+    print(f"\n📊 ${shortfall:,.2f} to reach target")
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 5.5: Working with Dates</h1>
+    <p>Basic Date and Time in Python (15 minutes)</p>
+</section>
+<section>
+    <h2>Why Learn Dates Now?</h2>
+
+<p>Dates and times are everywhere in data:
+<ul>
+  <li>When was an order placed?</li>
+  <li>How old is a customer?</li>
+  <li>What day of the week was an event?</li>
+  <li>How many days until a deadline?</li>
+</ul>
+Python has built-in tools for dates - learn the basics now!</p>
+</section>
+<section>
+    <h2>The datetime Module</h2>
+
+<pre><code class="language-python"># Import the datetime module
+from datetime import date, datetime, timedelta
+
+# Get today's date
+today = date.today()
+print(f"Today is: {today}")
+# Output: Today is: 2024-12-25
+</code></pre>
+</section>
+<section>
+    <h2>Creating Dates</h2>
+
+<pre><code class="language-python">from datetime import date
+
+# Create a specific date
+birthday = date(1990, 5, 15)  # year, month, day
+print(f"Birthday: {birthday}")
+
+# Today's date
+today = date.today()
+print(f"Today: {today}")
+
+# Access parts
+print(f"Year: {today.year}")
+print(f"Month: {today.month}")
+print(f"Day: {today.day}")
+</code></pre>
+</section>
+<section>
+    <h2>Working with Times</h2>
+
+<pre><code class="language-python">from datetime import datetime
+
+# Current date AND time
+now = datetime.now()
+print(f"Now: {now}")
+# Output: 2024-12-25 14:30:45.123456
+
+# Access parts
+print(f"Hour: {now.hour}")
+print(f"Minute: {now.minute}")
+print(f"Second: {now.second}")
+</code></pre>
+</section>
+<section>
+    <h2>Day of the Week</h2>
+
+<pre><code class="language-python">from datetime import date
+
+<p>today = date.today()</p>
+
+# weekday() returns 0-6 (Monday=0, Sunday=6)
+print(f"Weekday number: {today.weekday()}")
+
+# Get the name
+days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 
+        'Friday', 'Saturday', 'Sunday']
+print(f"Day name: {days[today.weekday()]}")
+</code></pre>
+</section>
+<section>
+    <h2>Date Arithmetic</h2>
+
+<pre><code class="language-python">from datetime import date, timedelta
+
+<p>today = date.today()</p>
+
+# Add days
+tomorrow = today + timedelta(days=1)
+next_week = today + timedelta(weeks=1)
+print(f"Tomorrow: {tomorrow}")
+print(f"Next week: {next_week}")
+
+# Subtract days
+yesterday = today - timedelta(days=1)
+print(f"Yesterday: {yesterday}")
+</code></pre>
+</section>
+<section>
+    <h2>Calculating Differences</h2>
+
+<pre><code class="language-python">from datetime import date
+
+# Two dates
+start = date(2024, 1, 1)
+end = date(2024, 12, 31)
+
+# Difference
+difference = end - start
+print(f"Days between: {difference.days}")
+# Output: Days between: 365
+</code></pre>
+</section>
+<section>
+    <h2>Calculating Age</h2>
+
+<pre><code class="language-python">from datetime import date
+
+# Birth date
+birthdate = date(1990, 5, 15)
+today = date.today()
+
+# Simple age calculation
+age = today.year - birthdate.year
+
+# Adjust if birthday hasn't occurred this year
+if (today.month, today.day) < (birthdate.month, birthdate.day):
+    age -= 1
+
+<p>print(f"Age: {age} years")
+</code></pre></p>
+</section>
+<section>
+    <h2>Formatting Dates</h2>
+
+<pre><code class="language-python">from datetime import date
+
+<p>today = date.today()</p>
+
+# Format with strftime()
+print(today.strftime("%d/%m/%Y"))      # 25/12/2024
+print(today.strftime("%B %d, %Y"))     # December 25, 2024
+print(today.strftime("%A, %B %d"))     # Wednesday, December 25
+print(today.strftime("%d %b %Y"))      # 25 Dec 2024
+</code></pre>
+</section>
+<section>
+    <h2>Common Format Codes</h2>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Meaning</th>
+    <th>Example</th>
+  </tr>
+  <tr>
+    <td><code>%Y</code></td>
+    <td>4-digit year</td>
+    <td>2024</td>
+  </tr>
+  <tr>
+    <td><code>%m</code></td>
+    <td>Month (01-12)</td>
+    <td>12</td>
+  </tr>
+  <tr>
+    <td><code>%d</code></td>
+    <td>Day (01-31)</td>
+    <td>25</td>
+  </tr>
+  <tr>
+    <td><code>%B</code></td>
+    <td>Full month name</td>
+    <td>December</td>
+  </tr>
+  <tr>
+    <td><code>%b</code></td>
+    <td>Short month</td>
+    <td>Dec</td>
+  </tr>
+  <tr>
+    <td><code>%A</code></td>
+    <td>Full weekday</td>
+    <td>Wednesday</td>
+  </tr>
+  <tr>
+    <td><code>%a</code></td>
+    <td>Short weekday</td>
+    <td>Wed</td>
+  </tr>
+  <tr>
+    <td><code>%H</code></td>
+    <td>Hour (24h)</td>
+    <td>14</td>
+  </tr>
+  <tr>
+    <td><code>%M</code></td>
+    <td>Minute</td>
+    <td>30</td>
+  </tr>
+</table>
+</section>
+<section>
+    <h2>Parsing Date Strings</h2>
+
+<pre><code class="language-python">from datetime import datetime
+
+# Convert string to date
+date_string = "2024-12-25"
+parsed = datetime.strptime(date_string, "%Y-%m-%d")
+print(f"Parsed: {parsed}")
+
+# Different format
+date_string2 = "25/12/2024"
+parsed2 = datetime.strptime(date_string2, "%d/%m/%Y")
+print(f"Parsed: {parsed2}")
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 5.5: Date Practice</h2>
+
+<pre><code class="language-python">from datetime import date, timedelta
+
+# 1. Get today's date
+today = date.today()
+
+# 2. Calculate days until New Year 2025
+new_year = date(2025, 1, 1)
+days_until = (new_year - today).days
+print(f"Days until New Year: {days_until}")
+
+# 3. What day of the week is New Year?
+days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 
+        'Friday', 'Saturday', 'Sunday']
+print(f"New Year 2025 is on: {days[new_year.weekday()]}")
+
+# 4. Format today nicely
+print(f"Today: {today.strftime('%A, %B %d, %Y')}")
+</code></pre>
+</section>
+<section>
+    <h2>Key Takeaways</h2>
+
+<ul>
+  <li><code>from datetime import date, datetime, timedelta</code></li>
+  <li><code>date.today()</code> for current date</li>
+  <li><code>datetime.now()</code> for current date and time</li>
+  <li>Access parts: <code>.year</code>, <code>.month</code>, <code>.day</code>, <code>.hour</code>, <code>.minute</code></li>
+  <li><code>timedelta(days=n)</code> for date arithmetic</li>
+  <li><code>.strftime()</code> to format, <code>strptime()</code> to parse</li>
+</ul>
+<div class="callout callout-tip"><strong>💡 Tip:</strong> In Module 3, you'll learn Pandas date operations which are even more powerful for data analysis!
+</div>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 6: Common Errors</h1>
+    <p>Understanding and Fixing Mistakes (20 minutes)</p>
+</section>
+<section>
+    <h2>Errors Are Normal!</h2>
+
+<ul>
+  <li>Every programmer makes errors - lots of them!</li>
+  <li>Errors are how you learn</li>
+  <li>Python gives helpful error messages</li>
+  <li>Reading errors is a critical skill</li>
+</ul>
+<strong>Don't be afraid of errors - learn from them!</strong>
+</section>
+<section>
+    <h2>Anatomy of an Error Message</h2>
+
+<pre><code>Traceback (most recent call last):
+  File "script.py", line 3, in <module>
+    print(nmae)
+NameError: name 'nmae' is not defined
+</code></pre>
+
+<ol>
+  <li><strong>Traceback</strong> - The path to the error</li>
+  <li><strong>File and line</strong> - Exact location</li>
+  <li><strong>Code</strong> - The line that caused the error</li>
+  <li><strong>Error type</strong> - What kind of error (NameError)</li>
+  <li><strong>Message</strong> - Description of the problem</li>
+</ol>
+<strong>Always read the LAST line first!</strong>
+</section>
+<section>
+    <h2>NameError</h2>
+
+<strong>Cause:</strong> Using a variable that doesn't exist (usually a typo)
+
+<pre><code class="language-python">name = "Alice"
+print(nmae)  # Typo!
+</code></pre>
+
+<strong>Error:</strong>
+<pre><code>NameError: name 'nmae' is not defined
+</code></pre>
+
+<strong>Fix:</strong> Check spelling carefully!
+
+<pre><code class="language-python">name = "Alice"
+print(name)  # Correct
+</code></pre>
+</section>
+<section>
+    <h2>TypeError</h2>
+
+<strong>Cause:</strong> Using wrong type for an operation
+
+<pre><code class="language-python">age = 25
+message = "I am " + age + " years old"  # Can't add string + int!
+</code></pre>
+
+<strong>Error:</strong>
+<pre><code>TypeError: can only concatenate str (not "int") to str
+</code></pre>
+
+<strong>Fix:</strong> Convert types or use f-string!
+
+<pre><code class="language-python">message = "I am " + str(age) + " years old"  # Convert to string
+message = f"I am {age} years old"            # Or use f-string
+</code></pre>
+</section>
+<section>
+    <h2>SyntaxError</h2>
+
+<strong>Cause:</strong> Invalid Python syntax
+
+<pre><code class="language-python">print("Hello World)  # Missing closing quote
+</code></pre>
+
+<strong>Error:</strong>
+<pre><code>SyntaxError: EOL while scanning string literal
+</code></pre>
+
+<strong>Common causes:</strong>
+
+<ul>
+  <li>Missing quotes, parentheses, brackets</li>
+  <li>Unmatched brackets/quotes</li>
+  <li>Missing colons after if/for/while</li>
+  <li>Wrong indentation</li>
+</ul>
+</section>
+<section>
+    <h2>More SyntaxErrors</h2>
+
+<pre><code class="language-python"># Missing colon
+if True
+    print("yes")
+
+# Mismatched brackets
+data = [1, 2, 3)
+
+# Invalid assignment
+5 = x
+
+# Keyword as variable
+class = "Math"
+</code></pre>
+</section>
+<section>
+    <h2>ValueError</h2>
+
+<strong>Cause:</strong> Right type, wrong value
+
+<pre><code class="language-python">number = int("hello")  # Can't convert "hello" to int
+</code></pre>
+
+<strong>Error:</strong>
+<pre><code>ValueError: invalid literal for int() with base 10: 'hello'
+</code></pre>
+
+<strong>Fix:</strong> Validate input before converting
+
+<pre><code class="language-python">text = "hello"
+if text.isdigit():
+    number = int(text)
+else:
+    print("Not a valid number!")
+</code></pre>
+</section>
+<section>
+    <h2>IndexError</h2>
+
+<strong>Cause:</strong> Accessing an index that doesn't exist
+
+<pre><code class="language-python">word = "Python"  # Indices 0-5
+print(word[10])  # Index 10 doesn't exist!
+</code></pre>
+
+<strong>Error:</strong>
+<pre><code>IndexError: string index out of range
+</code></pre>
+
+<strong>Fix:</strong> Check length first
+
+<pre><code class="language-python">word = "Python"
+index = 10
+if index < len(word):
+    print(word[index])
+else:
+    print(f"Index {index} is out of range!")
+</code></pre>
+</section>
+<section>
+    <h2>ZeroDivisionError</h2>
+
+<strong>Cause:</strong> Dividing by zero
+
+<pre><code class="language-python">result = 10 / 0
+</code></pre>
+
+<strong>Error:</strong>
+<pre><code>ZeroDivisionError: division by zero
+</code></pre>
+
+<strong>Fix:</strong> Check before dividing
+
+<pre><code class="language-python">numerator = 10
+denominator = 0
+
+<p>if denominator != 0:
+    result = numerator / denominator
+else:
+    print("Cannot divide by zero!")
+</code></pre></p>
+</section>
+<section>
+    <h2>AttributeError</h2>
+
+<strong>Cause:</strong> Using method/attribute that doesn't exist for that type
+
+<pre><code class="language-python">number = 42
+print(number.upper())  # Numbers don't have .upper()!
+</code></pre>
+
+<strong>Error:</strong>
+<pre><code>AttributeError: 'int' object has no attribute 'upper'
+</code></pre>
+
+<strong>Fix:</strong> Use correct method for the type
+
+<pre><code class="language-python">text = "hello"
+print(text.upper())  # Strings have .upper()
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 6.1: Debug This Code (10 min)</h2>
+
+<p>Find and fix ALL the errors:</p>
+
+<pre><code class="language-python"># Calculate final price with discount
+product = "Laptop
+price = "999.99"
+disount = 0.1
+
+<p>final = price - (price * disount)
+print(f"Product: {Product}")
+print(f"Original: ${priice}")
+print(f"Discount: {discount}%")
+print(f"Final: ${final:.2f))
+</code></pre></p>
+</section>
+<section>
+    <h2>Exercise 6.1: Solution</h2>
+
+<pre><code class="language-python"># ERRORS FOUND AND FIXED:
+
+# 1. Missing closing quote on string
+product = "Laptop"  # Added closing quote
+
+# 2. Price should be number, not string
+price = 999.99  # Removed quotes
+
+# 3. Typo in variable name
+discount = 0.1  # disount → discount
+
+# Now the calculation works
+final = price - (price * discount)
+
+# 4. Wrong case: Product → product
+print(f"Product: {product}")
+
+# 5. Typo: priice → price
+print(f"Original: ${price}")
+
+# 6. Show as percentage
+print(f"Discount: {discount * 100}%")
+
+# 7. Wrong closing brackets: :2f)) → :.2f}")
+print(f"Final: ${final:.2f}")
+</code></pre>
+</section>
+<section>
+    <h2>Using Gemini for Debugging</h2>
+
+<p>When you get an error:</p>
+
+<ol>
+  <li>Copy the full error message</li>
+  <li>Open Gemini (Ctrl + Shift + Space)</li>
+  <li>Ask: "What does this error mean and how do I fix it?"</li>
+  <li>Paste the error</li>
+</ol>
+<strong>Example prompts:</strong>
+
+<ul>
+  <li>"What does NameError: name 'x' is not defined mean?"</li>
+  <li>"Why am I getting TypeError when adding strings?"</li>
+  <li>"This code gives SyntaxError, what's wrong?" [paste code]</li>
+</ul>
+</section>
+<section>
+    <h2>Exercise 6.2: More Debugging (5 min)</h2>
+
+<pre><code class="language-python"># Fix these errors:
+
+# 1. NameError
+message = "Hello"
+print(mesage)
+
+# 2. TypeError
+age = "30"
+in_ten_years = age + 10
+
+# 3. ValueError
+number = int("three")
+
+# 4. IndexError
+letters = "ABC"
+print(letters[3])
+
+# 5. SyntaxError
+if True
+    print("Yes")
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 6.2: Solutions</h2>
+
+<pre><code class="language-python"># 1. NameError - fix typo
+message = "Hello"
+print(message)
+
+# 2. TypeError - convert string to int
+age = "30"
+in_ten_years = int(age) + 10
+print(in_ten_years)
+
+# 3. ValueError - use valid number string
+number = int("3")  # or handle the error
+print(number)
+
+# 4. IndexError - use valid index
+letters = "ABC"
+print(letters[2])  # Last valid index is 2
+
+# 5. SyntaxError - add colon
+if True:
+    print("Yes")
+</code></pre>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 7: User Input</h1>
+    <p>Getting Data from Users (15 minutes)</p>
+</section>
+<section>
+    <h2>The input() Function</h2>
+
+<pre><code class="language-python">name = input("What is your name? ")
+print(f"Hello, {name}!")
+</code></pre>
+
+<strong>When you run this:</strong>
+<pre><code>What is your name? Alice
+Hello, Alice!
+</code></pre>
+
+<p>The program pauses, waits for user input, then continues.</p>
+</section>
+<section>
+    <h2>Important: input() Returns String!</h2>
+
+<pre><code class="language-python">age = input("Enter your age: ")
+print(type(age))  # <class 'str'> - it's a string!
+
+# This will cause an error:
+# next_year = age + 1  # TypeError!
+
+# Convert to integer first:
+age = int(input("Enter your age: "))
+print(type(age))  # <class 'int'>
+next_year = age + 1  # Now it works!
+</code></pre>
+</section>
+<section>
+    <h2>Converting Input Types</h2>
+
+<pre><code class="language-python"># For integers
+age = int(input("Enter your age: "))
+
+# For floats/decimals
+height = float(input("Enter your height in meters: "))
+
+# For yes/no (as boolean)
+response = input("Do you agree? (y/n): ")
+agrees = response.lower() == 'y'
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 7.1: Interactive Calculator (5 min)</h2>
+
+<pre><code class="language-python"># Get two numbers from user
+num1 = float(input("Enter first number: "))
+num2 = float(input("Enter second number: "))
+
+# Calculate and display all operations
+print(f"\nResults:")
+print(f"{num1} + {num2} = {num1 + num2}")
+print(f"{num1} - {num2} = {num1 - num2}")
+print(f"{num1} × {num2} = {num1 * num2}")
+if num2 != 0:
+    print(f"{num1} ÷ {num2} = {num1 / num2:.2f}")
+else:
+    print("Cannot divide by zero!")
+</code></pre>
+</section>
+<section>
+    <h2>Exercise 7.2: Personal Info Form (5 min)</h2>
+
+<p>Create an interactive form that asks for and displays:</p>
+
+<ul>
+  <li>Full name</li>
+  <li>Age (calculate birth year)</li>
+  <li>City</li>
+  <li>Favorite color</li>
+  <li>Favorite food</li>
+</ul>
+Display a formatted summary at the end.
+</section>
+<section>
+    <h2>Exercise 7.2: Solution</h2>
+
+<pre><code class="language-python">print("=== Personal Information Form ===\n")
+
+<p>name = input("Your full name: ")
+age = int(input("Your age: "))
+city = input("Your city: ")
+color = input("Favorite color: ")
+food = input("Favorite food: ")</p>
+
+<p>birth_year = 2024 - age</p>
+
+<p>print("\n" + "=" * 35)
+print("SUMMARY")
+print("=" * 35)
+print(f"Name:           {name}")
+print(f"Age:            {age}")
+print(f"Born:           ~{birth_year}")
+print(f"City:           {city}")
+print(f"Favorite color: {color}")
+print(f"Favorite food:  {food}")
+print("=" * 35)
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Part 8: Practice Projects</h1>
+    <p>Apply Everything You've Learned (30 minutes)</p>
+</section>
+<section>
+    <h2>Project 1: Temperature Converter</h2>
+
+<p>Build a complete temperature converter:</p>
+
+<ol>
+  <li>Ask for temperature in Celsius</li>
+  <li>Convert to Fahrenheit: F = C × 9/5 + 32</li>
+  <li>Convert to Kelvin: K = C + 273.15</li>
+  <li>Display all three with nice formatting</li>
+  <li>Add a message based on temperature (cold/warm/hot)</li>
+</ol>
+</section>
+<section>
+    <h2>Project 1: Solution</h2>
+
+<pre><code class="language-python">print("=" * 40)
+print("TEMPERATURE CONVERTER".center(40))
+print("=" * 40)
+
+<p>celsius = float(input("\nEnter temperature in Celsius: "))</p>
+
+<p>fahrenheit = celsius * 9/5 + 32
+kelvin = celsius + 273.15</p>
+
+<p>print(f"\n{celsius:.1f}°C equals:")
+print(f"  • {fahrenheit:.1f}°F (Fahrenheit)")
+print(f"  • {kelvin:.2f}K (Kelvin)")</p>
+
+<p>print("\nDescription:", end=" ")
+if celsius < 0:
+    print("❄️ Freezing cold!")
+elif celsius < 10:
+    print("🥶 Very cold")
+elif celsius < 20:
+    print("😊 Cool and pleasant")
+elif celsius < 30:
+    print("☀️ Warm")
+else:
+    print("🔥 Hot!")
+</code></pre></p>
+</section>
+<section>
+    <h2>Project 2: Simple Interest Calculator</h2>
+
+<p>Calculate investment growth:</p>
+
+<ol>
+  <li>Get principal amount, interest rate, years</li>
+  <li>Calculate simple interest: I = P × R × T</li>
+  <li>Calculate total amount: A = P + I</li>
+  <li>Display formatted financial report</li>
+</ol>
+</section>
+<section>
+    <h2>Project 2: Solution</h2>
+
+<pre><code class="language-python">print("\n" + "=" * 45)
+print("SIMPLE INTEREST CALCULATOR".center(45))
+print("=" * 45)
+
+<p>principal = float(input("\nPrincipal amount ($): "))
+rate = float(input("Annual interest rate (%): ")) / 100
+years = int(input("Investment period (years): "))</p>
+
+<p>interest = principal <em> rate </em> years
+total = principal + interest</p>
+
+<p>print("\n" + "-" * 45)
+print("INVESTMENT SUMMARY".center(45))
+print("-" * 45)
+print(f"Principal Amount:    ${principal:>15,.2f}")
+print(f"Interest Rate:       {rate*100:>15.2f}%")
+print(f"Time Period:         {years:>15} years")
+print("-" * 45)
+print(f"Interest Earned:     ${interest:>15,.2f}")
+print(f"Total Value:         ${total:>15,.2f}")
+print("=" * 45)
+print(f"\n💰 Your money grew by {(total/principal - 1)*100:.1f}%!")
+</code></pre></p>
+</section>
+<section>
+    <h2>Project 3: Mad Libs Story Generator</h2>
+
+<p>Create an interactive story:</p>
+
+<ol>
+  <li>Ask for various words (nouns, verbs, adjectives)</li>
+  <li>Insert them into a funny story template</li>
+  <li>Display the complete story</li>
+</ol>
+</section>
+<section>
+    <h2>Project 3: Solution</h2>
+
+<pre><code class="language-python">print("\n🎭 MAD LIBS STORY GENERATOR 🎭\n")
+print("Fill in the blanks to create a funny story!\n")
+
+<p>adjective1 = input("Enter an adjective: ")
+noun1 = input("Enter a noun: ")
+verb_past = input("Enter a verb (past tense): ")
+adverb = input("Enter an adverb: ")
+adjective2 = input("Enter another adjective: ")
+noun2 = input("Enter another noun: ")
+exclamation = input("Enter an exclamation: ")</p>
+
+<p>print("\n" + "=" * 50)
+print("YOUR STORY:")
+print("=" * 50)
+print(f"""
+Once upon a time, there was a {adjective1} {noun1}
+who {verb_past} {adverb} through the enchanted forest.</p>
+
+<p>Suddenly, a {adjective2} {noun2} appeared and said,
+"{exclamation}! I've been waiting for you!"</p>
+
+<p>And they became best friends forever.</p>
+
+<p>THE END 🎉
+""")
+</code></pre></p>
+</section>
+<section>
+    <h2>Project 4: Profile Card Generator</h2>
+
+<p>Create an ASCII art profile card with:</p>
+
+<ul>
+  <li>User's name, age, city</li>
+  <li>Calculated data (birth year, days lived)</li>
+  <li>Decorative borders</li>
+  <li>Fun facts</li>
+</ul>
+</section>
+<section>
+    <h2>Project 4: Solution</h2>
+
+<pre><code class="language-python">print("\n🎨 PROFILE CARD GENERATOR 🎨\n")
+
+<p>name = input("Your name: ")
+age = int(input("Your age: "))
+city = input("Your city: ")
+hobby = input("Your hobby: ")</p>
+
+<p>birth_year = 2024 - age
+days_lived = age * 365</p>
+
+<p>print("\n╔" + "═" * 38 + "╗")
+print(f"║{'✨ PROFILE CARD ✨':^38}║")
+print("╠" + "═" * 38 + "╣")
+print(f"║  Name:     {name:<26}║")
+print(f"║  Age:      {age:<26}║")
+print(f"║  Born:     ~{birth_year:<25}║")
+print(f"║  City:     {city:<26}║")
+print(f"║  Hobby:    {hobby:<26}║")
+print("╠" + "═" * 38 + "╣")
+print(f"║  📊 Fun Facts:{' '*23}║")
+print(f"║  • Lived ~{days_lived:,} days{' '*14}║")
+print(f"║  • Next year: {age+1} years old{' '*10}║")
+print("╚" + "═" * 38 + "╝")
+</code></pre></p>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Module 1 Summary</h1>
+    
+</section>
+<section>
+    <h2>What You Learned Today</h2>
+
+<ol>
+  <li><strong>Colab Environment</strong> - Running Python in the cloud</li>
+  <li><strong>Variables</strong> - Storing and naming data</li>
+  <li><strong>Data Types</strong> - int, float, str, bool</li>
+  <li><strong>Type Conversion</strong> - int(), float(), str(), bool()</li>
+  <li><strong>Operators</strong> - Math and string operations</li>
+  <li><strong>F-Strings</strong> - Beautiful formatted output</li>
+  <li><strong>User Input</strong> - Interactive programs</li>
+  <li><strong>Error Handling</strong> - Reading and fixing mistakes</li>
+  <li><strong>Gemini AI</strong> - Your coding assistant</li>
+</ol>
+</section>
+<section>
+    <h2>Key Takeaways</h2>
+
+<ul>
+  <li>Variables are labeled boxes: <code>name = "Alice"</code></li>
+  <li>Four types: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code></li>
+  <li>Check types with <code>type()</code></li>
+  <li>F-strings are magic: <code>f"Hello {name}"</code></li>
+  <li><code>input()</code> always returns a string - convert if needed</li>
+  <li>Errors are teachers - read them carefully!</li>
+  <li>Gemini helps, but understanding is the goal</li>
+</ul>
+</section>
+<section>
+    <h2>Before Next Session</h2>
+
+<p>✅ Complete all exercises in this notebook</p>
+
+<p>✅ Complete Module 1 Quiz in Moodle (15 questions)</p>
+
+<p>✅ Post in the forum: What surprised you about Python?</p>
+
+<p>✅ Bonus: Create your own profile card with 10 variables</p>
+</section>
+<section>
+    <h2>Next Module Preview</h2>
+
+<strong>Module 2: Data Structures</strong>
+
+<ul>
+  <li>Lists: <code>[1, 2, 3, 4, 5]</code></li>
+  <li>Dictionaries: <code>{"name": "Alice", "age": 28}</code></li>
+  <li>Loops: Repeat actions automatically</li>
+  <li>Conditionals: Make decisions in code</li>
+</ul>
+</section>
+<section data-background-color="#2c3e50">
+    <h1>Questions?</h1>
+    <p>Ask now, post in the forum, or ask Gemini!</p>
+</section>
+            
+        </div>
+    </div>
+    
+    <!-- RevealJS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/highlight/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/notes/notes.min.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            width: 1600,
+            height: 900,
+            margin: 0.1,
+            transition: 'slide',
+            plugins: [ RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>
