@@ -1,0 +1,8 @@
+# Course slide decks are intentionally excluded from GitHub.
+[Ee][Dd][Mm]*
+**/[Ee][Dd][Mm]*
+
+# Local editor / diagram temporary files
+.DS_Store
+**/.DS_Store
+**/.$*
