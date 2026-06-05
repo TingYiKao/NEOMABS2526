@@ -1,7 +1,5 @@
 # NEOMA Business Analytics Coursework Portfolio
 
-This repository contains selected coursework, exercises, and projects completed during my Business Analytics studies at NEOMA Business School.
-
 The repository focuses on practical skills in data preparation, data mining, data visualization, SQL-based enterprise data management, Python programming, and R programming for business analytics.
 
 ## Courses included
