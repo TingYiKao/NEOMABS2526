@@ -60,18 +60,14 @@ The events table covers **2020-11-01 to 2021-01-31** and includes three main eve
 | Computed purchase revenue | `$307,114` |
 | Top revenue category | Apparel |
 | Apparel revenue share | 54.48% |
-| Top countries by computed revenue | US, IN, CA, GB, ES |
-| Main devices in event activity | Desktop, mobile, tablet |
 
 ### Dashboard Page Map
 
 | Page | Main visuals | Story purpose |
 |---|---|---|
-| `Page 1` | Text boxes and image | Introduces the Google Merchandise Store context and business challenge. |
 | `Question 1` | Cards, clustered bar charts, table | Shows that Apparel leads both revenue and purchase volume. |
 | `Question 2` | Map, country/device chart, slicer, pivot table | Compares geography and device behavior. |
 | `Question 3` | Combo trend chart, slicer, cards | Explains purchase volume changes over time and suggests planning actions. |
-| `Page 2` | Funnel, scatter chart, recommendations | Summarizes recommendations around Apparel, checkout conversion, and inventory stability. |
 
 ### Figure 1: Final Project Dashboard
 
