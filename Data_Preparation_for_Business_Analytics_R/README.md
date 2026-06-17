@@ -111,24 +111,4 @@ The following figures are arranged in the same order as the `boxplot()` calls in
 4. Run `Final Project_WenTing Xu-TingYi Kao-Chen He.R`.
 
 The original script reads `group010.xlsx` by filename, so the workbook must stay in the same working directory when running the script without path edits.
-
-## GitHub Upload Steps
-
-Run the upload commands from the repository root. The commands below stage the organized GitHub-facing folders and avoid accidentally adding raw duplicate source folders or `.DS_Store` files:
-
-```bash
-cd /Users/kao900531/Documents/GitHub/NEOMABS2526
-git status --short
-git add Data_Preparation_for_Business_Analytics_R/.gitignore
-git add Data_Preparation_for_Business_Analytics_R/README.md
-git add Data_Preparation_for_Business_Analytics_R/scripts
-git add Data_Preparation_for_Business_Analytics_R/reports
-git add Data_Preparation_for_Business_Analytics_R/figures
-git add Data_Preparation_for_Business_Analytics_R/data_sample/final_project
-git add -u Data_Preparation_for_Business_Analytics_R/data_sample/inclass_exercises
-git status --short
-git commit -m "Add Data Preparation for Business Analytics R materials"
-git push origin main
-```
-
-Before committing, review `git status --short` carefully. The current repository has shown an unrelated root `.DS_Store` modification before, and that file should not be staged unless intentionally needed. If you also want the raw `Session 1` to `Session 10` folders on GitHub, stage them separately after checking that the duplicate structure is acceptable.
+tus --short` carefully. The current repository has shown an unrelated root `.DS_Store` modification before, and that file should not be staged unless intentionally needed. If you also want the raw `Session 1` to `Session 10` folders on GitHub, stage them separately after checking that the duplicate structure is acceptable.
