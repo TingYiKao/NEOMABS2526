@@ -86,8 +86,3 @@ The end-of-course project designs a relational database for a retail business sc
 | Which stores generate the most sales revenue by region? | Join `Store`, `SalesTransaction`, `SalesDetails`, and `Product`, then aggregate `ProductQuantity * ProductUnitPrice` by region and store |
 | Which customer purchased the most? | Join customers to transactions, details, and products, then aggregate total purchase value by customer |
 
-## Upload Notes
-
-- Do not stage or upload files whose names start with `EDM`.
-- This folder includes a local `.gitignore` that excludes `EDM*` slide decks and temporary diagram backup files.
-- Before committing, verify the staged file list with `git status --short`.
