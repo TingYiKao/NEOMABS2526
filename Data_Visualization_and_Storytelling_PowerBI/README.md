@@ -117,24 +117,3 @@ Only two exported image files are currently present in this folder:
 
 No `.R`, `.Rmd`, or related R code files were found in this folder, so the README keeps the available image filenames unchanged and arranges them according to the existing exported image sequence.
 
-## GitHub Upload Steps
-
-Run the upload commands from the `NEOMABS2526` repository root:
-
-```bash
-cd /Users/kao900531/Documents/GitHub/NEOMABS2526
-git status --short
-git add Data_Visualization_and_Storytelling_PowerBI ':!Data_Visualization_and_Storytelling_PowerBI/.DS_Store' ':!Data_Visualization_and_Storytelling_PowerBI/**/.DS_Store'
-git status --short
-git commit -m "Add Power BI data visualization course materials"
-git push origin main
-```
-
-Before committing, check that `.DS_Store` files are not staged. If they appear in the staged list, unstage them with:
-
-```bash
-git restore --staged Data_Visualization_and_Storytelling_PowerBI/.DS_Store
-git restore --staged "Data_Visualization_and_Storytelling_PowerBI/reports/.DS_Store"
-git restore --staged "Data_Visualization_and_Storytelling_PowerBI/reports/final_project/.DS_Store"
-git restore --staged "Data_Visualization_and_Storytelling_PowerBI/figures/.DS_Store"
-```
